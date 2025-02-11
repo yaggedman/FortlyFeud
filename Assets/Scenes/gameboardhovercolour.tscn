@@ -1,0 +1,28 @@
+[gd_scene load_steps=7 format=3 uid="uid://bm1od0dx7vw4h"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yvyu2"]
+
+[sub_resource type="Gradient" id="Gradient_2rx4x"]
+colors = PackedColorArray(1, 1, 0.458824, 1, 1, 1, 0.458824, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_77c6e"]
+gradient = SubResource("Gradient_2rx4x")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_f13vw"]
+texture = SubResource("GradientTexture1D_77c6e")
+modulate_color = Color(1, 1, 1, 0.439216)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_kj6m7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_nph0j"]
+
+[node name="Button" type="Button"]
+offset_left = 264.0
+offset_top = 8.0
+offset_right = 278.0
+offset_bottom = 22.0
+scale = Vector2(8.16352, 8.04)
+theme_override_styles/focus = SubResource("StyleBoxTexture_yvyu2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_f13vw")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_kj6m7")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_nph0j")

@@ -1,3 +1,204 @@
-[gd_scene format=3 uid="uid://cwijcfykga1so"]
+[gd_scene load_steps=12 format=3 uid="uid://cwijcfykga1so"]
 
-[node name="MainMenu" type="Node2D"]
+[ext_resource type="Script" path="res://Assets/Scenes/main_menu.gd" id="1_4xi4l"]
+[ext_resource type="FontFile" uid="uid://brkwra8rykws" path="res://Assets/Fonts/terminal-grotesque.grotesque-regular.ttf" id="1_puppu"]
+[ext_resource type="Texture2D" uid="uid://bfg6fcx2vmrmj" path="res://Assets/Sprites/menuboxtest1.png" id="2_ex7xk"]
+[ext_resource type="PackedScene" uid="uid://bprholxoyeq5w" path="res://Assets/Scenes/menubackground_1.tscn" id="3_hxuvi"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_76pp1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jqaaq"]
+texture = ExtResource("2_ex7xk")
+modulate_color = Color(1, 0.678431, 0.309804, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x24nr"]
+texture = ExtResource("2_ex7xk")
+modulate_color = Color(0.458405, 0.458405, 0.458405, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_k7wsi"]
+texture = ExtResource("2_ex7xk")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cb8v1"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ales0"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_im205"]
+
+[node name="Control" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_4xi4l")
+
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -43.5
+offset_top = 82.0
+offset_right = 43.5
+offset_bottom = 105.0
+grow_horizontal = 2
+theme_override_colors/font_color = Color(0.658824, 0.729412, 0.501961, 1)
+theme_override_fonts/font = ExtResource("1_puppu")
+theme_override_font_sizes/font_size = 100
+text = "Fortly Feud"
+horizontal_alignment = 1
+
+[node name="SingleplayerButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = -70.0
+offset_right = 99.0
+offset_bottom = -4.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_puppu")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxTexture_76pp1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jqaaq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x24nr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_k7wsi")
+text = "Singleplayer"
+
+[node name="MultiplayerButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = 15.0
+offset_right = 99.0
+offset_bottom = 81.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_puppu")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxTexture_cb8v1")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jqaaq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x24nr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_k7wsi")
+text = "Multiplayer"
+
+[node name="OptionsButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = 100.0
+offset_right = 99.0
+offset_bottom = 166.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_puppu")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxTexture_ales0")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jqaaq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x24nr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_k7wsi")
+text = "Options"
+
+[node name="QuitButton" type="Button" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -99.0
+offset_top = 185.0
+offset_right = 99.0
+offset_bottom = 251.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_fonts/font = ExtResource("1_puppu")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxTexture_im205")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jqaaq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x24nr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_k7wsi")
+text = "Quit"
+
+[node name="Menubackground1" parent="." instance=ExtResource("3_hxuvi")]
+position = Vector2(963.374, 539.5)
+scale = Vector2(10.0247, 10.0093)
+
+[node name="QuitConfirmPopup" type="Sprite2D" parent="."]
+position = Vector2(936, 621)
+scale = Vector2(20, 20)
+texture = ExtResource("2_ex7xk")
+
+[node name="Label" type="Label" parent="QuitConfirmPopup"]
+offset_left = -15.6
+offset_top = -6.8
+offset_right = 685.4
+offset_bottom = 198.2
+scale = Vector2(0.0444215, 0.0444215)
+theme_override_fonts/font = ExtResource("1_puppu")
+theme_override_font_sizes/font_size = 72
+text = "Are you sure
+you'd like to quit?"
+horizontal_alignment = 1
+
+[node name="QuitNo" type="Button" parent="QuitConfirmPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -15.6
+offset_top = -6.4
+offset_right = 182.4
+offset_bottom = 59.6
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.0586962, 0.0586962)
+theme_override_fonts/font = ExtResource("1_puppu")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxTexture_im205")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jqaaq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x24nr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_k7wsi")
+text = "No"
+
+[node name="QuitYes" type="Button" parent="QuitConfirmPopup"]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -29.6
+offset_top = -6.0
+offset_right = 168.4
+offset_bottom = 60.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(0.0586962, 0.0586962)
+theme_override_fonts/font = ExtResource("1_puppu")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/focus = SubResource("StyleBoxTexture_im205")
+theme_override_styles/hover = SubResource("StyleBoxTexture_jqaaq")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_x24nr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_k7wsi")
+text = "Yes"
+
+[connection signal="pressed" from="SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
+[connection signal="pressed" from="MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]
+[connection signal="pressed" from="OptionsButton" to="." method="_on_options_button_pressed"]
+[connection signal="pressed" from="QuitButton" to="." method="_on_quit_button_pressed"]
+[connection signal="pressed" from="QuitConfirmPopup/QuitNo" to="." method="_on_quit_no_pressed"]
+[connection signal="pressed" from="QuitConfirmPopup/QuitYes" to="." method="_on_quit_yes_pressed"]

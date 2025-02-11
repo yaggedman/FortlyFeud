@@ -1,0 +1,43 @@
+[gd_scene load_steps=7 format=3 uid="uid://bprholxoyeq5w"]
+
+[ext_resource type="Texture2D" uid="uid://dgk7rihorbr3j" path="res://Assets/Animations/menubackground_1.png" id="1_nspn3"]
+[ext_resource type="Script" path="res://Assets/Scenes/menubackground_1.gd" id="2_tnds8"]
+[ext_resource type="Texture2D" uid="uid://cmwtxxw1q1cca" path="res://Assets/Animations/menubackground_2.png" id="3_80q3o"]
+[ext_resource type="Texture2D" uid="uid://db5le07ry7e6l" path="res://Assets/Animations/menubackground_3.png" id="4_tramv"]
+[ext_resource type="Texture2D" uid="uid://c6rpkppws8sf5" path="res://Assets/Animations/menubackground_4.png" id="5_2fp1m"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ks20j"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_nspn3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_80q3o")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_tramv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_2fp1m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 1.0
+}, {
+"frames": [],
+"loop": true,
+"name": &"new_animation",
+"speed": 5.0
+}]
+
+[node name="Menubackground1" type="Sprite2D"]
+z_index = -1
+position = Vector2(577, 322.5)
+scale = Vector2(6, 5.99074)
+texture = ExtResource("1_nspn3")
+script = ExtResource("2_tnds8")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = SubResource("SpriteFrames_ks20j")
+frame_progress = 0.865531
