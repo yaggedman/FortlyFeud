@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg width="100%" height="100%" viewBox="0 0 555 131" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xml:space="preserve" xmlns:serif="http://www.serif.com/" style="fill-rule:evenodd;clip-rule:evenodd;stroke-linecap:square;stroke-miterlimit:1.5;">
+    <g transform="matrix(1,0,0,1,-675.751,-728.266)">
+        <g id="Options" transform="matrix(1,-0,-0,1,675.751,728.266)">
+            <use xlink:href="#_Image1" x="10" y="17" width="534.658px" height="103.539px" transform="matrix(0.999361,0,0,0.995572,0,0)"/>
+        </g>
+        <g id="Options1" serif:id="Options" transform="matrix(0.83727,0,0,0.518834,202.258,487.092)">
+            <rect x="594.087" y="510.941" width="605.309" height="144.575" style="fill:rgb(200,141,123);"/>
+            <g transform="matrix(1.19436,0,0,1.9274,-233.207,-383.645)">
+                <text x="818.85px" y="518.848px" style="font-family:'PixelAzureBonds', 'Pixel Azure Bonds';font-size:50.29px;fill:white;">Options</text>
+            </g>
+            <path d="M1215.24,681.088L1215.24,485.368L578.241,485.368L578.241,681.088L1215.24,681.088ZM1199.4,510.941L594.087,510.941L594.087,655.516L1199.4,655.516L1199.4,510.941Z" style="fill:rgb(166,105,87);"/>
+        </g>
+    </g>
+    <defs>
+        <image id="_Image1" width="535px" height="104px" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAhcAAABoCAYAAABCMtJ1AAAACXBIWXMAAA7EAAAOxAGVKw4bAAACV0lEQVR4nO3aMU5VYRRG0YPeGENsTBiCBVIwIUfhMByIw7GlpCVUNhTEkOAY/N8O13ezVv8lp9zFubi9vrmcmc8DAHC639vMfJ2Zb3tfAgAcws9tZq5n5vvelwAAh/Dr3d4XAADHIi4AgJS4AABS4gIASIkLACAlLgCAlLgAAFLiAgBIiQsAICUuAICUuAAAUtvi7s8JWwDgPLzMzId/Ha0GwvPMXC5uAYDz8DxvGBevJ2wBgPPwujLycwEApMQFAJASFwBASlwAAClxAQCkxAUAkBIXAEBKXAAAKXEBAKTEBQCQEhcAQEpcAAApcQEApMQFAJASFwBASlwAAClxAQCkxAUAkBIXAEBKXAAAKXEBAKTEBQCQEhcAQEpcAAApcQEApMQFAJASFwBASlwAAClxAQCkxAUAkBIXAEBKXAAAKXEBAKTEBQCQEhcAQEpcAAApcQEApMQFAJASFwBASlwAAClxAQCkxAUAkBIXAEBKXAAAKXEBAKTEBQCQEhcAQEpcAAApcQEApMQFAJASFwBASlwAAClxAQCkxAUAkBIXAEBKXAAAKXEBAKTEBQCQEhcAQEpcAAApcQEApMQFAJASFwBASlwAAClxAQCkxAUAkBIXAEBKXAAAKXEBAKTEBQCQEhcAQEpcAACp7YTdY3kIAPDf+bQyWo2LjzPzsLgFAM7D1cpoNS7ez8yXxS0AcGB+LgCAlLgAAFLiAgBIiQsAICUuAICUuAAAUuICAEiJCwAgJS4AgJS4AABS28w8zcz93ocAAIfwtM3M3cz82PsSAOAQ7v4CkhcSHaLlEhIAAAAASUVORK5CYII="/>
+    </defs>
+</svg>

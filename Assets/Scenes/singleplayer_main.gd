@@ -23,10 +23,11 @@ func _ready():
 	#below is example on how to access tile name and position
 	print("Position of tile 3_5:", tile_map["3_5"]["position"])
 	
+	#declaring whether the side menus are revealed or not (revealed by default)
 	FriendlyPieceMenuRevealed = true
 	EnemyPieceMenuRevealed = true
 	
-	
+
 
 
 #when the collapse button is pressed, collapse the piece selection menu
@@ -51,4 +52,48 @@ func _on_enemy_piece_select_collapse_button_pressed() -> void:
 		#print("Pressed and collapsed")
 		$EnemyPieceselectpopup2/EnemyCollapsePieceMenu.play_backwards("EnemyPieceSelectReveal")
 		EnemyPieceMenuRevealed = false
-		
+
+
+
+
+#changes scale of piece in side menu, on hover
+func _on_celtic_fort_area_2d_mouse_entered() -> void:
+	$EnemyPieceselectpopup2/FfCelticFort.scale *= 1.2
+
+func _on_celtic_fort_area_2d_mouse_exited() -> void:
+	$EnemyPieceselectpopup2/FfCelticFort.scale /= 1.2
+	
+
+func _on_celtic_trader_area_2d_mouse_entered() -> void:
+	$EnemyPieceselectpopup2/FfCelticTrader.scale *=1.2
+
+func _on_celtic_trader_area_2d_mouse_exited() -> void:
+	$EnemyPieceselectpopup2/FfCelticTrader.scale /=1.2
+
+
+func _on_enemy_wall_area_2d_mouse_entered() -> void:
+	$EnemyPieceselectpopup2/FfEnemyWall.scale *= 1.2
+
+func _on_enemy_wall_area_2d_mouse_exited() -> void:
+	$EnemyPieceselectpopup2/FfEnemyWall.scale /= 1.2
+
+
+func _on_norman_fort_area_2d_mouse_entered() -> void:
+	$FriendlyPieceselectpopup/FfNormanFort.scale *= 1.2
+
+func _on_norman_fort_area_2d_mouse_exited() -> void:
+	$FriendlyPieceselectpopup/FfNormanFort.scale /= 1.2
+
+
+func _on_norman_trader_area_2d_mouse_entered() -> void:
+	$FriendlyPieceselectpopup/FfNormanTrader.scale *= 1.2
+
+func _on_norman_trader_area_2d_mouse_exited() -> void:
+	$FriendlyPieceselectpopup/FfNormanTrader.scale /= 1.2
+
+
+func _on_friendly_wall_area_2d_mouse_entered() -> void:
+	$FriendlyPieceselectpopup/FfFriendlyWall.scale *= 1.2
+
+func _on_friendly_wall_area_2d_mouse_exited() -> void:
+	$FriendlyPieceselectpopup/FfFriendlyWall.scale /= 1.2
