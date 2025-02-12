@@ -1,26 +1,152 @@
-[gd_scene load_steps=5 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=17 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Texture2D" uid="uid://b8gej8yrwmyw2" path="res://Assets/Backgrounds/FF_Map_Bigger.png" id="1_66bsy"]
 [ext_resource type="Script" path="res://Assets/Scenes/singleplayer_main.gd" id="1_gfcaa"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
 [ext_resource type="Texture2D" uid="uid://p0v515l1k4ae" path="res://Assets/Sprites/pieceselectpopup.png" id="3_w6ky2"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wdjhr"]
+
+[sub_resource type="Gradient" id="Gradient_t5400"]
+colors = PackedColorArray(0, 0, 0, 0.352941, 0, 0, 0, 0.352941)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_07qpu"]
+gradient = SubResource("Gradient_t5400")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_4iswa"]
+texture = SubResource("GradientTexture1D_07qpu")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_3bar1"]
+
+[sub_resource type="Animation" id="Animation_o7osr"]
+resource_name = "EnemyCollapsePieceMenu"
+
+[sub_resource type="Animation" id="Animation_p707u"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(1872, 88)]
+}
+
+[sub_resource type="Animation" id="Animation_a17lq"]
+resource_name = "EnemyPieceSelectCollapse"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2667),
+"transitions": PackedFloat32Array(2.37, 3.36),
+"update": 0,
+"values": [Vector2(1872, 88), Vector2(1633, 88)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_j5v4b"]
+_data = {
+"EnemyCollapsePieceMenu": SubResource("Animation_o7osr"),
+"EnemyPieceSelectReveal": SubResource("Animation_a17lq"),
+"RESET": SubResource("Animation_p707u")
+}
+
+[sub_resource type="Animation" id="Animation_k34eg"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(152, 529.333)]
+}
+
+[sub_resource type="Animation" id="Animation_gj5ho"]
+resource_name = "PieceSelectCollapse"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2667),
+"transitions": PackedFloat32Array(2.37841, 3.36359),
+"update": 0,
+"values": [Vector2(-92, 529.333), Vector2(148, 529.333)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_sx8x4"]
+_data = {
+"PieceSelectReveal": SubResource("Animation_gj5ho"),
+"RESET": SubResource("Animation_k34eg")
+}
+
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gfcaa")
 
 [node name="EnemyPieceselectpopup2" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(1633, 88)
+position = Vector2(1872, 88)
 scale = Vector2(8, 8)
 texture = ExtResource("3_w6ky2")
 centered = false
 flip_h = true
 
+[node name="EnemyPieceSelectCollapseButton" type="Button" parent="EnemyPieceselectpopup2"]
+z_index = 1
+offset_top = 45.0
+offset_right = 8.0
+offset_bottom = 53.0
+scale = Vector2(1, 2.43)
+theme_override_styles/focus = SubResource("StyleBoxTexture_wdjhr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4iswa")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4iswa")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3bar1")
+
+[node name="EnemyCollapsePieceMenu" type="AnimationPlayer" parent="EnemyPieceselectpopup2"]
+root_node = NodePath("../EnemyPieceSelectCollapseButton")
+libraries = {
+"": SubResource("AnimationLibrary_j5v4b")
+}
+autoplay = "EnemyPieceSelectReveal"
+
 [node name="FriendlyPieceselectpopup" type="Sprite2D" parent="."]
 z_index = 1
-position = Vector2(147.658, 529.333)
+position = Vector2(152, 529.333)
 scale = Vector2(8, 8)
 texture = ExtResource("3_w6ky2")
+
+[node name="PieceSelectCollapseButton" type="Button" parent="FriendlyPieceselectpopup"]
+offset_left = 12.5427
+offset_top = -10.1666
+offset_right = 20.5427
+offset_bottom = -2.16663
+scale = Vector2(1, 2.43)
+theme_override_styles/focus = SubResource("StyleBoxTexture_wdjhr")
+theme_override_styles/hover = SubResource("StyleBoxTexture_4iswa")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_4iswa")
+theme_override_styles/normal = SubResource("StyleBoxTexture_3bar1")
+
+[node name="CollapsePieceMenu" type="AnimationPlayer" parent="FriendlyPieceselectpopup"]
+libraries = {
+"": SubResource("AnimationLibrary_sx8x4")
+}
+autoplay = "PieceSelectReveal"
 
 [node name="FfMapBigger" type="Sprite2D" parent="."]
 position = Vector2(968, 536)
@@ -200,3 +326,6 @@ offset_left = 333.333
 offset_top = 340.0
 offset_right = 357.333
 offset_bottom = 364.0
+
+[connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
+[connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]
