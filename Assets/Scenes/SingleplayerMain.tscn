@@ -1,14 +1,14 @@
-[gd_scene load_steps=23 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=25 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Texture2D" uid="uid://b8gej8yrwmyw2" path="res://Assets/Backgrounds/FF_Map_Bigger.png" id="1_66bsy"]
 [ext_resource type="Script" path="res://Assets/Scenes/singleplayer_main.gd" id="1_gfcaa"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
-[ext_resource type="Texture2D" uid="uid://d0jpuyy152vif" path="res://Assets/Sprites/FF_CelticFort.png" id="3_vmdjq"]
+[ext_resource type="Texture2D" uid="uid://ccwtvk1d3awq7" path="res://Assets/Sprites/FF_CelticFort_Muted.png" id="3_v66t5"]
 [ext_resource type="Texture2D" uid="uid://p0v515l1k4ae" path="res://Assets/Sprites/pieceselectpopup.png" id="3_w6ky2"]
-[ext_resource type="Texture2D" uid="uid://dv66y7mnyit4u" path="res://Assets/Sprites/FF_CelticTrader.png" id="4_jwhj4"]
+[ext_resource type="Texture2D" uid="uid://bkky5q2o08eh8" path="res://Assets/Sprites/FF_CelticTrader_Muted.png" id="4_mqu2s"]
 [ext_resource type="Texture2D" uid="uid://dhvamuqwt38i7" path="res://Assets/Sprites/FF_Wall.png" id="5_m65m1"]
-[ext_resource type="Texture2D" uid="uid://csjycld2m7v6y" path="res://Assets/Sprites/FF_NormanFort.png" id="6_0bcro"]
-[ext_resource type="Texture2D" uid="uid://bv6ypisdg772g" path="res://Assets/Sprites/FF_NormanTrader.png" id="7_23dgp"]
+[ext_resource type="Texture2D" uid="uid://bm0uwx0wijvvp" path="res://Assets/Sprites/FF_NormanFort_Muted.png" id="6_atmpi"]
+[ext_resource type="Texture2D" uid="uid://c7ugnqatip3sg" path="res://Assets/Sprites/FF_NormanTrader_Muted.png" id="7_4quc8"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wdjhr"]
 
@@ -65,6 +65,14 @@ _data = {
 "EnemyCollapsePieceMenu": SubResource("Animation_o7osr"),
 "EnemyPieceSelectReveal": SubResource("Animation_a17lq"),
 "RESET": SubResource("Animation_p707u")
+}
+
+[sub_resource type="Animation" id="Animation_o4x5j"]
+resource_name = "TestFortBuild"
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_ihdwy"]
+_data = {
+"TestFortBuild": SubResource("Animation_o4x5j")
 }
 
 [sub_resource type="Animation" id="Animation_k34eg"]
@@ -130,7 +138,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_3bar1")
 z_index = 1
 position = Vector2(22.875, 20)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("3_vmdjq")
+texture = ExtResource("3_v66t5")
 
 [node name="CelticFortArea2D" type="Area2D" parent="EnemyPieceselectpopup2/FfCelticFort" groups=["MenuPieces"]]
 z_index = 2
@@ -145,7 +153,7 @@ shape = SubResource("RectangleShape2D_gm3b3")
 z_index = 1
 position = Vector2(22.875, 55)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("4_jwhj4")
+texture = ExtResource("4_mqu2s")
 
 [node name="CelticTraderArea2D" type="Area2D" parent="EnemyPieceselectpopup2/FfCelticTrader" groups=["MenuPieces"]]
 z_index = 2
@@ -189,17 +197,23 @@ texture = ExtResource("3_w6ky2")
 [node name="FfNormanFort" type="Sprite2D" parent="FriendlyPieceselectpopup"]
 position = Vector2(-3.5, -34.1666)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("6_0bcro")
+texture = ExtResource("6_atmpi")
 
 [node name="NormanFortArea2D" type="Area2D" parent="FriendlyPieceselectpopup/FfNormanFort" groups=["MenuPieces"]]
 z_index = 2
-position = Vector2(3.8147e-05, -1.25)
+position = Vector2(3.62396e-05, -1.25)
+scale = Vector2(1, 1)
 
 [node name="NormanFortCollision" type="CollisionShape2D" parent="FriendlyPieceselectpopup/FfNormanFort/NormanFortArea2D"]
 z_index = 2
 position = Vector2(0, 1.25)
 scale = Vector2(1, 1)
 shape = SubResource("RectangleShape2D_gm3b3")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="FriendlyPieceselectpopup/FfNormanFort"]
+libraries = {
+"": SubResource("AnimationLibrary_ihdwy")
+}
 
 [node name="PieceSelectCollapseButton" type="Button" parent="FriendlyPieceselectpopup"]
 offset_left = 12.5427
@@ -221,7 +235,7 @@ autoplay = "PieceSelectReveal"
 [node name="FfNormanTrader" type="Sprite2D" parent="FriendlyPieceselectpopup"]
 position = Vector2(-2.5, -0.166626)
 scale = Vector2(0.8, 0.8)
-texture = ExtResource("7_23dgp")
+texture = ExtResource("7_4quc8")
 
 [node name="NormanTraderArea2D" type="Area2D" parent="FriendlyPieceselectpopup/FfNormanTrader" groups=["MenuPieces"]]
 z_index = 2
@@ -238,7 +252,7 @@ position = Vector2(-2.5, 33.8334)
 scale = Vector2(0.7, 0.7)
 texture = ExtResource("5_m65m1")
 
-[node name="FriendlyWallArea2D" type="Area2D" parent="FriendlyPieceselectpopup/FfFriendlyWall" groups=["MenuPieces"]]
+[node name="FriendlyWallArea2D" type="Area2D" parent="FriendlyPieceselectpopup/FfFriendlyWall"]
 z_index = 2
 position = Vector2(3.8147e-05, -1.25)
 
@@ -427,17 +441,53 @@ offset_top = 340.0
 offset_right = 357.333
 offset_bottom = 364.0
 
+[node name="DragCelticFort" type="Sprite2D" parent="." groups=["DraggablePieces"]]
+z_index = 6
+position = Vector2(2446, 1344)
+scale = Vector2(6.3125, 6.3125)
+texture = ExtResource("3_v66t5")
+
+[node name="DragCelticTrader" type="Sprite2D" parent="." groups=["DraggablePieces"]]
+z_index = 6
+position = Vector2(2674, 1354)
+scale = Vector2(6.8125, 6.8125)
+texture = ExtResource("4_mqu2s")
+
+[node name="DragNormanFort" type="Sprite2D" parent="." groups=["DraggablePieces"]]
+z_index = 6
+position = Vector2(2439, 1132)
+scale = Vector2(6.71875, 6.71875)
+texture = ExtResource("6_atmpi")
+
+[node name="DragNormanTrader" type="Sprite2D" parent="." groups=["DraggablePieces"]]
+z_index = 6
+position = Vector2(2668, 1148)
+scale = Vector2(6.25, 6.25)
+texture = ExtResource("7_4quc8")
+
+[node name="DragWall" type="Sprite2D" parent="." groups=["DraggablePieces"]]
+z_index = 6
+position = Vector2(2449, 917)
+scale = Vector2(5.6875, 5.6875)
+texture = ExtResource("5_m65m1")
+
 [connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
+[connection signal="input_event" from="EnemyPieceselectpopup2/FfCelticFort/CelticFortArea2D" to="." method="_on_celtic_fort_area_2d_input_event"]
 [connection signal="mouse_entered" from="EnemyPieceselectpopup2/FfCelticFort/CelticFortArea2D" to="." method="_on_celtic_fort_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="EnemyPieceselectpopup2/FfCelticFort/CelticFortArea2D" to="." method="_on_celtic_fort_area_2d_mouse_exited"]
+[connection signal="input_event" from="EnemyPieceselectpopup2/FfCelticTrader/CelticTraderArea2D" to="." method="_on_celtic_trader_area_2d_input_event"]
 [connection signal="mouse_entered" from="EnemyPieceselectpopup2/FfCelticTrader/CelticTraderArea2D" to="." method="_on_celtic_trader_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="EnemyPieceselectpopup2/FfCelticTrader/CelticTraderArea2D" to="." method="_on_celtic_trader_area_2d_mouse_exited"]
+[connection signal="input_event" from="EnemyPieceselectpopup2/FfEnemyWall/EnemyWallArea2D" to="." method="_on_enemy_wall_area_2d_input_event"]
 [connection signal="mouse_entered" from="EnemyPieceselectpopup2/FfEnemyWall/EnemyWallArea2D" to="." method="_on_enemy_wall_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="EnemyPieceselectpopup2/FfEnemyWall/EnemyWallArea2D" to="." method="_on_enemy_wall_area_2d_mouse_exited"]
+[connection signal="input_event" from="FriendlyPieceselectpopup/FfNormanFort/NormanFortArea2D" to="." method="_on_norman_fort_area_2d_input_event"]
 [connection signal="mouse_entered" from="FriendlyPieceselectpopup/FfNormanFort/NormanFortArea2D" to="." method="_on_norman_fort_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="FriendlyPieceselectpopup/FfNormanFort/NormanFortArea2D" to="." method="_on_norman_fort_area_2d_mouse_exited"]
 [connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]
+[connection signal="input_event" from="FriendlyPieceselectpopup/FfNormanTrader/NormanTraderArea2D" to="." method="_on_norman_trader_area_2d_input_event"]
 [connection signal="mouse_entered" from="FriendlyPieceselectpopup/FfNormanTrader/NormanTraderArea2D" to="." method="_on_norman_trader_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="FriendlyPieceselectpopup/FfNormanTrader/NormanTraderArea2D" to="." method="_on_norman_trader_area_2d_mouse_exited"]
+[connection signal="input_event" from="FriendlyPieceselectpopup/FfFriendlyWall/FriendlyWallArea2D" to="." method="_on_friendly_wall_area_2d_input_event"]
 [connection signal="mouse_entered" from="FriendlyPieceselectpopup/FfFriendlyWall/FriendlyWallArea2D" to="." method="_on_friendly_wall_area_2d_mouse_entered"]
 [connection signal="mouse_exited" from="FriendlyPieceselectpopup/FfFriendlyWall/FriendlyWallArea2D" to="." method="_on_friendly_wall_area_2d_mouse_exited"]
