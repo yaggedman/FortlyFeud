@@ -281,7 +281,7 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_hrrey")
 theme_override_styles/normal = SubResource("StyleBoxTexture_omdwt")
 
 [node name="FfMapBigger" type="Sprite2D" parent="."]
-position = Vector2(968, 538)
+position = Vector2(968, 540)
 texture = ExtResource("1_66bsy")
 
 [node name="1_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
