@@ -9,34 +9,37 @@ var dragging : bool = false
 
 #creates a dictionary of pieces and whether they are selected or not (default false)
 var piece_selection = {
-	"FfcelticFort": false,
+	"FfCelticFort": false,
 	"FfCelticTrader": false,
-	"FfEnemyWall": false,
+	"FfCelticWall": false,
 	"FfNormanFort": false,
 	"FfNormanTrader": false,
-	"FfFriendlyWall": false
+	"FfNormanWall": false
 	}
 
-#Declaring inventory of Celts
-@onready var CeltInventory = {
-	"Fort" = 1000,
-	"Trader" = 1,
-	"Wall" = 1,
-	
+#Declaring inventory of Players
+@onready var PieceInventory = {
+	"FfCelticFort" = 1000,
+	"FfCelticTrader" = 1,
+	"FfCelticWall" = 1,
+	"FfNormanFort" = 1000,
+	"FfNormanTrader" = 1,
+	"FfNormanWall" = 2
+}
+var piece_textures = {
+	"FfCelticFort": preload("res://Assets/Sprites/FF_CelticFort_Muted.png"),
+	"FfCelticTrader": preload("res://Assets/Sprites/FF_CelticTrader_Muted.png"),
+	"FfCelticWall": preload("res://Assets/Sprites/FF_Wall.png"),
+	"FfNormanFort": preload("res://Assets/Sprites/FF_NormanFort_Muted.png"),
+	"FfNormanTrader": preload("res://Assets/Sprites/FF_NormanTrader_Muted.png"),
+	"FfNormanWall": preload("res://Assets/Sprites/FF_Wall.png")
 }
 
-#Declaring inventory of Normans
-@onready var NormanInventory = {
-	"Fort" = 1000,
-	"Trader" = 1,
-	"Wall" = 2
-}
-var CeltFortSelected : bool = false
-var CeltTraderSelected : bool = false
-var CeltWallSelected : bool = false
-var NormanFortSelected : bool = false
-var NormanTraderSelected : bool = false
-var NormanWallSelected : bool = false
+func _on_menupiece_button_pressed(menupiece):
+	for key in piece_selection.keys():
+		piece_selection[key] = false #sets all pieces to not selected
+		piece_selection[menupiece.name] = true #selects pressed piece
+	#print(piece_selection) #debug - prints the dictionary
 
 #creates dictionary for tile vector locations
 func _ready():
@@ -55,72 +58,62 @@ func _ready():
 # gets buttons in the button group, and connects the pressed signal with argument button
 	for button in get_tree().get_nodes_in_group("TileButtons"):
 		button.pressed.connect(Callable(self, "_on_tile_button_pressed").bind(button))
+		
+# gets buttons in the menupeices group and connects the pressed signal with argument menupiece
+	for menupiece in get_tree().get_nodes_in_group("MenuPieces"):
+		menupiece.pressed.connect(Callable(self, "_on_menupiece_button_pressed").bind(menupiece))
 	
 	#declaring whether the side menus are revealed or not (revealed by default)
 	FriendlyPieceMenuRevealed = true
 	EnemyPieceMenuRevealed = true
 	####################################################################################
 	
-	#generic input handler, loops through all the nodes in the MenuPieces group and connects their input_event signal
-	for piece in get_tree().get_nodes_in_group("MenuPieces"):
-		piece.input_event.connect(Callable(self, "_on_piece_input_event").bind(piece))
-		
-#Deselects all pieces in group MenuPieces, sets the selected piece to true on left click.
-func _on_piece_input_event(piece, viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and not dragging:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			for key in piece_selection.keys():
-				piece_selection[key] = false
-			piece_selection[piece.name] = true
+var sprite_following_mouse : Sprite2D = null # this stores the sprite that is following the mouse
 
 func _process(delta):
-	var mousepos = get_viewport().get_mouse_position()
+	var mousepos : Vector2 = get_viewport().get_mouse_position()
 	
-	# when piece is selected from side menu, set dragging state to true, and attach piece to mouse position
-	if CeltFortSelected == true:
-		dragging = true
-		$DragCelticFort.position = mousepos + Vector2(-100,-100)
-	
-	if CeltTraderSelected == true:
-		dragging = true
-		$DragCelticTrader.position = mousepos + Vector2(-100,-100)
-		
-	if CeltWallSelected == true:
-		dragging = true
-		$DragWall.position = mousepos + Vector2(-100,-100)
-		
-	if NormanFortSelected == true:
-		dragging = true
-		$DragNormanFort.position = mousepos + Vector2(-100,-100)
-		
-	if NormanTraderSelected == true:
-		dragging = true
-		$DragNormanTrader.position = mousepos + Vector2(-100,-100)
-		
-	if NormanWallSelected == true:
-		dragging = true
-		$DragWall.position = mousepos + Vector2(-100,-100)
-		
-		
-#if player is holding an item, press right click to discard (also stops multiple simultaneous selections)
-func _input(event):
+	for key in piece_selection.keys():
+		if piece_selection[key] and PieceInventory.has(key) and PieceInventory[key] > 0:
+			if sprite_following_mouse == null: #only creates one sprite if not already created
+				sprite_following_mouse = Sprite2D.new()
+				add_child(sprite_following_mouse) # adds a new sprite2d to the scene
+				
+				sprite_following_mouse.texture = piece_textures[key] #sets the texture
+				
+				var ProceedMouseFollowing : bool = true
+				
+				
+			sprite_following_mouse.position = mousepos
+			sprite_following_mouse.scale = Vector2(6.5, 6.5)
+			sprite_following_mouse.z_index = 100 #ensures child is always on top of the scene
+
+
+func _input(event: InputEvent) -> void: #on right click, discard piece
 	if event is InputEventMouseButton:
-		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and dragging:
-			dragging = false
-			print("testing")
-			
-			CeltFortSelected = false
-			CeltTraderSelected = false
-			CeltWallSelected = false
-			NormanFortSelected = false
-			NormanTraderSelected = false
-			NormanWallSelected = false
-			$DragCelticFort.position = Vector2(2500,1500)
-			$DragCelticTrader.position = Vector2(2500,1500)
-			$DragWall.position = Vector2(2500,1500)
-			$DragNormanFort.position = Vector2(2500,1500)
-			$DragNormanTrader.position = Vector2(2500,1500)
-#######################################################################################
+		if event.button_index == MOUSE_BUTTON_RIGHT and sprite_following_mouse != null:
+			for key in piece_selection.keys():
+				piece_selection[key] = false #sets all pieces to not selected
+			sprite_following_mouse.queue_free() #kills the child
+			sprite_following_mouse = null #resets so there is no sprite attached to mouse
+
+func _on_tile_button_pressed(button): #if item selected and board tile selected, place piece on board
+	print(button)
+	if sprite_following_mouse != null: #if holding game piece
+		for key in piece_selection.keys():
+			if piece_selection[key]:
+				piece_selection[key] = false #deselects piece
+				if PieceInventory.has(key): 
+					PieceInventory[key] -= 1 #removes 1 from inventory
+					print(key, "remaining:", PieceInventory[key])
+					if PieceInventory[key] == 0:
+						PieceInventory.erase(key) # when out of game pieces, remove from dictionary
+		sprite_following_mouse.centered = false
+		sprite_following_mouse.position = Vector2(button.position) + Vector2(968,536)
+		sprite_following_mouse = null
+		button.visible = false # hides the yellow hover effect on tile
+		#######################################################################################
+		
 
 #when the collapse button is pressed, collapse the piece selection menu
 #friendly
@@ -145,77 +138,3 @@ func _on_enemy_piece_select_collapse_button_pressed() -> void:
 		$EnemyPieceselectpopup2/EnemyCollapsePieceMenu.play_backwards("EnemyPieceSelectReveal")
 		EnemyPieceMenuRevealed = false
 #########################################################################################
-
-
-
-#changes scale of piece in side menu, on hover
-func _on_celtic_fort_area_2d_mouse_entered() -> void:
-	$EnemyPieceselectpopup2/FfCelticFort.scale *= 1.2
-
-func _on_celtic_fort_area_2d_mouse_exited() -> void:
-	$EnemyPieceselectpopup2/FfCelticFort.scale /= 1.2
-	
-
-func _on_celtic_trader_area_2d_mouse_entered() -> void:
-	$EnemyPieceselectpopup2/FfCelticTrader.scale *=1.2
-
-func _on_celtic_trader_area_2d_mouse_exited() -> void:
-	$EnemyPieceselectpopup2/FfCelticTrader.scale /=1.2
-
-
-func _on_enemy_wall_area_2d_mouse_entered() -> void:
-	$EnemyPieceselectpopup2/FfEnemyWall.scale *= 1.2
-
-func _on_enemy_wall_area_2d_mouse_exited() -> void:
-	$EnemyPieceselectpopup2/FfEnemyWall.scale /= 1.2
-
-
-func _on_norman_fort_area_2d_mouse_entered() -> void:
-	$FriendlyPieceselectpopup/FfNormanFort.scale *= 1.2
-
-func _on_norman_fort_area_2d_mouse_exited() -> void:
-	$FriendlyPieceselectpopup/FfNormanFort.scale /= 1.2
-
-
-func _on_norman_trader_area_2d_mouse_entered() -> void:
-	$FriendlyPieceselectpopup/FfNormanTrader.scale *= 1.2
-
-func _on_norman_trader_area_2d_mouse_exited() -> void:
-	$FriendlyPieceselectpopup/FfNormanTrader.scale /= 1.2
-
-
-func _on_friendly_wall_area_2d_mouse_entered() -> void:
-	$FriendlyPieceselectpopup/FfFriendlyWall.scale *= 1.2
-
-func _on_friendly_wall_area_2d_mouse_exited() -> void:
-	$FriendlyPieceselectpopup/FfFriendlyWall.scale /= 1.2
-##################################################################################
-
-	
-func _on_tile_button_pressed(button):
-	print(button.position)
-	if dragging == true:
-		dragging = false
-		if NormanFortSelected:
-			NormanFortSelected = false
-			$DragNormanFort.position = button.position + Vector2(968,536)
-		if NormanTraderSelected:
-			NormanTraderSelected = false
-			$DragNormanTrader.position = button.position + Vector2(968,536)
-		if NormanWallSelected:
-			NormanWallSelected = false
-			$DragWall.position = button.position + Vector2(968,536)
-		if CeltFortSelected:
-			CeltFortSelected = false
-			$DragCelticFort.position = button.position + Vector2(968,536)
-		if CeltTraderSelected:
-			CeltTraderSelected = false
-			$DragCelticTrader.position = button.position + Vector2(968,536)
-		if CeltWallSelected:
-			CeltWallSelected = false
-			$DragWall.position = button.position + Vector2(968,536)
-
-func testfunction():
-	for key in piece_selection.keys():
-		if piece_selection[key]:
-			print("Selected piece:", key)
