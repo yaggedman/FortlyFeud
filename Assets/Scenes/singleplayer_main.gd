@@ -7,6 +7,16 @@ var EnemyPieceMenuRevealed : bool = true
 
 var dragging : bool = false
 
+#creates a dictionary of pieces and whether they are selected or not (default false)
+var piece_selection = {
+	"FfcelticFort": false,
+	"FfCelticTrader": false,
+	"FfEnemyWall": false,
+	"FfNormanFort": false,
+	"FfNormanTrader": false,
+	"FfFriendlyWall": false
+	}
+
 #Declaring inventory of Celts
 @onready var CeltInventory = {
 	"Fort" = 1000,
@@ -41,45 +51,58 @@ func _ready():
 				"node": tile,
 				"position": tile.position,
 				}
-	#print(tile_map)  #debugging - checks if all tiles are stored properly
-	#below is example on how to access tile name and position
-	#print("Position of tile 3_5:", tile_map["3_5"]["position"])
+
+# gets buttons in the button group, and connects the pressed signal with argument button
+	for button in get_tree().get_nodes_in_group("TileButtons"):
+		button.pressed.connect(Callable(self, "_on_tile_button_pressed").bind(button))
 	
 	#declaring whether the side menus are revealed or not (revealed by default)
 	FriendlyPieceMenuRevealed = true
 	EnemyPieceMenuRevealed = true
+	####################################################################################
 	
+	#generic input handler, loops through all the nodes in the MenuPieces group and connects their input_event signal
+	for piece in get_tree().get_nodes_in_group("MenuPieces"):
+		piece.input_event.connect(Callable(self, "_on_piece_input_event").bind(piece))
+		
+#Deselects all pieces in group MenuPieces, sets the selected piece to true on left click.
+func _on_piece_input_event(piece, viewport: Node, event: InputEvent, shape_idx: int) -> void:
+	if event is InputEventMouseButton and not dragging:
+		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
+			for key in piece_selection.keys():
+				piece_selection[key] = false
+			piece_selection[piece.name] = true
 
 func _process(delta):
 	var mousepos = get_viewport().get_mouse_position()
 	
-	
+	# when piece is selected from side menu, set dragging state to true, and attach piece to mouse position
 	if CeltFortSelected == true:
 		dragging = true
-		$DragCelticFort.position = mousepos
+		$DragCelticFort.position = mousepos + Vector2(-100,-100)
 	
 	if CeltTraderSelected == true:
 		dragging = true
-		$DragCelticTrader.position = mousepos
+		$DragCelticTrader.position = mousepos + Vector2(-100,-100)
 		
 	if CeltWallSelected == true:
 		dragging = true
-		$DragWall.position = mousepos
+		$DragWall.position = mousepos + Vector2(-100,-100)
 		
 	if NormanFortSelected == true:
 		dragging = true
-		$DragNormanFort.position = mousepos
+		$DragNormanFort.position = mousepos + Vector2(-100,-100)
 		
 	if NormanTraderSelected == true:
 		dragging = true
-		$DragNormanTrader.position = mousepos
+		$DragNormanTrader.position = mousepos + Vector2(-100,-100)
 		
 	if NormanWallSelected == true:
 		dragging = true
-		$DragWall.position = mousepos
+		$DragWall.position = mousepos + Vector2(-100,-100)
 		
 		
-		#if player is holding an item, press right click to discard (also stops dual selections)
+#if player is holding an item, press right click to discard (also stops multiple simultaneous selections)
 func _input(event):
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and event.pressed and dragging:
@@ -97,7 +120,7 @@ func _input(event):
 			$DragWall.position = Vector2(2500,1500)
 			$DragNormanFort.position = Vector2(2500,1500)
 			$DragNormanTrader.position = Vector2(2500,1500)
-			
+#######################################################################################
 
 #when the collapse button is pressed, collapse the piece selection menu
 #friendly
@@ -121,7 +144,7 @@ func _on_enemy_piece_select_collapse_button_pressed() -> void:
 		#print("Pressed and collapsed")
 		$EnemyPieceselectpopup2/EnemyCollapsePieceMenu.play_backwards("EnemyPieceSelectReveal")
 		EnemyPieceMenuRevealed = false
-
+#########################################################################################
 
 
 
@@ -166,46 +189,33 @@ func _on_friendly_wall_area_2d_mouse_entered() -> void:
 
 func _on_friendly_wall_area_2d_mouse_exited() -> void:
 	$FriendlyPieceselectpopup/FfFriendlyWall.scale /= 1.2
+##################################################################################
+
 	
-	
-#on click, attach sprite to mouse
+func _on_tile_button_pressed(button):
+	print(button.position)
+	if dragging == true:
+		dragging = false
+		if NormanFortSelected:
+			NormanFortSelected = false
+			$DragNormanFort.position = button.position + Vector2(968,536)
+		if NormanTraderSelected:
+			NormanTraderSelected = false
+			$DragNormanTrader.position = button.position + Vector2(968,536)
+		if NormanWallSelected:
+			NormanWallSelected = false
+			$DragWall.position = button.position + Vector2(968,536)
+		if CeltFortSelected:
+			CeltFortSelected = false
+			$DragCelticFort.position = button.position + Vector2(968,536)
+		if CeltTraderSelected:
+			CeltTraderSelected = false
+			$DragCelticTrader.position = button.position + Vector2(968,536)
+		if CeltWallSelected:
+			CeltWallSelected = false
+			$DragWall.position = button.position + Vector2(968,536)
 
-#resets all the signals for selected pieces from side menus
-func ResetSelectedPieces():
-	CeltFortSelected = false
-	CeltTraderSelected = false
-	CeltWallSelected = false
-	NormanFortSelected = false
-	NormanTraderSelected = false
-	NormanWallSelected = false
-
-#detects piece selection from menu and signals that it is selected
-func _on_celtic_fort_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and dragging == false:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			CeltFortSelected = true
-			
-func _on_celtic_trader_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and dragging == false:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			CeltTraderSelected = true
-
-func _on_enemy_wall_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and dragging == false:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			CeltWallSelected = true
-
-func _on_norman_fort_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and dragging == false:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			NormanFortSelected = true
-
-func _on_norman_trader_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and dragging == false:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			NormanTraderSelected = true
-
-func _on_friendly_wall_area_2d_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
-	if event is InputEventMouseButton and dragging == false:
-		if event.button_index == MOUSE_BUTTON_LEFT and event.pressed:
-			NormanWallSelected = true
+func testfunction():
+	for key in piece_selection.keys():
+		if piece_selection[key]:
+			print("Selected piece:", key)
