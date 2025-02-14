@@ -12,6 +12,7 @@ var NormanWallDisabled : bool = false
 var NormanTraderDisabled : bool = false
 
 var dragging : bool = false
+var FollowingMouseButton = Button.new()
 
 #creates a dictionary of pieces and whether they are selected or not (default false)
 var piece_selection = {
@@ -40,6 +41,8 @@ var piece_textures = {
 	"FfNormanTrader": preload("res://Assets/Sprites/FF_NormanTrader_Muted.png"),
 	"FfNormanWall": preload("res://Assets/Sprites/FF_Wall.png")
 }
+
+var PiecesOnBoard = {}
 
 func _on_menupiece_button_hover(menupiece):
 	menupiece.scale *= 1.2
@@ -83,12 +86,12 @@ func _ready():
 	EnemyPieceMenuRevealed = true
 	####################################################################################
 	
-var sprite_following_mouse : Sprite2D = null # this stores the sprite that is following the mouse
+var sprite_following_mouse : Sprite2D = null # this stores the sprite that is following the mouse on piece select
+var sprite_following_mouse_button : Button = null
 
 func _process(delta):
 	
 	if TurnOrder % 2 == 0: #determines play order and disables pieces accordingly
-		print("Player1Turn")
 		$EnemyPieceselectpopup2/FfCelticFort.disabled = true
 		$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
 		$EnemyPieceselectpopup2/FfCelticWall.disabled = true
@@ -119,17 +122,20 @@ func _process(delta):
 		if piece_selection[key] and PieceInventory.has(key) and PieceInventory[key] > 0:
 			if sprite_following_mouse == null: #only creates one sprite if not already created
 				sprite_following_mouse = Sprite2D.new()
+				sprite_following_mouse_button = Button.new()
 				add_child(sprite_following_mouse) # adds a new sprite2d to the scene
-				
+				add_child(sprite_following_mouse_button)
+				sprite_following_mouse_button.pressed.connect(self._on_following_mouse_button_pressed.bind(sprite_following_mouse_button))
+				sprite_following_mouse_button.position = Vector2(2500,2500)
 				sprite_following_mouse.texture = piece_textures[key] #sets the texture
 				
 				var ProceedMouseFollowing : bool = true
 				
-				
 			sprite_following_mouse.position = mousepos
 			sprite_following_mouse.scale = Vector2(6.5, 6.5)
+			sprite_following_mouse_button.set_size(Vector2(210,210))
 			sprite_following_mouse.z_index = 100 #ensures child is always on top of the scene
-
+			sprite_following_mouse_button.z_index = 101
 
 func _input(event: InputEvent) -> void: #on right click, discard piece
 	if event is InputEventMouseButton:
@@ -137,7 +143,9 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 			for key in piece_selection.keys():
 				piece_selection[key] = false #sets all pieces to not selected
 			sprite_following_mouse.queue_free() #kills the child
+			sprite_following_mouse_button.queue_free()
 			sprite_following_mouse = null #resets so there is no sprite attached to mouse
+			sprite_following_mouse_button = null
 
 func _on_tile_button_pressed(button): #if item selected and board tile selected, place piece on board
 	print(button)
@@ -148,6 +156,13 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 				if PieceInventory.has(key): 
 					PieceInventory[key] -= 1 #removes 1 from inventory
 					TurnOrder += 1
+					var PieceOnBoardKey = str(button) + "_" + str(key)
+					PiecesOnBoard[PieceOnBoardKey] = {
+						"tile": button,
+						"piece": key
+					}
+					print("Placed piece on board: ", key)
+					print(PiecesOnBoard)
 					print(key, "remaining:", PieceInventory[key])
 					if PieceInventory[key] == 0:
 						print((key))
@@ -172,10 +187,20 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 						#PieceInventory.erase(key) # when out of game pieces, remove from dictionary
 		sprite_following_mouse.centered = false
 		sprite_following_mouse.position = Vector2(button.position) + Vector2(968,536)
+		sprite_following_mouse_button.position = Vector2(button.position) + Vector2(968,536)
 		sprite_following_mouse = null
+		sprite_following_mouse_button = null
 		button.visible = false # hides the yellow hover effect on tile and prevents multiple placements on the same tile
 		#######################################################################################
 		
+func _on_following_mouse_button_pressed(sprite_following_mouse_button):
+	if sprite_following_mouse != null and sprite_following_mouse.texture != null:
+		if sprite_following_mouse.texture == piece_textures["FfCelticTrader"] or sprite_following_mouse.texture == piece_textures["FfNormanTrader"]:
+			print("button is a trader")
+		else:
+			print("button is not a trader")
+	else:
+		print("sprite_following_mouse is null")
 
 #when the collapse button is pressed, collapse the piece selection menu
 #friendly
