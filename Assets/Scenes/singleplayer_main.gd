@@ -5,6 +5,11 @@ extends Node2D
 var OutofMenuPieces = {}
 var FriendlyPieceMenuRevealed : bool = true
 var EnemyPieceMenuRevealed : bool = true
+var TurnOrder : int = 2
+var CelticWallDisabled : bool = false
+var CelticTraderDisabled : bool = false
+var NormanWallDisabled : bool = false
+var NormanTraderDisabled : bool = false
 
 var dragging : bool = false
 
@@ -81,6 +86,33 @@ func _ready():
 var sprite_following_mouse : Sprite2D = null # this stores the sprite that is following the mouse
 
 func _process(delta):
+	
+	if TurnOrder % 2 == 0: #determines play order and disables pieces accordingly
+		print("Player1Turn")
+		$EnemyPieceselectpopup2/FfCelticFort.disabled = true
+		$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
+		$EnemyPieceselectpopup2/FfCelticWall.disabled = true
+		$FriendlyPieceselectpopup/FfNormanFort.disabled = false
+		$FriendlyPieceselectpopup/FfNormanTrader.disabled = false
+		$FriendlyPieceselectpopup/FfNormanWall.disabled = false
+		if NormanWallDisabled == true: #this code sucks but makes sure pieces stay disabled if there are 0 in invent
+			$FriendlyPieceselectpopup/FfNormanWall.disabled = true
+		if NormanTraderDisabled == true:
+			$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
+			
+	else:
+		$EnemyPieceselectpopup2/FfCelticFort.disabled = false
+		$EnemyPieceselectpopup2/FfCelticTrader.disabled = false
+		$EnemyPieceselectpopup2/FfCelticWall.disabled = false
+		$FriendlyPieceselectpopup/FfNormanFort.disabled = true
+		$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
+		$FriendlyPieceselectpopup/FfNormanWall.disabled = true
+		if CelticWallDisabled == true:
+			$EnemyPieceselectpopup2/FfCelticWall.disabled = true
+		if CelticTraderDisabled == true:
+			$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
+		
+	
 	var mousepos : Vector2 = get_viewport().get_mouse_position()
 	
 	for key in piece_selection.keys():
@@ -115,6 +147,7 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 				piece_selection[key] = false #deselects piece
 				if PieceInventory.has(key): 
 					PieceInventory[key] -= 1 #removes 1 from inventory
+					TurnOrder += 1
 					print(key, "remaining:", PieceInventory[key])
 					if PieceInventory[key] == 0:
 						print((key))
@@ -122,15 +155,19 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 						new_stylebox.bg_color = Color(0.27,0.27,0.27,1)
 						if key == "FfCelticWall":
 							$EnemyPieceselectpopup2/FfCelticWall.disabled = true
+							CelticWallDisabled = true
 							print("CelticWallDisabled")
 						if key == "FfCelticTrader":
 							$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
 							print("CelticTraderDisabled")
+							CelticTraderDisabled = true
 						if key == "FfNormanWall":
 							$FriendlyPieceselectpopup/FfNormanWall.disabled = true
+							NormanWallDisabled = true
 							print("NormanWallDisabled")
 						if key == "FfNormanTrader":
 							$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
+							NormanTraderDisabled = true
 							print("NormanTraderDisabled")
 						#PieceInventory.erase(key) # when out of game pieces, remove from dictionary
 		sprite_following_mouse.centered = false

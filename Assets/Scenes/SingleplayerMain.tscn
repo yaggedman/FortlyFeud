@@ -1,4 +1,4 @@
-[gd_scene load_steps=50 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=52 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Texture2D" uid="uid://b8gej8yrwmyw2" path="res://Assets/Backgrounds/FF_Map_Bigger.png" id="1_66bsy"]
 [ext_resource type="Script" path="res://Assets/Scenes/singleplayer_main.gd" id="1_gfcaa"]
@@ -65,6 +65,10 @@ _data = {
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wf78a"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_47p34"]
+texture = ExtResource("3_v66t5")
+modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e6q4a"]
 texture = ExtResource("3_v66t5")
@@ -168,6 +172,10 @@ _data = {
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfhj0"]
 
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mjvv5"]
+texture = ExtResource("6_atmpi")
+modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
+
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jva5i"]
 texture = ExtResource("6_atmpi")
 texture_margin_left = 2.0
@@ -267,6 +275,7 @@ offset_top = 7.625
 offset_right = 36.125
 offset_bottom = 33.625
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wf78a")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_47p34")
 theme_override_styles/hover = SubResource("StyleBoxTexture_e6q4a")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_8yw4d")
 theme_override_styles/normal = SubResource("StyleBoxTexture_pmay4")
@@ -322,6 +331,7 @@ offset_top = -46.9166
 offset_right = 10.375
 offset_bottom = -20.9166
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wfhj0")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_mjvv5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_jva5i")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_tinvn")
 theme_override_styles/normal = SubResource("StyleBoxTexture_g02d7")
