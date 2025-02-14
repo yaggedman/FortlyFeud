@@ -2,6 +2,7 @@ extends Node2D
 
 #declares tile map dictionary
 @onready var tile_map = {}
+var OutofMenuPieces = {}
 var FriendlyPieceMenuRevealed : bool = true
 var EnemyPieceMenuRevealed : bool = true
 
@@ -35,6 +36,9 @@ var piece_textures = {
 	"FfNormanWall": preload("res://Assets/Sprites/FF_Wall.png")
 }
 
+func _on_menupiece_button_hover(menupiece):
+	menupiece.scale *= 1.2
+
 func _on_menupiece_button_pressed(menupiece):
 	for key in piece_selection.keys():
 		piece_selection[key] = false #sets all pieces to not selected
@@ -54,6 +58,12 @@ func _ready():
 				"node": tile,
 				"position": tile.position,
 				}
+	var OutofMenuPieces = {
+	"FfCelticTrader": $EnemyPieceselectpopup2/FfCelticTrader,
+	"FfCelticWall": $EnemyPieceselectpopup2/FfCelticWall,
+	"FfNormanTrader": $FriendlyPieceselectpopup/FfNormanTrader,
+	"FfNormanWall": $FriendlyPieceselectpopup/FfNormanWall,
+}
 
 # gets buttons in the button group, and connects the pressed signal with argument button
 	for button in get_tree().get_nodes_in_group("TileButtons"):
@@ -107,11 +117,26 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 					PieceInventory[key] -= 1 #removes 1 from inventory
 					print(key, "remaining:", PieceInventory[key])
 					if PieceInventory[key] == 0:
-						PieceInventory.erase(key) # when out of game pieces, remove from dictionary
+						print((key))
+						var new_stylebox = StyleBoxFlat.new()
+						new_stylebox.bg_color = Color(0.27,0.27,0.27,1)
+						if key == "FfCelticWall":
+							$EnemyPieceselectpopup2/FfCelticWall.disabled = true
+							print("CelticWallDisabled")
+						if key == "FfCelticTrader":
+							$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
+							print("CelticTraderDisabled")
+						if key == "FfNormanWall":
+							$FriendlyPieceselectpopup/FfNormanWall.disabled = true
+							print("NormanWallDisabled")
+						if key == "FfNormanTrader":
+							$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
+							print("NormanTraderDisabled")
+						#PieceInventory.erase(key) # when out of game pieces, remove from dictionary
 		sprite_following_mouse.centered = false
 		sprite_following_mouse.position = Vector2(button.position) + Vector2(968,536)
 		sprite_following_mouse = null
-		button.visible = false # hides the yellow hover effect on tile
+		button.visible = false # hides the yellow hover effect on tile and prevents multiple placements on the same tile
 		#######################################################################################
 		
 
