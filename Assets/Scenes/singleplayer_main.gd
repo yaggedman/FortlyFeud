@@ -10,6 +10,7 @@ var CelticWallDisabled : bool = false
 var CelticTraderDisabled : bool = false
 var NormanWallDisabled : bool = false
 var NormanTraderDisabled : bool = false
+var TraderMoved : bool = false
 
 var dragging : bool = false
 var FollowingMouseButton = Button.new()
@@ -72,6 +73,10 @@ func _ready():
 	"FfNormanTrader": $FriendlyPieceselectpopup/FfNormanTrader,
 	"FfNormanWall": $FriendlyPieceselectpopup/FfNormanWall,
 }
+	
+	for _i in self.get_children():
+		print (_i) # debug prints all children
+
 
 # gets buttons in the button group, and connects the pressed signal with argument button
 	for button in get_tree().get_nodes_in_group("TileButtons"):
@@ -88,16 +93,16 @@ func _ready():
 	
 var sprite_following_mouse : Sprite2D = null # this stores the sprite that is following the mouse on piece select
 var sprite_following_mouse_button : Button = null
+var SpriteOnBoard : Sprite2D = null
 
 func _process(delta):
 	
-	if TurnOrder % 2 == 0: #determines play order and disables pieces accordingly
+	
+	if TurnOrder % 2 == 0: #determines play order and disables pieces accordingly (walls can be placed any time)
 		$EnemyPieceselectpopup2/FfCelticFort.disabled = true
 		$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
-		$EnemyPieceselectpopup2/FfCelticWall.disabled = true
 		$FriendlyPieceselectpopup/FfNormanFort.disabled = false
 		$FriendlyPieceselectpopup/FfNormanTrader.disabled = false
-		$FriendlyPieceselectpopup/FfNormanWall.disabled = false
 		if NormanWallDisabled == true: #this code sucks but makes sure pieces stay disabled if there are 0 in invent
 			$FriendlyPieceselectpopup/FfNormanWall.disabled = true
 		if NormanTraderDisabled == true:
@@ -106,10 +111,8 @@ func _process(delta):
 	else:
 		$EnemyPieceselectpopup2/FfCelticFort.disabled = false
 		$EnemyPieceselectpopup2/FfCelticTrader.disabled = false
-		$EnemyPieceselectpopup2/FfCelticWall.disabled = false
 		$FriendlyPieceselectpopup/FfNormanFort.disabled = true
 		$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
-		$FriendlyPieceselectpopup/FfNormanWall.disabled = true
 		if CelticWallDisabled == true:
 			$EnemyPieceselectpopup2/FfCelticWall.disabled = true
 		if CelticTraderDisabled == true:
@@ -123,19 +126,38 @@ func _process(delta):
 			if sprite_following_mouse == null: #only creates one sprite if not already created
 				sprite_following_mouse = Sprite2D.new()
 				sprite_following_mouse_button = Button.new()
+				SpriteOnBoard = Sprite2D.new()
 				add_child(sprite_following_mouse) # adds a new sprite2d to the scene
 				add_child(sprite_following_mouse_button)
+				add_child(SpriteOnBoard)
+				sprite_following_mouse.name = key + "_child" + str(PieceInventory[key]) + "_temp"
+				SpriteOnBoard.name = key + "_child" + str(PieceInventory[key]) + "real"
+				if SpriteOnBoard.name == "FfNormanTrader_child1real2":
+					SpriteOnBoard.name == "FfNormanTrader_child1real"
+				sprite_following_mouse_button.name = key + "_child_button" + str(PieceInventory[key]) + "_temp"
 				sprite_following_mouse_button.pressed.connect(self._on_following_mouse_button_pressed.bind(sprite_following_mouse_button))
 				sprite_following_mouse_button.position = Vector2(2500,2500)
+				SpriteOnBoard.position = Vector2(2500,2500)
 				sprite_following_mouse.texture = piece_textures[key] #sets the texture
+				SpriteOnBoard.texture = piece_textures[key]
+				if key == "FfNormanTrader":
+					sprite_following_mouse_button.editor_description = "NormanTest"
+					SpriteOnBoard.name = "FfNormanTrader_child1real"
+				if key == "FfCelticTrader":
+					sprite_following_mouse_button.editor_description = "CelticTest"
+					SpriteOnBoard.name = "FfCelticTrader_child1real"
+					
 				
 				var ProceedMouseFollowing : bool = true
 				
 			sprite_following_mouse.position = mousepos
 			sprite_following_mouse.scale = Vector2(6.5, 6.5)
+			SpriteOnBoard.scale = Vector2(6.5,6.5)
 			sprite_following_mouse_button.set_size(Vector2(210,210))
+			SpriteOnBoard.z_index = 99
 			sprite_following_mouse.z_index = 100 #ensures child is always on top of the scene
 			sprite_following_mouse_button.z_index = 101
+	
 
 func _input(event: InputEvent) -> void: #on right click, discard piece
 	if event is InputEventMouseButton:
@@ -144,8 +166,9 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 				piece_selection[key] = false #sets all pieces to not selected
 			sprite_following_mouse.queue_free() #kills the child
 			sprite_following_mouse_button.queue_free()
-			sprite_following_mouse = null #resets so there is no sprite attached to mouse
-			sprite_following_mouse_button = null
+			SpriteOnBoard.queue_free()
+			#sprite_following_mouse = null #resets so there is no sprite attached to mouse
+			#sprite_following_mouse_button = null
 
 func _on_tile_button_pressed(button): #if item selected and board tile selected, place piece on board
 	print(button)
@@ -164,7 +187,9 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 					print("Placed piece on board: ", key)
 					print(PiecesOnBoard)
 					print(key, "remaining:", PieceInventory[key])
-					if PieceInventory[key] == 0:
+					for _i in self.get_children (): #debug - prints a list of all children
+						print(_i)
+					if PieceInventory[key] == 0: #when out of pieces, disables ability to select piece from menu
 						print((key))
 						var new_stylebox = StyleBoxFlat.new()
 						new_stylebox.bg_color = Color(0.27,0.27,0.27,1)
@@ -186,17 +211,30 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 							print("NormanTraderDisabled")
 						#PieceInventory.erase(key) # when out of game pieces, remove from dictionary
 		sprite_following_mouse.centered = false
-		sprite_following_mouse.position = Vector2(button.position) + Vector2(968,536)
+		SpriteOnBoard.centered = false
+		#sprite_following_mouse.position = Vector2(button.position) + Vector2(968,536)
+		SpriteOnBoard.position = Vector2(button.position) + Vector2(968,536)
 		sprite_following_mouse_button.position = Vector2(button.position) + Vector2(968,536)
+		sprite_following_mouse.queue_free()
 		sprite_following_mouse = null
-		sprite_following_mouse_button = null
+		SpriteOnBoard.visible = true
+		#sprite_following_mouse_button = null
 		button.visible = false # hides the yellow hover effect on tile and prevents multiple placements on the same tile
 		#######################################################################################
 		
-func _on_following_mouse_button_pressed(sprite_following_mouse_button):
-	if sprite_following_mouse != null and sprite_following_mouse.texture != null:
-		if sprite_following_mouse.texture == piece_textures["FfCelticTrader"] or sprite_following_mouse.texture == piece_textures["FfNormanTrader"]:
-			print("button is a trader")
+func _on_following_mouse_button_pressed(sprite_following_mouse_button): #on piece button pressed, check if trader
+	if sprite_following_mouse_button != null:
+		if sprite_following_mouse_button.editor_description == "NormanTest": #checks for trader tag
+			if SpriteOnBoard.name == "FfNormanTrader_child1real2": #dont think this does anything
+				SpriteOnBoard.name == "FfNormanTrader_child1real" #dont think this does anything
+			SpriteOnBoard.visible = false #makes old sprite invisible
+			sprite_following_mouse_button.queue_free() # kills old button
+			PieceInventory["FfNormanTrader"] += 1
+			piece_selection["FfNormanTrader"] = true
+			print(piece_selection)
+			SpriteOnBoard.queue_free() # kills old sprite
+			TraderMoved = true
+			
 		else:
 			print("button is not a trader")
 	else:
