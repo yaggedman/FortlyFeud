@@ -146,6 +146,8 @@ func _process(delta):
 				if key == "FfCelticTrader":
 					sprite_following_mouse_button.editor_description = "CelticTest"
 					SpriteOnBoard.name = "FfCelticTrader_child1real"
+				if key == "FfCelticWall" or key == "FfNormanWall":
+					SpriteOnBoard.editor_description = "WallHere"
 					
 				
 				var ProceedMouseFollowing : bool = true
@@ -178,7 +180,10 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 				piece_selection[key] = false #deselects piece
 				if PieceInventory.has(key): 
 					PieceInventory[key] -= 1 #removes 1 from inventory
-					TurnOrder += 1
+					if key == "FfCelticWall" or key == "FfNormanWall":
+						pass
+					else:
+						TurnOrder +=1
 					var PieceOnBoardKey = str(button) + "_" + str(key)
 					PiecesOnBoard[PieceOnBoardKey] = {
 						"tile": button,
