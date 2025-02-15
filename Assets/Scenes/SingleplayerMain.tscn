@@ -1,6 +1,5 @@
-[gd_scene load_steps=52 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=51 format=3 uid="uid://ca4lidcpn805y"]
 
-[ext_resource type="Texture2D" uid="uid://b8gej8yrwmyw2" path="res://Assets/Backgrounds/FF_Map_Bigger.png" id="1_66bsy"]
 [ext_resource type="Script" path="res://Assets/Scenes/singleplayer_main.gd" id="1_gfcaa"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
 [ext_resource type="Texture2D" uid="uid://ccwtvk1d3awq7" path="res://Assets/Sprites/FF_CelticFort_Muted.png" id="3_v66t5"]
@@ -9,6 +8,7 @@
 [ext_resource type="Texture2D" uid="uid://dhvamuqwt38i7" path="res://Assets/Sprites/FF_Wall.png" id="5_m65m1"]
 [ext_resource type="Texture2D" uid="uid://bm0uwx0wijvvp" path="res://Assets/Sprites/FF_NormanFort_Muted.png" id="6_atmpi"]
 [ext_resource type="Texture2D" uid="uid://c7ugnqatip3sg" path="res://Assets/Sprites/FF_NormanTrader_Muted.png" id="7_4quc8"]
+[ext_resource type="Texture2D" uid="uid://cw4t4p0qxybdt" path="res://Assets/Sprites/FF_Map_V02.png" id="8_6fmkx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wdjhr"]
 
@@ -64,29 +64,6 @@ _data = {
 "RESET": SubResource("Animation_p707u")
 }
 
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wf78a"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_47p34"]
-texture = ExtResource("3_v66t5")
-modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_e6q4a"]
-texture = ExtResource("3_v66t5")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8yw4d"]
-texture = ExtResource("3_v66t5")
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_pmay4"]
-texture = ExtResource("3_v66t5")
-
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g7buy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1bj6a"]
@@ -132,6 +109,26 @@ texture = ExtResource("5_m65m1")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b7sxe"]
 texture = ExtResource("5_m65m1")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n8xow"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g56lv"]
+texture = ExtResource("3_v66t5")
+modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6f7yy"]
+texture = ExtResource("3_v66t5")
+texture_margin_left = 2.0
+texture_margin_top = 2.0
+texture_margin_right = 2.0
+texture_margin_bottom = 2.0
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48mej"]
+texture = ExtResource("3_v66t5")
 
 [sub_resource type="Animation" id="Animation_gj5ho"]
 resource_name = "PieceSelectCollapse"
@@ -268,18 +265,6 @@ libraries = {
 }
 autoplay = "EnemyPieceSelectReveal"
 
-[node name="FfCelticFort" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
-z_index = 1
-offset_left = 10.125
-offset_top = 7.625
-offset_right = 36.125
-offset_bottom = 33.625
-theme_override_styles/focus = SubResource("StyleBoxEmpty_wf78a")
-theme_override_styles/disabled = SubResource("StyleBoxTexture_47p34")
-theme_override_styles/hover = SubResource("StyleBoxTexture_e6q4a")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_8yw4d")
-theme_override_styles/normal = SubResource("StyleBoxTexture_pmay4")
-
 [node name="FfCelticTrader" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 offset_left = 11.0
 offset_top = 44.625
@@ -301,6 +286,17 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_ajrxn")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6omu4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_5hptv")
 theme_override_styles/normal = SubResource("StyleBoxTexture_b7sxe")
+
+[node name="FfCelticFort" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
+offset_left = 11.0
+offset_top = 9.0
+offset_right = 36.0
+offset_bottom = 34.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_n8xow")
+theme_override_styles/disabled = SubResource("StyleBoxTexture_g56lv")
+theme_override_styles/hover = SubResource("StyleBoxTexture_6f7yy")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_48mej")
+theme_override_styles/normal = SubResource("StyleBoxTexture_48mej")
 
 [node name="FriendlyPieceselectpopup" type="Sprite2D" parent="."]
 z_index = 1
@@ -360,7 +356,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_omdwt")
 
 [node name="FfMapBigger" type="Sprite2D" parent="."]
 position = Vector2(968, 540)
-texture = ExtResource("1_66bsy")
+texture = ExtResource("8_6fmkx")
 
 [node name="1_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1

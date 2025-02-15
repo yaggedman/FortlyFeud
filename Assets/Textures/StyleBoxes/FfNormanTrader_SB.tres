@@ -1,0 +1,6 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://1yk2mtscl5qy"]
+
+[ext_resource type="Texture2D" uid="uid://c7ugnqatip3sg" path="res://Assets/Sprites/FF_NormanTrader_Muted.png" id="1_pway8"]
+
+[resource]
+texture = ExtResource("1_pway8")

@@ -43,6 +43,17 @@ var piece_textures = {
 	"FfNormanWall": preload("res://Assets/Sprites/FF_Wall.png")
 }
 
+var stylebox_dict = {
+	"FfNormanFort_SB": preload("res://Assets/Textures/StyleBoxes/FfNormanFort_SB.tres"),
+	"FfNormanTrader_SB": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_SB.tres"),
+	"FfNormanWall_SB": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"),
+	"FfCelticFort_SB": preload("res://Assets/Textures/StyleBoxes/FfCelticFort_SB.tres"),
+	"FfCelticTrader_SB": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_SB.tres"),
+	"FfCelticWall_SB": preload("res://Assets/Textures/StyleBoxes/FfCelticWall_SB.tres"),
+	"FfCelticTrader_Hover_SB": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_Hover_SB.tres"),
+	"FfNormanTrader_Hover_SB": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_Hover_SB.tres")
+}
+
 var PiecesOnBoard = {}
 
 func _on_menupiece_button_hover(menupiece):
@@ -93,7 +104,6 @@ func _ready():
 	
 var sprite_following_mouse : Sprite2D = null # this stores the sprite that is following the mouse on piece select
 var sprite_following_mouse_button : Button = null
-var SpriteOnBoard : Sprite2D = null
 
 func _process(delta):
 	
@@ -126,37 +136,36 @@ func _process(delta):
 			if sprite_following_mouse == null: #only creates one sprite if not already created
 				sprite_following_mouse = Sprite2D.new()
 				sprite_following_mouse_button = Button.new()
-				SpriteOnBoard = Sprite2D.new()
 				add_child(sprite_following_mouse) # adds a new sprite2d to the scene
-				add_child(sprite_following_mouse_button)
-				add_child(SpriteOnBoard)
+				add_child(sprite_following_mouse_button) # adds a button to the scene (this will end up being the game piece)
 				sprite_following_mouse.name = key + "_child" + str(PieceInventory[key]) + "_temp"
-				SpriteOnBoard.name = key + "_child" + str(PieceInventory[key]) + "real"
-				if SpriteOnBoard.name == "FfNormanTrader_child1real2":
-					SpriteOnBoard.name == "FfNormanTrader_child1real"
 				sprite_following_mouse_button.name = key + "_child_button" + str(PieceInventory[key]) + "_temp"
+				var stylebox_key = key + "_SB"
+			
+				var hover_stylebox_key = key + "_Hover_SB"
+				if stylebox_dict.has(hover_stylebox_key):
+					sprite_following_mouse_button.add_theme_stylebox_override("hover", stylebox_dict[hover_stylebox_key])
+				else:
+					sprite_following_mouse_button.add_theme_stylebox_override("hover", stylebox_dict[stylebox_key])
+				sprite_following_mouse_button.add_theme_stylebox_override("normal", stylebox_dict[stylebox_key])
+				sprite_following_mouse_button.add_theme_stylebox_override("pressed", stylebox_dict[stylebox_key])
+				sprite_following_mouse_button.add_theme_stylebox_override("focus", stylebox_dict[stylebox_key])
+				
 				sprite_following_mouse_button.pressed.connect(self._on_following_mouse_button_pressed.bind(sprite_following_mouse_button))
 				sprite_following_mouse_button.position = Vector2(2500,2500)
-				SpriteOnBoard.position = Vector2(2500,2500)
 				sprite_following_mouse.texture = piece_textures[key] #sets the texture
-				SpriteOnBoard.texture = piece_textures[key]
 				if key == "FfNormanTrader":
 					sprite_following_mouse_button.editor_description = "NormanTest"
-					SpriteOnBoard.name = "FfNormanTrader_child1real"
 				if key == "FfCelticTrader":
 					sprite_following_mouse_button.editor_description = "CelticTest"
-					SpriteOnBoard.name = "FfCelticTrader_child1real"
 				if key == "FfCelticWall" or key == "FfNormanWall":
-					SpriteOnBoard.editor_description = "WallHere"
-					
+					pass
 				
 				var ProceedMouseFollowing : bool = true
 				
 			sprite_following_mouse.position = mousepos
 			sprite_following_mouse.scale = Vector2(6.5, 6.5)
-			SpriteOnBoard.scale = Vector2(6.5,6.5)
 			sprite_following_mouse_button.set_size(Vector2(210,210))
-			SpriteOnBoard.z_index = 99
 			sprite_following_mouse.z_index = 100 #ensures child is always on top of the scene
 			sprite_following_mouse_button.z_index = 101
 	
@@ -168,7 +177,6 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 				piece_selection[key] = false #sets all pieces to not selected
 			sprite_following_mouse.queue_free() #kills the child
 			sprite_following_mouse_button.queue_free()
-			SpriteOnBoard.queue_free()
 			#sprite_following_mouse = null #resets so there is no sprite attached to mouse
 			#sprite_following_mouse_button = null
 
@@ -216,13 +224,10 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 							print("NormanTraderDisabled")
 						#PieceInventory.erase(key) # when out of game pieces, remove from dictionary
 		sprite_following_mouse.centered = false
-		SpriteOnBoard.centered = false
 		#sprite_following_mouse.position = Vector2(button.position) + Vector2(968,536)
-		SpriteOnBoard.position = Vector2(button.position) + Vector2(968,536)
 		sprite_following_mouse_button.position = Vector2(button.position) + Vector2(968,536)
 		sprite_following_mouse.queue_free()
 		sprite_following_mouse = null
-		SpriteOnBoard.visible = true
 		TraderMoved = false
 		#sprite_following_mouse_button = null
 		#button.visible = false # hides the yellow hover effect on tile and prevents multiple placements on the same tile
@@ -231,22 +236,20 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 func _on_following_mouse_button_pressed(sprite_following_mouse_button): #on piece button pressed, check if trader
 	if sprite_following_mouse_button != null:
 		if sprite_following_mouse_button.editor_description == "NormanTest": #checks for trader tag
-			if SpriteOnBoard.name == "FfNormanTrader_child1real2": #dont think this does anything
-				SpriteOnBoard.name == "FfNormanTrader_child1real" #dont think this does anything
-			SpriteOnBoard.visible = false #makes old sprite invisible
-			sprite_following_mouse_button.queue_free() # kills old button
-			PieceInventory["FfNormanTrader"] += 1
 			piece_selection["FfNormanTrader"] = true
+			#$FfNormanTrader_child1real.visible = false #makes old sprite invisible
+			sprite_following_mouse_button.queue_free() # kills old button
+			#SpriteOnBoard.queue_free() # kills old sprite
+			PieceInventory["FfNormanTrader"] += 1
 			print(piece_selection)
-			SpriteOnBoard.queue_free() # kills old sprite
 			TraderMoved = true
 		if sprite_following_mouse_button.editor_description == "CelticTest":
-			SpriteOnBoard.visible = false #makes old sprite invisible
+			piece_selection["FfCelticTrader"] = true
+			#$FfCelticTrader_child1real.visible = false #makes old sprite invisible
 			sprite_following_mouse_button.queue_free() # kills old button
 			PieceInventory["FfCelticTrader"] += 1
 			piece_selection["FfCelticTrader"] = true
 			print(piece_selection)
-			SpriteOnBoard.queue_free() # kills old sprite
 			TraderMoved = true
 			
 		else:
