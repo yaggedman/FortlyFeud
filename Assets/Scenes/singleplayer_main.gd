@@ -218,8 +218,9 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 		sprite_following_mouse.queue_free()
 		sprite_following_mouse = null
 		SpriteOnBoard.visible = true
+		TraderMoved = false
 		#sprite_following_mouse_button = null
-		button.visible = false # hides the yellow hover effect on tile and prevents multiple placements on the same tile
+		#button.visible = false # hides the yellow hover effect on tile and prevents multiple placements on the same tile
 		#######################################################################################
 		
 func _on_following_mouse_button_pressed(sprite_following_mouse_button): #on piece button pressed, check if trader
@@ -231,6 +232,14 @@ func _on_following_mouse_button_pressed(sprite_following_mouse_button): #on piec
 			sprite_following_mouse_button.queue_free() # kills old button
 			PieceInventory["FfNormanTrader"] += 1
 			piece_selection["FfNormanTrader"] = true
+			print(piece_selection)
+			SpriteOnBoard.queue_free() # kills old sprite
+			TraderMoved = true
+		if sprite_following_mouse_button.editor_description == "CelticTest":
+			SpriteOnBoard.visible = false #makes old sprite invisible
+			sprite_following_mouse_button.queue_free() # kills old button
+			PieceInventory["FfCelticTrader"] += 1
+			piece_selection["FfCelticTrader"] = true
 			print(piece_selection)
 			SpriteOnBoard.queue_free() # kills old sprite
 			TraderMoved = true
