@@ -106,8 +106,6 @@ var sprite_following_mouse : Sprite2D = null # this stores the sprite that is fo
 var sprite_following_mouse_button : Button = null
 
 func _process(delta):
-	
-	
 	if TurnOrder % 2 == 0: #determines play order and disables pieces accordingly (walls can be placed any time)
 		$EnemyPieceselectpopup2/FfCelticFort.disabled = true
 		$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
@@ -167,7 +165,7 @@ func _process(delta):
 			sprite_following_mouse.scale = Vector2(6.5, 6.5)
 			sprite_following_mouse_button.set_size(Vector2(210,210))
 			sprite_following_mouse.z_index = 100 #ensures child is always on top of the scene
-			sprite_following_mouse_button.z_index = 101
+			sprite_following_mouse_button.z_index = 150
 	
 
 func _input(event: InputEvent) -> void: #on right click, discard piece
@@ -236,21 +234,23 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 func _on_following_mouse_button_pressed(sprite_following_mouse_button): #on piece button pressed, check if trader
 	if sprite_following_mouse_button != null:
 		if sprite_following_mouse_button.editor_description == "NormanTest": #checks for trader tag
-			piece_selection["FfNormanTrader"] = true
-			#$FfNormanTrader_child1real.visible = false #makes old sprite invisible
-			sprite_following_mouse_button.queue_free() # kills old button
-			#SpriteOnBoard.queue_free() # kills old sprite
-			PieceInventory["FfNormanTrader"] += 1
-			print(piece_selection)
-			TraderMoved = true
+			if TurnOrder % 2 == 0:
+				piece_selection["FfNormanTrader"] = true
+				#$FfNormanTrader_child1real.visible = false #makes old sprite invisible
+				sprite_following_mouse_button.queue_free() # kills old button
+				#SpriteOnBoard.queue_free() # kills old sprite
+				PieceInventory["FfNormanTrader"] += 1
+				print(piece_selection)
+				TraderMoved = true
 		if sprite_following_mouse_button.editor_description == "CelticTest":
-			piece_selection["FfCelticTrader"] = true
-			#$FfCelticTrader_child1real.visible = false #makes old sprite invisible
-			sprite_following_mouse_button.queue_free() # kills old button
-			PieceInventory["FfCelticTrader"] += 1
-			piece_selection["FfCelticTrader"] = true
-			print(piece_selection)
-			TraderMoved = true
+			if TurnOrder % 2 != 0:
+				piece_selection["FfCelticTrader"] = true
+				#$FfCelticTrader_child1real.visible = false #makes old sprite invisible
+				sprite_following_mouse_button.queue_free() # kills old button
+				PieceInventory["FfCelticTrader"] += 1
+				piece_selection["FfCelticTrader"] = true
+				print(piece_selection)
+				TraderMoved = true
 			
 		else:
 			print("button is not a trader")

@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" path="res://Assets/Scenes/singleplayer_main.gd" id="1_gfcaa"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
-[ext_resource type="Texture2D" uid="uid://ccwtvk1d3awq7" path="res://Assets/Sprites/FF_CelticFort_Muted.png" id="3_v66t5"]
+[ext_resource type="Texture2D" uid="uid://ch03fwovjpced" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="3_bjcie"]
 [ext_resource type="Texture2D" uid="uid://p0v515l1k4ae" path="res://Assets/Sprites/pieceselectpopup.png" id="3_w6ky2"]
-[ext_resource type="Texture2D" uid="uid://bkky5q2o08eh8" path="res://Assets/Sprites/FF_CelticTrader_Muted.png" id="4_mqu2s"]
-[ext_resource type="Texture2D" uid="uid://dhvamuqwt38i7" path="res://Assets/Sprites/FF_Wall.png" id="5_m65m1"]
-[ext_resource type="Texture2D" uid="uid://bm0uwx0wijvvp" path="res://Assets/Sprites/FF_NormanFort_Muted.png" id="6_atmpi"]
-[ext_resource type="Texture2D" uid="uid://c7ugnqatip3sg" path="res://Assets/Sprites/FF_NormanTrader_Muted.png" id="7_4quc8"]
+[ext_resource type="Texture2D" uid="uid://cqno4kkabvloa" path="res://Assets/Sprites/NewSprites/FF_Wall_Bright.png" id="4_t08gy"]
+[ext_resource type="Texture2D" uid="uid://b4yd7rfync3ii" path="res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png" id="5_rbioo"]
+[ext_resource type="Texture2D" uid="uid://6vd5s7cdcfom" path="res://Assets/Sprites/NewSprites/FF_NormanFort_Bright.png" id="6_0hqmo"]
+[ext_resource type="Texture2D" uid="uid://cb01udofepe7f" path="res://Assets/Sprites/NewSprites/FF_NormanTrader_Bright.png" id="7_roc48"]
 [ext_resource type="Texture2D" uid="uid://cw4t4p0qxybdt" path="res://Assets/Sprites/FF_Map_V02.png" id="8_6fmkx"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wdjhr"]
@@ -67,11 +67,11 @@ _data = {
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g7buy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_1bj6a"]
-texture = ExtResource("4_mqu2s")
+texture = ExtResource("3_bjcie")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_knmeq"]
-texture = ExtResource("4_mqu2s")
+texture = ExtResource("3_bjcie")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
@@ -82,19 +82,19 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_o8mcc"]
-texture = ExtResource("4_mqu2s")
+texture = ExtResource("3_bjcie")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_i47w0"]
-texture = ExtResource("4_mqu2s")
+texture = ExtResource("3_bjcie")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r38ql"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_ajrxn"]
-texture = ExtResource("5_m65m1")
+texture = ExtResource("4_t08gy")
 modulate_color = Color(0.288518, 0.288518, 0.288518, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6omu4"]
-texture = ExtResource("5_m65m1")
+texture = ExtResource("4_t08gy")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
@@ -105,19 +105,19 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_5hptv"]
-texture = ExtResource("5_m65m1")
+texture = ExtResource("4_t08gy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_b7sxe"]
-texture = ExtResource("5_m65m1")
+texture = ExtResource("4_t08gy")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n8xow"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g56lv"]
-texture = ExtResource("3_v66t5")
+texture = ExtResource("5_rbioo")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6f7yy"]
-texture = ExtResource("3_v66t5")
+texture = ExtResource("5_rbioo")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
@@ -128,7 +128,7 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48mej"]
-texture = ExtResource("3_v66t5")
+texture = ExtResource("5_rbioo")
 
 [sub_resource type="Animation" id="Animation_gj5ho"]
 resource_name = "PieceSelectCollapse"
@@ -170,11 +170,11 @@ _data = {
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfhj0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mjvv5"]
-texture = ExtResource("6_atmpi")
+texture = ExtResource("6_0hqmo")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jva5i"]
-texture = ExtResource("6_atmpi")
+texture = ExtResource("6_0hqmo")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
@@ -185,19 +185,19 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tinvn"]
-texture = ExtResource("6_atmpi")
+texture = ExtResource("6_0hqmo")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g02d7"]
-texture = ExtResource("6_atmpi")
+texture = ExtResource("6_0hqmo")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vkj7k"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d3ql3"]
-texture = ExtResource("7_4quc8")
+texture = ExtResource("7_roc48")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iocm1"]
-texture = ExtResource("7_4quc8")
+texture = ExtResource("7_roc48")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
@@ -208,19 +208,19 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gdt3t"]
-texture = ExtResource("7_4quc8")
+texture = ExtResource("7_roc48")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mn2ep"]
-texture = ExtResource("7_4quc8")
+texture = ExtResource("7_roc48")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w57qp"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iap8q"]
-texture = ExtResource("5_m65m1")
+texture = ExtResource("4_t08gy")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_lilpd"]
-texture = ExtResource("5_m65m1")
+texture = ExtResource("4_t08gy")
 texture_margin_left = 2.0
 texture_margin_top = 2.0
 texture_margin_right = 2.0
@@ -231,10 +231,10 @@ expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_hrrey"]
-texture = ExtResource("5_m65m1")
+texture = ExtResource("4_t08gy")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_omdwt"]
-texture = ExtResource("5_m65m1")
+texture = ExtResource("4_t08gy")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_gfcaa")
@@ -266,10 +266,10 @@ libraries = {
 autoplay = "EnemyPieceSelectReveal"
 
 [node name="FfCelticTrader" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
-offset_left = 11.0
-offset_top = 44.625
+offset_left = 12.0
+offset_top = 44.0
 offset_right = 35.0
-offset_bottom = 68.625
+offset_bottom = 66.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_g7buy")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_1bj6a")
 theme_override_styles/hover = SubResource("StyleBoxTexture_knmeq")
@@ -277,10 +277,10 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_o8mcc")
 theme_override_styles/normal = SubResource("StyleBoxTexture_i47w0")
 
 [node name="FfCelticWall" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
-offset_left = 11.25
-offset_top = 78.5
-offset_right = 35.25
-offset_bottom = 102.5
+offset_left = 11.625
+offset_top = 83.0
+offset_right = 33.625
+offset_bottom = 100.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_r38ql")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_ajrxn")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6omu4")
@@ -288,10 +288,10 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_5hptv")
 theme_override_styles/normal = SubResource("StyleBoxTexture_b7sxe")
 
 [node name="FfCelticFort" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
-offset_left = 11.0
-offset_top = 9.0
-offset_right = 36.0
-offset_bottom = 34.0
+offset_left = 9.625
+offset_top = 7.25
+offset_right = 34.625
+offset_bottom = 32.25
 theme_override_styles/focus = SubResource("StyleBoxEmpty_n8xow")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_g56lv")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6f7yy")
@@ -322,10 +322,10 @@ libraries = {
 autoplay = "PieceSelectReveal"
 
 [node name="FfNormanFort" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
-offset_left = -15.625
-offset_top = -46.9166
-offset_right = 10.375
-offset_bottom = -20.9166
+offset_left = -14.625
+offset_top = -46.0416
+offset_right = 9.375
+offset_bottom = -22.0416
 theme_override_styles/focus = SubResource("StyleBoxEmpty_wfhj0")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_mjvv5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_jva5i")
@@ -333,10 +333,10 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_tinvn")
 theme_override_styles/normal = SubResource("StyleBoxTexture_g02d7")
 
 [node name="FfNormanTrader" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
-offset_left = -14.5
-offset_top = -12.0
-offset_right = 10.5
-offset_bottom = 13.0
+offset_left = -15.0
+offset_top = -11.0
+offset_right = 10.0
+offset_bottom = 12.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_vkj7k")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_d3ql3")
 theme_override_styles/hover = SubResource("StyleBoxTexture_iocm1")
@@ -344,10 +344,10 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_gdt3t")
 theme_override_styles/normal = SubResource("StyleBoxTexture_mn2ep")
 
 [node name="FfNormanWall" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
-offset_left = -14.0
-offset_top = 25.0
-offset_right = 9.0
-offset_bottom = 48.0
+offset_left = -14.375
+offset_top = 27.8334
+offset_right = 8.625
+offset_bottom = 44.8334
 theme_override_styles/focus = SubResource("StyleBoxEmpty_w57qp")
 theme_override_styles/disabled = SubResource("StyleBoxTexture_iap8q")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lilpd")
