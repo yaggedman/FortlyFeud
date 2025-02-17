@@ -1,13 +1,9 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://q18prv2ihr34"]
 
-[ext_resource type="Texture2D" uid="uid://bkky5q2o08eh8" path="res://Assets/Sprites/FF_CelticTrader_Muted.png" id="1_d23ir"]
+[ext_resource type="Texture2D" uid="uid://ch03fwovjpced" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="1_fu2uf"]
 
 [resource]
-texture = ExtResource("1_d23ir")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
+texture = ExtResource("1_fu2uf")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0

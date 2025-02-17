@@ -1,13 +1,9 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cavdsy20qi4cq"]
 
-[ext_resource type="Texture2D" uid="uid://c7ugnqatip3sg" path="res://Assets/Sprites/FF_NormanTrader_Muted.png" id="1_ghh1a"]
+[ext_resource type="Texture2D" uid="uid://cb01udofepe7f" path="res://Assets/Sprites/NewSprites/FF_NormanTrader_Bright.png" id="1_dxsgi"]
 
 [resource]
-texture = ExtResource("1_ghh1a")
-texture_margin_left = 2.0
-texture_margin_top = 2.0
-texture_margin_right = 2.0
-texture_margin_bottom = 2.0
+texture = ExtResource("1_dxsgi")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0

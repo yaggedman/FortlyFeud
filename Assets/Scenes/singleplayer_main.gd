@@ -11,6 +11,7 @@ var CelticTraderDisabled : bool = false
 var NormanWallDisabled : bool = false
 var NormanTraderDisabled : bool = false
 var TraderMoved : bool = false
+var minimenubuttoncount : int = 0
 
 var dragging : bool = false
 var FollowingMouseButton = Button.new()
@@ -35,12 +36,12 @@ var piece_selection = {
 	"FfNormanWall" = 2
 }
 var piece_textures = {
-	"FfCelticFort": preload("res://Assets/Sprites/FF_CelticFort_Muted.png"),
-	"FfCelticTrader": preload("res://Assets/Sprites/FF_CelticTrader_Muted.png"),
-	"FfCelticWall": preload("res://Assets/Sprites/FF_Wall.png"),
-	"FfNormanFort": preload("res://Assets/Sprites/FF_NormanFort_Muted.png"),
-	"FfNormanTrader": preload("res://Assets/Sprites/FF_NormanTrader_Muted.png"),
-	"FfNormanWall": preload("res://Assets/Sprites/FF_Wall.png")
+	"FfCelticFort": preload("res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png"),
+	"FfCelticTrader": preload("res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png"),
+	"FfCelticWall": preload("res://Assets/Sprites/NewSprites/FF_Wall_Bright.png"),
+	"FfNormanFort": preload("res://Assets/Sprites/NewSprites/FF_NormanFort_Bright.png"),
+	"FfNormanTrader": preload("res://Assets/Sprites/NewSprites/FF_NormanTrader_Bright.png"),
+	"FfNormanWall": preload("res://Assets/Sprites/NewSprites/FF_Wall_Bright.png")
 }
 
 var stylebox_dict = {
@@ -49,15 +50,15 @@ var stylebox_dict = {
 	"FfNormanWall_SB": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"),
 	"FfCelticFort_SB": preload("res://Assets/Textures/StyleBoxes/FfCelticFort_SB.tres"),
 	"FfCelticTrader_SB": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_SB.tres"),
-	"FfCelticWall_SB": preload("res://Assets/Textures/StyleBoxes/FfCelticWall_SB.tres"),
+	"FfCelticWall_SB": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"),
 	"FfCelticTrader_Hover_SB": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_Hover_SB.tres"),
 	"FfNormanTrader_Hover_SB": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_Hover_SB.tres")
 }
 
 var PiecesOnBoard = {}
 
-func _on_menupiece_button_hover(menupiece):
-	menupiece.scale *= 1.2
+#func _on_menupiece_button_hover(menupiece):
+	#menupiece.scale *= 1.2
 
 func _on_menupiece_button_pressed(menupiece):
 	for key in piece_selection.keys():
@@ -162,9 +163,18 @@ func _process(delta):
 				var ProceedMouseFollowing : bool = true
 				
 			sprite_following_mouse.position = mousepos
-			sprite_following_mouse.scale = Vector2(6.5, 6.5)
-			sprite_following_mouse_button.set_size(Vector2(210,210))
-			sprite_following_mouse.z_index = 100 #ensures child is always on top of the scene
+			sprite_following_mouse.scale = Vector2(1,1)
+			if key == "FfCelticWall" or key == "FfNormanWall":
+				sprite_following_mouse_button.set_size(Vector2(210,175))
+			elif key == "FfNormanFort":
+				sprite_following_mouse_button.set_size(Vector2(190,192))
+			elif key == "FfNormanTrader":
+				sprite_following_mouse_button.set_size(Vector2(180,180))
+			elif key == "FfCelticFort":
+				sprite_following_mouse_button.set_size(Vector2(210,210))
+			else:
+				sprite_following_mouse_button.set_size(Vector2(192,182))
+			sprite_following_mouse.z_index = 151 #ensures child is always on top of the scene
 			sprite_following_mouse_button.z_index = 150
 	
 
@@ -280,3 +290,24 @@ func _on_enemy_piece_select_collapse_button_pressed() -> void:
 		$EnemyPieceselectpopup2/EnemyCollapsePieceMenu.play_backwards("EnemyPieceSelectReveal")
 		EnemyPieceMenuRevealed = false
 #########################################################################################
+
+#mini menu button scripts
+func _on_mini_menu_button_pressed() -> void: #when corner minimenu button pressed, open menu
+	minimenubuttoncount += 1
+	if minimenubuttoncount % 2 != 0:
+		$Buttonblankfix.visible = true
+	else:
+		$Buttonblankfix.visible = false
+
+
+func _on_mini_menu_resume_pressed() -> void: #when in mini menu, press resume to resume game
+	minimenubuttoncount += 1
+	$Buttonblankfix.visible = false
+
+
+func _on_mini_menu_restart_pressed() -> void: #restarts the game on button press
+	get_tree().reload_current_scene()
+
+
+func _on_mini_menu_quit_pressed() -> void: # goes to main menu on button press
+	get_tree().change_scene_to_file("res://Assets/Scenes/main_menu.tscn")
