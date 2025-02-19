@@ -80,10 +80,10 @@ func _ready():
 				"position": tile.position,
 				}
 	var OutofMenuPieces = {
-	"FfCelticTrader": $EnemyPieceselectpopup2/FfCelticTrader,
-	"FfCelticWall": $EnemyPieceselectpopup2/FfCelticWall,
-	"FfNormanTrader": $FriendlyPieceselectpopup/FfNormanTrader,
-	"FfNormanWall": $FriendlyPieceselectpopup/FfNormanWall,
+	"FfCelticTrader": $FriendlyPieceselectpopup/FfCelticTrader,
+	"FfCelticWall": $FriendlyPieceselectpopup/FfCelticWall,
+	"FfNormanTrader": $EnemyPieceselectpopup2/FfNormanTrader,
+	"FfNormanWall": $EnemyPieceselectpopup2/FfNormanWall,
 }
 	
 	for _i in self.get_children():
@@ -107,25 +107,25 @@ var sprite_following_mouse : Sprite2D = null # this stores the sprite that is fo
 var sprite_following_mouse_button : Button = null
 
 func _process(delta):
-	if TurnOrder % 2 == 0: #determines play order and disables pieces accordingly (walls can be placed any time)
-		$EnemyPieceselectpopup2/FfCelticFort.disabled = true
-		$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
-		$FriendlyPieceselectpopup/FfNormanFort.disabled = false
-		$FriendlyPieceselectpopup/FfNormanTrader.disabled = false
+	if TurnOrder % 2 != 0: #determines play order and disables pieces accordingly (walls can be placed any time)
+		$FriendlyPieceselectpopup/FfCelticFort.disabled = true
+		$FriendlyPieceselectpopup/FfCelticTrader.disabled = true
+		$EnemyPieceselectpopup2/FfNormanFort.disabled = false
+		$EnemyPieceselectpopup2/FfNormanTrader.disabled = false
 		if NormanWallDisabled == true: #this code sucks but makes sure pieces stay disabled if there are 0 in invent
 			$FriendlyPieceselectpopup/FfNormanWall.disabled = true
 		if NormanTraderDisabled == true:
 			$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
 			
 	else:
-		$EnemyPieceselectpopup2/FfCelticFort.disabled = false
-		$EnemyPieceselectpopup2/FfCelticTrader.disabled = false
-		$FriendlyPieceselectpopup/FfNormanFort.disabled = true
-		$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
+		$FriendlyPieceselectpopup/FfCelticFort.disabled = false
+		$FriendlyPieceselectpopup/FfCelticTrader.disabled = false
+		$EnemyPieceselectpopup2/FfNormanFort.disabled = true
+		$EnemyPieceselectpopup2/FfNormanTrader.disabled = true
 		if CelticWallDisabled == true:
-			$EnemyPieceselectpopup2/FfCelticWall.disabled = true
+			$FriendlyPieceselectpopup/FfCelticWall.disabled = true
 		if CelticTraderDisabled == true:
-			$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
+			$FriendlyPieceselectpopup/FfCelticTrader.disabled = true
 		
 	
 	var mousepos : Vector2 = get_viewport().get_mouse_position()
@@ -215,19 +215,19 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 						var new_stylebox = StyleBoxFlat.new()
 						new_stylebox.bg_color = Color(0.27,0.27,0.27,1)
 						if key == "FfCelticWall":
-							$EnemyPieceselectpopup2/FfCelticWall.disabled = true
+							$FriendlyPieceselectpopup/FfCelticWall.disabled = true
 							CelticWallDisabled = true
 							print("CelticWallDisabled")
 						if key == "FfCelticTrader":
-							$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
+							$FriendlyPieceselectpopup/FfCelticTrader.disabled = true
 							print("CelticTraderDisabled")
 							CelticTraderDisabled = true
 						if key == "FfNormanWall":
-							$FriendlyPieceselectpopup/FfNormanWall.disabled = true
+							$EnemyPieceselectpopup2/FfNormanWall.disabled = true
 							NormanWallDisabled = true
 							print("NormanWallDisabled")
 						if key == "FfNormanTrader":
-							$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
+							$EnemyPieceselectpopup2/FfNormanTrader.disabled = true
 							NormanTraderDisabled = true
 							print("NormanTraderDisabled")
 						#PieceInventory.erase(key) # when out of game pieces, remove from dictionary
@@ -311,3 +311,142 @@ func _on_mini_menu_restart_pressed() -> void: #restarts the game on button press
 
 func _on_mini_menu_quit_pressed() -> void: # goes to main menu on button press
 	get_tree().change_scene_to_file("res://Assets/Scenes/main_menu.tscn")
+
+##################WINCONDITIONS########################
+var VertHorizWinArray = [ # 1 is fort, 2 is trader, 3 is wall or enemy fort, 4 is a gap
+	[1, 1, 1, 1, 3],
+	[2, 3, 1, 1, 1],
+	[1, 3, 2, 1, 1],
+	[1, 1, 3, 2, 1],
+	[1, 1, 1, 3, 2],
+	[2, 3, 1, 1, 1],
+	[1, 2, 3, 1, 1],
+	[1, 1, 2, 3, 1],
+	[1, 1, 1, 3, 2],
+	[3, 1, 1, 1, 1],
+	[2, 1, 1, 1, 3],
+	[1, 2, 1, 1, 3],
+	[1, 1, 2, 1, 3],
+	[1, 1, 1, 2, 3],
+	[1, 1, 1, 1, 3],
+	[3, 1, 1, 1, 1],
+	[3, 2, 1, 1, 1],
+	[3, 1, 2, 1, 1],
+	[3, 1, 1, 2, 1],
+	[3, 1, 1, 1, 2],
+	[4, 1, 1, 1, 1],
+	[4, 2, 1, 1, 1],
+	[4, 1, 2, 1, 1],
+	[4, 1, 1, 2, 1],
+	[4, 1, 1, 1, 2],
+	[2, 1, 1, 1, 4],
+	[1, 2, 1, 1, 4],
+	[1, 1, 2, 1, 4],
+	[1, 1, 1, 2, 4],
+	[1, 1, 1, 1, 4],
+	[1, 1, 1, 1, 1],
+	[2, 1, 1, 1, 1],
+	[1, 2, 1, 1, 1],
+	[1, 1, 2, 1, 1],
+	[1, 1, 1, 2, 1],
+	[1, 1, 1, 1, 2],
+]
+var DiagWinArray1 = [
+	[1, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 3]
+]
+
+var DiagWinArray2 = [
+	[1, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray3 = [
+	[3, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray4 = [
+	[2, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray5 = [
+	[1, 3, 3, 3, 3],
+	[3, 2, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray6 = [
+	[1, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 2, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray7 = [
+	[1, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 2, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray8 = [
+	[1, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 2]
+]
+var DiagWinArray9 = [
+	[1, 3, 3, 3, 3],
+	[3, 3, 3, 3, 3],
+	[3, 3, 2, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray10 = [
+	[2, 3, 3, 3, 3],
+	[3, 3, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray11 = [
+	[1, 3, 3, 3, 3],
+	[3, 2, 3, 3, 3],
+	[3, 3, 3, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray12 = [
+	[1, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 3, 3, 3],
+	[3, 3, 3, 2, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray13 = [
+	[1, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 2, 3, 3],
+	[3, 3, 3, 3, 3],
+	[3, 3, 3, 3, 1]
+]
+var DiagWinArray14 = [
+	[1, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 3, 3],
+	[3, 3, 3, 3, 2]
+]
