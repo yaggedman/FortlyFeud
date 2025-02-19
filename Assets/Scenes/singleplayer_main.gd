@@ -239,7 +239,7 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 		TraderMoved = false
 		#sprite_following_mouse_button = null
 		#button.visible = false # hides the yellow hover effect on tile and prevents multiple placements on the same tile
-		#######################################################################################
+		############################################################# code below detects win whenever a piece is placed
 		
 func _on_following_mouse_button_pressed(sprite_following_mouse_button): #on piece button pressed, check if trader
 	if sprite_following_mouse_button != null:
@@ -449,4 +449,102 @@ var DiagWinArray14 = [
 	[3, 3, 1, 3, 3],
 	[3, 3, 3, 3, 3],
 	[3, 3, 3, 3, 2]
+]
+var DiagWinArray15 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 1, 3],
+	[3, 3, 1, 3, 3],
+	[3, 1, 3, 3, 3],
+	[3, 3, 3, 3, 3]
+]
+var DiagWinArray16 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 1, 3],
+	[3, 3, 1, 3, 3],
+	[3, 1, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray17 = [
+	[3, 3, 3, 3, 3],
+	[3, 3, 3, 1, 3],
+	[3, 3, 1, 3, 3],
+	[3, 1, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray18 = [
+	[3, 3, 3, 3, 2],
+	[3, 3, 3, 1, 3],
+	[3, 3, 1, 3, 3],
+	[3, 1, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray19 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 2, 3],
+	[3, 3, 1, 3, 3],
+	[3, 1, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray20 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 1, 3],
+	[3, 3, 2, 3, 3],
+	[3, 1, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray21 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 1, 3],
+	[3, 3, 1, 3, 3],
+	[3, 2, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray22 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 1, 3],
+	[3, 3, 1, 3, 3],
+	[3, 1, 3, 3, 3],
+	[2, 3, 3, 3, 3]
+]
+var DiagWinArray23 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 3, 3],
+	[3, 3, 2, 3, 3],
+	[3, 1, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray24 = [
+	[3, 3, 3, 3, 2],
+	[3, 3, 3, 3, 3],
+	[3, 3, 1, 3, 3],
+	[3, 1, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray25 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 2, 3],
+	[3, 3, 3, 3, 3],
+	[3, 1, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray26 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 1, 3],
+	[3, 3, 3, 3, 3],
+	[3, 2, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray27 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 1, 3],
+	[3, 3, 2, 3, 3],
+	[3, 3, 3, 3, 3],
+	[1, 3, 3, 3, 3]
+]
+var DiagWinArray28 = [
+	[3, 3, 3, 3, 1],
+	[3, 3, 3, 1, 3],
+	[3, 3, 1, 3, 3],
+	[3, 3, 3, 3, 3],
+	[2, 3, 3, 3, 3]
 ]
