@@ -57,6 +57,42 @@ var stylebox_dict = {
 
 var PiecesOnBoard = {}
 
+var FriendlyTiletoArray = {
+	"1_1" = $"FfMapBigger/1_1",
+	"1_2" = $"FfMapBigger/1_2",
+	"1_3" = $"FfMapBigger/1_3",
+	"1_4" = $"FfMapBigger/1_4",
+	"1_5" = $"FfMapBigger/1_5",
+	"2_1" = $"FfMapBigger/2_1",
+	"2_2" = $"FfMapBigger/2_2",
+	"2_3" = $"FfMapBigger/2_3",
+	"2_4" = $"FfMapBigger/2_4",
+	"2_5" = $"FfMapBigger/2_5",
+	"3_1" = $"FfMapBigger/3_1",
+	"3_2" = $"FfMapBigger/3_2",
+	"3_3" = $"FfMapBigger/3_3",
+	"3_4" = $"FfMapBigger/3_4",
+	"3_5" = $"FfMapBigger/3_5",
+	"4_1" = $"FfMapBigger/4_1",
+	"4_2" = $"FfMapBigger/4_2",
+	"4_3" = $"FfMapBigger/4_3",
+	"4_4" = $"FfMapBigger/4_4",
+	"4_5" = $"FfMapBigger/4_5",
+	"5_1" = $"FfMapBigger/5_1",
+	"5_2" = $"FfMapBigger/5_2",
+	"5_3" = $"FfMapBigger/5_3",
+	"5_4" = $"FfMapBigger/5_4",
+	"5_5" = $"FfMapBigger/5_5",
+}
+
+var GameBoardArray: Array = [ # this represents the game board at the beginning of the game. The 4s represents empty spaces on the board
+	[4, 4, 4, 4, 4],
+	[4, 4, 4, 4, 4],
+	[4, 4, 4, 4, 4],
+	[4, 4, 4, 4, 4],
+	[4, 4, 4, 4 ,4]
+]
+
 #func _on_menupiece_button_hover(menupiece):
 	#menupiece.scale *= 1.2
 
@@ -113,9 +149,9 @@ func _process(delta):
 		$EnemyPieceselectpopup2/FfNormanFort.disabled = false
 		$EnemyPieceselectpopup2/FfNormanTrader.disabled = false
 		if NormanWallDisabled == true: #this code sucks but makes sure pieces stay disabled if there are 0 in invent
-			$FriendlyPieceselectpopup/FfNormanWall.disabled = true
+			$EnemyPieceselectpopup2/FfNormanWall.disabled = true
 		if NormanTraderDisabled == true:
-			$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
+			$EnemyPieceselectpopup2/FfNormanTrader.disabled = true
 			
 	else:
 		$FriendlyPieceselectpopup/FfCelticFort.disabled = false
@@ -190,12 +226,32 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 
 func _on_tile_button_pressed(button): #if item selected and board tile selected, place piece on board
 	print(button)
+	print("FriendlyTiletoArray Keys: ", FriendlyTiletoArray.keys())
 	if sprite_following_mouse != null: #if holding game piece
 		for key in piece_selection.keys():
 			if piece_selection[key]:
 				piece_selection[key] = false #deselects piece
-				if PieceInventory.has(key): 
+				if PieceInventory.has(key):
+					
+					for arraykey in FriendlyTiletoArray.keys():
+						var indices = button.name.split("_")
+						var row = int(indices[0]) - 1
+						var col = int(indices[1]) - 1
+						if key == "FfCelticFort":
+							GameBoardArray[row][col] = 1
+						elif key == "FfCelticTrader":
+							for rows in range(GameBoardArray.size()):
+								for cols in range(GameBoardArray[row].size()):
+									if GameBoardArray[rows][cols] == 2:
+										GameBoardArray[rows][cols] = 4
+							GameBoardArray[row][col] = 2
+						elif key == "FfNormanFort" or key == "FfNormanTrader" or key == "FfNormanWall" or key == "FfCelticWall":
+							GameBoardArray[row][col] = 3
+						else:
+							GameBoardArray[row][col] = 4
+							
 					PieceInventory[key] -= 1 #removes 1 from inventory
+					
 					if key == "FfCelticWall" or key == "FfNormanWall":
 						pass
 					else:
@@ -205,13 +261,14 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 						"tile": button,
 						"piece": key
 					}
-					print("Placed piece on board: ", key)
-					print(PiecesOnBoard)
-					print(key, "remaining:", PieceInventory[key])
+					#print("Placed piece on board: ", key)
+					#print(PiecesOnBoard)
+					#print(key, "remaining:", PieceInventory[key])
 					for _i in self.get_children (): #debug - prints a list of all children
-						print(_i)
+						#print(_i)
+						pass
 					if PieceInventory[key] == 0: #when out of pieces, disables ability to select piece from menu
-						print((key))
+						#print((key))
 						var new_stylebox = StyleBoxFlat.new()
 						new_stylebox.bg_color = Color(0.27,0.27,0.27,1)
 						if key == "FfCelticWall":
@@ -237,6 +294,7 @@ func _on_tile_button_pressed(button): #if item selected and board tile selected,
 		sprite_following_mouse.queue_free()
 		sprite_following_mouse = null
 		TraderMoved = false
+		print(GameBoardArray)
 		#sprite_following_mouse_button = null
 		#button.visible = false # hides the yellow hover effect on tile and prevents multiple placements on the same tile
 		############################################################# code below detects win whenever a piece is placed
@@ -247,10 +305,14 @@ func _on_following_mouse_button_pressed(sprite_following_mouse_button): #on piec
 			if TurnOrder % 2 == 0:
 				piece_selection["FfNormanTrader"] = true
 				#$FfNormanTrader_child1real.visible = false #makes old sprite invisible
+				var indices = sprite_following_mouse_button.name.split("_")
+				var row = int(indices[0]) -1
+				var col = int(indices[1]) -1
+				GameBoardArray[row][col] = 4
 				sprite_following_mouse_button.queue_free() # kills old button
 				#SpriteOnBoard.queue_free() # kills old sprite
 				PieceInventory["FfNormanTrader"] += 1
-				print(piece_selection)
+				#print(piece_selection)
 				TraderMoved = true
 		if sprite_following_mouse_button.editor_description == "CelticTest":
 			if TurnOrder % 2 != 0:
@@ -259,7 +321,7 @@ func _on_following_mouse_button_pressed(sprite_following_mouse_button): #on piec
 				sprite_following_mouse_button.queue_free() # kills old button
 				PieceInventory["FfCelticTrader"] += 1
 				piece_selection["FfCelticTrader"] = true
-				print(piece_selection)
+				#print(piece_selection)
 				TraderMoved = true
 			
 		else:
