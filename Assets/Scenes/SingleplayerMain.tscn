@@ -1,6 +1,6 @@
 [gd_scene load_steps=64 format=3 uid="uid://ca4lidcpn805y"]
 
-[ext_resource type="Script" path="res://Assets/Scenes/singleplayer_main.gd" id="1_gfcaa"]
+[ext_resource type="Script" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
 [ext_resource type="Texture2D" uid="uid://ch03fwovjpced" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="3_bjcie"]
 [ext_resource type="Texture2D" uid="uid://p0v515l1k4ae" path="res://Assets/Sprites/pieceselectpopup.png" id="3_w6ky2"]
@@ -250,7 +250,7 @@ modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 texture = ExtResource("14_ytdcb")
 
 [node name="Main" type="Node2D"]
-script = ExtResource("1_gfcaa")
+script = ExtResource("1_pa8vt")
 
 [node name="EnemyPieceselectpopup2" type="Sprite2D" parent="."]
 z_index = 1
