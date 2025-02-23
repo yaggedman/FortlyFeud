@@ -72,8 +72,6 @@ func _ready():
 		
 func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when menu piece selected
 	if HoldingItem == false: # only runs code if hand is empty
-				PieceSelectionCheck[menupiece.name] = true
-				print(PieceSelectionCheck)
 		print(menupiece.name, " pressed! Waiting for tile selection or discard") # debug - prints selected piece to console
 		for Piece in PieceSelectionCheck: # loops through all pieces
 			if PieceSelectionCheck.has(menupiece.name): # if the piece is valid
