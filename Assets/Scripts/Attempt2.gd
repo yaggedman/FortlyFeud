@@ -1,6 +1,14 @@
 extends Node2D
 
 #each tile is 216x216 pixels
+## TO DO:
+## - Sprite following mouse
+## - Import Syleboxes of tile buttons, and change their texture based on GameBoard array
+## - Moveable Traders
+## - Turn order
+## - Win conditions!!!
+## - Make mini-menu work again
+## - Side menu animations again
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -56,6 +64,23 @@ var PieceSelectionCheck = {
 	"FfCelticWall": false,
 }
 
+var FriendlyPieceNumberRef = { #describes what value each piece takes in the FriendlyGameBoardArray
+	"FfCelticFort" = 1,
+	"FfCelticTrader" = 2,
+	"FfCelticWall" = 3,
+	"FfNormanFort" = 3,
+	"FfNormanTrader" = 3,
+	"FfNormanWall" = 3
+}
+var EnemyPieceNumberRef = { #describes what value each piece takes in the EnemyGameBoardArray
+	"FfCelticFort" = 3,
+	"FfCelticTrader" = 3,
+	"FfCelticWall" = 3,
+	"FfNormanFort" = 1,
+	"FfNormanTrader" = 2,
+	"FfNormanWall" = 3
+}
+
 var HoldingItem: bool = false
 
 func _ready():
@@ -80,13 +105,34 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 			else:
 				print(menupiece, " not found in dictionary") # debug, piece does not exist in the dictionary
 	print(PieceSelectionCheck) # prints all pieces and whether they are selected or not (true/false)
+	
+	
 
 func _on_tile_button_pressed(tilebutton):
 	print("tile ", tilebutton.name, " selected") # debug - prints selected tile to console
-	if HoldingItem == true: # only runs code if the player has a tile selected
+	
+	if HoldingItem == true: # only runs code if the player has a piece selected
 		for Piece in PieceSelectionCheck: # runs through all pieces, and selects the piece that has been chosen from the piece menu
 			if PieceSelectionCheck[Piece] == true:
 				print (Piece, " placed on tile ", tilebutton.name) # debug - prints name of piece and tile it has been placed on to console
-				for tile in TilesDict:
-					if TilesDict.has(tilebutton):
-						pass # append to array
+				
+				var indices = TilesDict[tilebutton.name] # gets the [row,col] from dictionary of selected tile
+				var row = int(indices[0]) - 1 # convert to 0-based index
+				var col = int(indices[1]) - 1 # convert to 0-based index
+				
+				if row >= 0 and row < 5 and col >= 0 and col <5: #only runs if the index is valid
+					
+					if FriendlyGameBoardArray[row][col] == 0:
+						FriendlyGameBoardArray[row][col] = FriendlyPieceNumberRef[Piece] # appends the piece number to the correct array location
+						print("Updated Board: ", FriendlyGameBoardArray) # prints to console
+					
+					if EnemyGameBoardArray[row][col] == 0:
+						EnemyGameBoardArray[row][col] = EnemyPieceNumberRef[Piece] # appends the piece number to the correct array location
+						print("Updated Board: ", EnemyGameBoardArray) # prints to console
+					else:
+						print("tile: ", tilebutton, " already occupied!")
+					
+				else:
+					print("Invalid tile indices:", row, col) # debug
+					
+		HoldingItem = false # allows another piece to be picked up
