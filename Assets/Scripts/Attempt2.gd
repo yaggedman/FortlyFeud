@@ -2,7 +2,7 @@ extends Node2D
 
 #each tile is 216x216 pixels
 ## TO DO:
-## - Sprite following mouse
+## - discard selected menu piece on right click
 ## - Import Syleboxes of tile buttons, and change their texture based on GameBoard array
 ## - Moveable Traders
 ## - Turn order
@@ -81,7 +81,28 @@ var EnemyPieceNumberRef = { #describes what value each piece takes in the EnemyG
 	"FfNormanWall" = 3
 }
 
+var PieceTextureDict = {
+	"FfCelticFort": preload("res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png"),
+	"FfCelticTrader": preload("res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png"),
+	"FfCelticWall": preload("res://Assets/Sprites/NewSprites/FF_Wall_Bright.png"),
+	"FfNormanFort": preload("res://Assets/Sprites/NewSprites/FF_NormanFort_Bright.png"),
+	"FfNormanTrader": preload("res://Assets/Sprites/NewSprites/FF_NormanTrader_Bright.png"),
+	"FfNormanWall": preload("res://Assets/Sprites/NewSprites/FF_Wall_Bright.png")
+}
+
+var stylebox_dict = { # need to connect this to tile buttons
+	"FfNormanFort": preload("res://Assets/Textures/StyleBoxes/FfNormanFort_SB.tres"),
+	"FfNormanTrader": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_SB.tres"),
+	"FfNormanWall": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"),
+	"FfCelticFort": preload("res://Assets/Textures/StyleBoxes/FfCelticFort_SB.tres"),
+	"FfCelticTrader": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_SB.tres"),
+	"FfCelticWall": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"),
+	"FfCelticTrader_Hover": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_Hover_SB.tres"),
+	"FfNormanTrader_Hover": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_Hover_SB.tres")
+}
+
 var HoldingItem: bool = false
+var SpriteFollowingMouse: Sprite2D = null
 
 func _ready():
 	## gets buttons in the button group, and connects the pressed signal with argument button
@@ -106,6 +127,29 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 				print(menupiece, " not found in dictionary") # debug, piece does not exist in the dictionary
 	print(PieceSelectionCheck) # prints all pieces and whether they are selected or not (true/false)
 	
+func _input(event: InputEvent) -> void: #on right click, discard piece
+	if event is InputEventMouseButton:
+		if event.button_index == MOUSE_BUTTON_RIGHT and SpriteFollowingMouse != null:
+			SpriteFollowingMouse.queue_free() #kills the child
+			for key in PieceSelectionCheck.keys():
+				PieceSelectionCheck[key] = false #sets all pieces to not selected
+			SpriteFollowingMouse = null #resets so there is no sprite attached to mouse
+			HoldingItem = false
+	
+func _process(float) -> void:
+	var mousepos : Vector2 = get_viewport().get_mouse_position()
+	if HoldingItem == true and SpriteFollowingMouse == null:
+		SpriteFollowingMouse = Sprite2D.new()
+		for Piece in PieceSelectionCheck:
+			if PieceSelectionCheck[Piece] == true:
+				SpriteFollowingMouse.name = str(Piece) + "_following_mouse"
+				#print(SpriteFollowingMouse.name) - debug, prints the name of the new child
+				SpriteFollowingMouse.texture = PieceTextureDict[Piece] #sets the texture
+				SpriteFollowingMouse.z_index = 5
+				add_child(SpriteFollowingMouse)
+	if SpriteFollowingMouse:
+		SpriteFollowingMouse.position = mousepos
+	
 	
 
 func _on_tile_button_pressed(tilebutton):
@@ -125,6 +169,13 @@ func _on_tile_button_pressed(tilebutton):
 					if FriendlyGameBoardArray[row][col] == 0:
 						FriendlyGameBoardArray[row][col] = FriendlyPieceNumberRef[Piece] # appends the piece number to the correct array location
 						print("Updated Board: ", FriendlyGameBoardArray) # prints to console
+						
+						SpriteFollowingMouse.queue_free() # deletes piece attached to mouse
+						SpriteFollowingMouse = null # resets sprite holder so another piece can be selected
+						HoldingItem = false # allows another piece to be picked up
+						
+						for key in PieceSelectionCheck.keys():
+							PieceSelectionCheck[key] = false #sets all pieces to not selected
 					
 					if EnemyGameBoardArray[row][col] == 0:
 						EnemyGameBoardArray[row][col] = EnemyPieceNumberRef[Piece] # appends the piece number to the correct array location
@@ -135,4 +186,5 @@ func _on_tile_button_pressed(tilebutton):
 				else:
 					print("Invalid tile indices:", row, col) # debug
 					
-		HoldingItem = false # allows another piece to be picked up
+		
+		
