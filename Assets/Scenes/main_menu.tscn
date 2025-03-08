@@ -1,6 +1,6 @@
 [gd_scene load_steps=16 format=3 uid="uid://cwijcfykga1so"]
 
-[ext_resource type="Script" path="res://Assets/Scenes/main_menu.gd" id="1_4xi4l"]
+[ext_resource type="Script" uid="uid://cy2r1llwovxg4" path="res://Assets/Scenes/main_menu.gd" id="1_4xi4l"]
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="3_lrdwn"]
 [ext_resource type="Texture2D" uid="uid://bx1tvadvty6s3" path="res://Assets/Sprites/doublefixbuttonblank.png" id="6_ak0x1"]
 [ext_resource type="Texture2D" uid="uid://ejrr4n6tbdo5" path="res://Assets/Sprites/FF_Logo.png" id="7_j3vxe"]
@@ -62,8 +62,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_2k23w"]
 _data = {
-"BGScroll": SubResource("Animation_5u15f"),
-"RESET": SubResource("Animation_axbpx")
+&"BGScroll": SubResource("Animation_5u15f"),
+&"RESET": SubResource("Animation_axbpx")
 }
 
 [node name="Control" type="Control"]
@@ -231,7 +231,7 @@ texture = ExtResource("7_vot0k")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
 libraries = {
-"": SubResource("AnimationLibrary_2k23w")
+&"": SubResource("AnimationLibrary_2k23w")
 }
 autoplay = "BGScroll"
 

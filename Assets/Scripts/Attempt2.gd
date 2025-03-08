@@ -2,7 +2,6 @@ extends Node2D
 
 #each tile is 216x216 pixels
 ## TO DO:
-## - discard selected menu piece on right click
 ## - Import Syleboxes of tile buttons, and change their texture based on GameBoard array
 ## - Moveable Traders
 ## - Turn order
@@ -103,6 +102,7 @@ var stylebox_dict = { # need to connect this to tile buttons
 
 var HoldingItem: bool = false
 var SpriteFollowingMouse: Sprite2D = null
+var turnordercount: int = 1
 
 func _ready():
 	## gets buttons in the button group, and connects the pressed signal with argument button
@@ -116,6 +116,15 @@ func _ready():
 	for PieceSelectionKey in PieceSelectionCheck.keys(): # sets all pieces to be deselected on game start-up
 		PieceSelectionCheck[PieceSelectionKey] = false
 		
+func turnorder():
+	UpdateBoardTextures()
+	turnordercount += 1
+	if turnordercount %2 == 0:
+		print("it is the Celt's turn")
+	else:
+		print("it is the Norman's turn")
+	
+
 func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when menu piece selected
 	if HoldingItem == false: # only runs code if hand is empty
 		print(menupiece.name, " pressed! Waiting for tile selection or discard") # debug - prints selected piece to console
@@ -166,13 +175,24 @@ func _on_tile_button_pressed(tilebutton):
 				
 				if row >= 0 and row < 5 and col >= 0 and col <5: #only runs if the index is valid
 					
+					if turnordercount %2 == 0:
+						tilebutton.set_meta("piece_type", "celt")
+						UpdateBoardTextures()
+					else:
+						tilebutton.set_meta("piece_type", "norman")
+						UpdateBoardTextures()
+							
 					if FriendlyGameBoardArray[row][col] == 0:
 						FriendlyGameBoardArray[row][col] = FriendlyPieceNumberRef[Piece] # appends the piece number to the correct array location
 						print("Updated Board: ", FriendlyGameBoardArray) # prints to console
 						
 						SpriteFollowingMouse.queue_free() # deletes piece attached to mouse
+						UpdateBoardTextures()
 						SpriteFollowingMouse = null # resets sprite holder so another piece can be selected
 						HoldingItem = false # allows another piece to be picked up
+							
+						if Piece != "FfCelticWall" and Piece != "FfNormanWall":
+							turnorder()
 						
 						for key in PieceSelectionCheck.keys():
 							PieceSelectionCheck[key] = false #sets all pieces to not selected
@@ -180,6 +200,9 @@ func _on_tile_button_pressed(tilebutton):
 					if EnemyGameBoardArray[row][col] == 0:
 						EnemyGameBoardArray[row][col] = EnemyPieceNumberRef[Piece] # appends the piece number to the correct array location
 						print("Updated Board: ", EnemyGameBoardArray) # prints to console
+						tilebutton.set_meta("piece_type", "celt")
+						UpdateBoardTextures()
+						
 					else:
 						print("tile: ", tilebutton, " already occupied!")
 					
@@ -188,3 +211,38 @@ func _on_tile_button_pressed(tilebutton):
 					
 		
 		
+func UpdateBoardTextures():
+	for tile_name in TilesDict.keys(): #loops through tile button names in dict
+		var indices = TilesDict[tile_name] # gets [row, col] from dictionary
+		var row = int(indices[0]) - 1
+		var col = int(indices[1]) - 1
+		
+		if row >= 0 and row < 5 and col >= 0 and col <5: # debug - prevents glitches from invalid indices
+			var piece_number = FriendlyGameBoardArray[row][col] # gets the piece number from the array
+			var enemy_piece_number = EnemyGameBoardArray[row][col]
+			
+			var piece_name = null
+			var is_friendly = false
+			
+			if piece_number != 0:
+				var tilebutton = get_node_or_null("FfMapBigger/%s" % tile_name)
+				if tilebutton.get_meta("piece_type") == "norman": #only updates stylebox if there is a piece on the board
+					for piece in FriendlyPieceNumberRef.keys(): # this chunk finds the piece name from the FriendlyPieceNumberRef
+						if FriendlyPieceNumberRef[piece] == piece_number:
+							piece_name = piece
+							is_friendly = true
+							break
+					
+				elif tilebutton.get_meta("piece_type") == "celt":
+					for enemypiece in EnemyPieceNumberRef.keys():
+						if EnemyPieceNumberRef[enemypiece] == enemy_piece_number:
+							piece_name = enemypiece
+							is_friendly = false
+							break
+				
+				if piece_name and stylebox_dict.has(piece_name):
+					var tile_button = get_node_or_null("FfMapBigger/%s" % tile_name) # Find the button by name
+					if tile_button:
+						tile_button.add_theme_stylebox_override("normal", stylebox_dict[piece_name])
+						tile_button.add_theme_stylebox_override("hover", stylebox_dict[piece_name]) # changes stylebox of button
+						print("Updated tile", tile_name, "with stylebox for", piece_name)

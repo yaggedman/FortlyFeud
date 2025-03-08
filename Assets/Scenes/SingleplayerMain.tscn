@@ -1,6 +1,6 @@
 [gd_scene load_steps=64 format=3 uid="uid://ca4lidcpn805y"]
 
-[ext_resource type="Script" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
+[ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
 [ext_resource type="Texture2D" uid="uid://ch03fwovjpced" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="3_bjcie"]
 [ext_resource type="Texture2D" uid="uid://p0v515l1k4ae" path="res://Assets/Sprites/pieceselectpopup.png" id="3_w6ky2"]
@@ -121,9 +121,9 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j5v4b"]
 _data = {
-"EnemyCollapsePieceMenu": SubResource("Animation_o7osr"),
-"EnemyPieceSelectReveal": SubResource("Animation_a17lq"),
-"RESET": SubResource("Animation_p707u")
+&"EnemyCollapsePieceMenu": SubResource("Animation_o7osr"),
+&"EnemyPieceSelectReveal": SubResource("Animation_a17lq"),
+&"RESET": SubResource("Animation_p707u")
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g7buy"]
@@ -213,8 +213,8 @@ tracks/0/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sx8x4"]
 _data = {
-"PieceSelectReveal": SubResource("Animation_gj5ho"),
-"RESET": SubResource("Animation_k34eg")
+&"PieceSelectReveal": SubResource("Animation_gj5ho"),
+&"RESET": SubResource("Animation_k34eg")
 }
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_spmop"]
@@ -307,7 +307,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_3bar1")
 [node name="EnemyCollapsePieceMenu" type="AnimationPlayer" parent="EnemyPieceselectpopup2"]
 root_node = NodePath("../EnemyPieceSelectCollapseButton")
 libraries = {
-"": SubResource("AnimationLibrary_j5v4b")
+&"": SubResource("AnimationLibrary_j5v4b")
 }
 autoplay = "EnemyPieceSelectReveal"
 
@@ -366,7 +366,7 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_3bar1")
 
 [node name="CollapsePieceMenu" type="AnimationPlayer" parent="FriendlyPieceselectpopup"]
 libraries = {
-"": SubResource("AnimationLibrary_sx8x4")
+&"": SubResource("AnimationLibrary_sx8x4")
 }
 autoplay = "PieceSelectReveal"
 
