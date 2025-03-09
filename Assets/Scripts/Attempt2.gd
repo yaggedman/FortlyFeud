@@ -2,7 +2,6 @@ extends Node2D
 
 #each tile is 216x216 pixels
 ## TO DO:
-## - Import Syleboxes of tile buttons, and change their texture based on GameBoard array
 ## - Moveable Traders
 ## - Turn order
 ## - Win conditions!!!
@@ -117,7 +116,6 @@ func _ready():
 		PieceSelectionCheck[PieceSelectionKey] = false
 		
 func turnorder():
-	UpdateBoardTextures()
 	turnordercount += 1
 	if turnordercount %2 == 0:
 		print("it is the Celt's turn")
@@ -126,6 +124,7 @@ func turnorder():
 	
 
 func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when menu piece selected
+	UpdateBoardTextures()
 	if HoldingItem == false: # only runs code if hand is empty
 		print(menupiece.name, " pressed! Waiting for tile selection or discard") # debug - prints selected piece to console
 		for Piece in PieceSelectionCheck: # loops through all pieces
@@ -162,6 +161,7 @@ func _process(float) -> void:
 	
 
 func _on_tile_button_pressed(tilebutton):
+	UpdateBoardTextures()
 	print("tile ", tilebutton.name, " selected") # debug - prints selected tile to console
 	
 	if HoldingItem == true: # only runs code if the player has a piece selected
@@ -174,23 +174,23 @@ func _on_tile_button_pressed(tilebutton):
 				var col = int(indices[1]) - 1 # convert to 0-based index
 				
 				if row >= 0 and row < 5 and col >= 0 and col <5: #only runs if the index is valid
-					
+					UpdateBoardTextures()
 					if turnordercount %2 == 0:
 						tilebutton.set_meta("piece_type", "celt")
-						UpdateBoardTextures()
+
 					else:
 						tilebutton.set_meta("piece_type", "norman")
-						UpdateBoardTextures()
+						
 							
 					if FriendlyGameBoardArray[row][col] == 0:
 						FriendlyGameBoardArray[row][col] = FriendlyPieceNumberRef[Piece] # appends the piece number to the correct array location
 						print("Updated Board: ", FriendlyGameBoardArray) # prints to console
 						
+						
 						SpriteFollowingMouse.queue_free() # deletes piece attached to mouse
-						UpdateBoardTextures()
 						SpriteFollowingMouse = null # resets sprite holder so another piece can be selected
 						HoldingItem = false # allows another piece to be picked up
-							
+						UpdateBoardTextures()
 						if Piece != "FfCelticWall" and Piece != "FfNormanWall":
 							turnorder()
 						
@@ -200,7 +200,8 @@ func _on_tile_button_pressed(tilebutton):
 					if EnemyGameBoardArray[row][col] == 0:
 						EnemyGameBoardArray[row][col] = EnemyPieceNumberRef[Piece] # appends the piece number to the correct array location
 						print("Updated Board: ", EnemyGameBoardArray) # prints to console
-						tilebutton.set_meta("piece_type", "celt")
+						#tilebutton.set_meta("piece_type", "celt")
+						
 						UpdateBoardTextures()
 						
 					else:
@@ -245,4 +246,4 @@ func UpdateBoardTextures():
 					if tile_button:
 						tile_button.add_theme_stylebox_override("normal", stylebox_dict[piece_name])
 						tile_button.add_theme_stylebox_override("hover", stylebox_dict[piece_name]) # changes stylebox of button
-						print("Updated tile", tile_name, "with stylebox for", piece_name)
+						print("Updated tile", tile_name, "with stylebox for ", piece_name)
