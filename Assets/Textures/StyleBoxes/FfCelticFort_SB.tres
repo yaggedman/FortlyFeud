@@ -1,6 +1,6 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bmk23dl1reove"]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://ctwcukyuuwlc3"]
 
-[ext_resource type="Texture2D" uid="uid://b4yd7rfync3ii" path="res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png" id="1_103r4"]
+[ext_resource type="Texture2D" uid="uid://6vd5s7cdcfom" path="res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png" id="1_15ap3"]
 
 [resource]
-texture = ExtResource("1_103r4")
+texture = ExtResource("1_15ap3")

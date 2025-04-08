@@ -2,12 +2,12 @@
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
-[ext_resource type="Texture2D" uid="uid://ch03fwovjpced" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="3_bjcie"]
+[ext_resource type="Texture2D" uid="uid://ch03fwovjpced" path="res://Assets/Sprites/NewSprites/FF_NormanTrader_Bright.png" id="3_bjcie"]
 [ext_resource type="Texture2D" uid="uid://p0v515l1k4ae" path="res://Assets/Sprites/pieceselectpopup.png" id="3_w6ky2"]
 [ext_resource type="Texture2D" uid="uid://cqno4kkabvloa" path="res://Assets/Sprites/NewSprites/FF_Wall_Bright.png" id="4_t08gy"]
-[ext_resource type="Texture2D" uid="uid://b4yd7rfync3ii" path="res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png" id="5_rbioo"]
-[ext_resource type="Texture2D" uid="uid://6vd5s7cdcfom" path="res://Assets/Sprites/NewSprites/FF_NormanFort_Bright.png" id="6_0hqmo"]
-[ext_resource type="Texture2D" uid="uid://cb01udofepe7f" path="res://Assets/Sprites/NewSprites/FF_NormanTrader_Bright.png" id="7_roc48"]
+[ext_resource type="Texture2D" uid="uid://b4yd7rfync3ii" path="res://Assets/Sprites/NewSprites/FF_NormanFort_Bright.png" id="5_rbioo"]
+[ext_resource type="Texture2D" uid="uid://6vd5s7cdcfom" path="res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png" id="6_0hqmo"]
+[ext_resource type="Texture2D" uid="uid://cb01udofepe7f" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="7_roc48"]
 [ext_resource type="Texture2D" uid="uid://cw4t4p0qxybdt" path="res://Assets/Sprites/FF_Map_V02.png" id="8_6fmkx"]
 [ext_resource type="Texture2D" uid="uid://bdyhnl2k6uasm" path="res://Assets/Sprites/NewSprites/minimenubutton.png" id="10_xju2p"]
 [ext_resource type="Texture2D" uid="uid://3k08hniiwxem" path="res://Assets/Sprites/buttonblankfix.png" id="11_h13b6"]
@@ -260,7 +260,7 @@ texture = ExtResource("3_w6ky2")
 centered = false
 flip_h = true
 
-[node name="FfNormanFort" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
+[node name="FfCelticFort" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 offset_left = 12.75
 offset_top = 10.0
 offset_right = 34.75
@@ -271,7 +271,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_jva5i")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_tinvn")
 theme_override_styles/normal = SubResource("StyleBoxTexture_g02d7")
 
-[node name="FfNormanTrader" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
+[node name="FfCelticTrader" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 offset_left = 12.0
 offset_top = 44.5
 offset_right = 35.0
@@ -282,7 +282,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_iocm1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_gdt3t")
 theme_override_styles/normal = SubResource("StyleBoxTexture_mn2ep")
 
-[node name="FfNormanWall" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
+[node name="FfCelticWall" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 offset_left = 12.0
 offset_top = 82.625
 offset_right = 35.0
@@ -317,7 +317,7 @@ position = Vector2(152, 529.333)
 scale = Vector2(8, 8)
 texture = ExtResource("3_w6ky2")
 
-[node name="FfCelticTrader" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
+[node name="FfNormanTrader" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
 z_index = 1
 offset_left = -13.75
 offset_top = -9.79163
@@ -329,7 +329,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_06jdv")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_t6qui")
 theme_override_styles/normal = SubResource("StyleBoxTexture_iutmy")
 
-[node name="FfCelticWall" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
+[node name="FfNormanWall" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
 z_index = 1
 offset_left = -13.5
 offset_top = 28.7084
@@ -341,7 +341,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_6omu4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_5hptv")
 theme_override_styles/normal = SubResource("StyleBoxTexture_b7sxe")
 
-[node name="FfCelticFort" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
+[node name="FfNormanFort" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
 z_index = 1
 offset_left = -15.5
 offset_top = -47.0416

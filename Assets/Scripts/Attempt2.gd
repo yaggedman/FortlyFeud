@@ -62,7 +62,7 @@ var PieceSelectionCheck = {
 	"FfCelticWall": false,
 }
 
-var FriendlyPieceNumberRef = { #describes what value each piece takes in the FriendlyGameBoardArray
+var EnemyPieceNumberRef = { #describes what value each piece takes in the EnemyGameBoardArray
 	"FfCelticFort" = 1,
 	"FfCelticTrader" = 2,
 	"FfCelticWall" = 3,
@@ -70,7 +70,7 @@ var FriendlyPieceNumberRef = { #describes what value each piece takes in the Fri
 	"FfNormanTrader" = 3,
 	"FfNormanWall" = 3
 }
-var EnemyPieceNumberRef = { #describes what value each piece takes in the EnemyGameBoardArray
+var FriendlyPieceNumberRef = { #describes what value each piece takes in the FriendlyGameBoardArray
 	"FfCelticFort" = 3,
 	"FfCelticTrader" = 3,
 	"FfCelticWall" = 3,
@@ -94,7 +94,7 @@ var stylebox_dict = { # need to connect this to tile buttons
 	"FfNormanWall": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"),
 	"FfCelticFort": preload("res://Assets/Textures/StyleBoxes/FfCelticFort_SB.tres"),
 	"FfCelticTrader": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_SB.tres"),
-	"FfCelticWall": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"),
+	"FfCelticWall": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"), # this uses the norman SB because I messed up the celtic one
 	"FfCelticTrader_Hover": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_Hover_SB.tres"),
 	"FfNormanTrader_Hover": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_Hover_SB.tres")
 }
@@ -214,6 +214,14 @@ func _on_tile_button_pressed(tilebutton):
 		
 func UpdateBoardTextures():
 	for tile_name in TilesDict.keys(): #loops through tile button names in dict
+		
+		print("updating ", tile_name, " texture...") #debug message
+		
+		var tilebutton = get_node_or_null("FfMapBigger/%s" % tile_name)
+		var PieceMetaData = tilebutton.get_meta("piece_type")
+		
+		print(tile_name, " meta data is ", PieceMetaData) #debug message
+		
 		var indices = TilesDict[tile_name] # gets [row, col] from dictionary
 		var row = int(indices[0]) - 1
 		var col = int(indices[1]) - 1
@@ -226,8 +234,8 @@ func UpdateBoardTextures():
 			var is_friendly = false
 			
 			if piece_number != 0:
-				var tilebutton = get_node_or_null("FfMapBigger/%s" % tile_name)
-				if tilebutton.get_meta("piece_type") == "norman": #only updates stylebox if there is a piece on the board
+				#var tilebutton = get_node_or_null("FfMapBigger/%s" % tile_name)
+				if tilebutton.get_meta("piece_type") == "norman": #if the tile button  is norman, use the friendly array
 					for piece in FriendlyPieceNumberRef.keys(): # this chunk finds the piece name from the FriendlyPieceNumberRef
 						if FriendlyPieceNumberRef[piece] == piece_number:
 							piece_name = piece
@@ -242,8 +250,8 @@ func UpdateBoardTextures():
 							break
 				
 				if piece_name and stylebox_dict.has(piece_name):
-					var tile_button = get_node_or_null("FfMapBigger/%s" % tile_name) # Find the button by name
-					if tile_button:
-						tile_button.add_theme_stylebox_override("normal", stylebox_dict[piece_name])
-						tile_button.add_theme_stylebox_override("hover", stylebox_dict[piece_name]) # changes stylebox of button
+					#var tile_button = get_node_or_null("FfMapBigger/%s" % tile_name) # Find the button by name
+					if tilebutton:
+						tilebutton.add_theme_stylebox_override("normal", stylebox_dict[piece_name])
+						tilebutton.add_theme_stylebox_override("hover", stylebox_dict[piece_name]) # changes stylebox of button
 						print("Updated tile", tile_name, "with stylebox for ", piece_name)

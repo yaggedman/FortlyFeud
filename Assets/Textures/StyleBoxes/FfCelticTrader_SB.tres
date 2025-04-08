@@ -1,6 +1,6 @@
-[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://co12iw5gw3rf6"]
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://1yk2mtscl5qy"]
 
-[ext_resource type="Texture2D" uid="uid://ch03fwovjpced" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="1_ls2ld"]
+[ext_resource type="Texture2D" uid="uid://cb01udofepe7f" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="1_xc52o"]
 
 [resource]
-texture = ExtResource("1_ls2ld")
+texture = ExtResource("1_xc52o")
