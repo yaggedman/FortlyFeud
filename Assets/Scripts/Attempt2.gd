@@ -64,18 +64,18 @@ var PieceSelectionCheck = {
 var EnemyPieceNumberRef = { #describes what value each piece takes in the EnemyGameBoardArray
 	"FfCelticFort" = 1,
 	"FfCelticTrader" = 2,
-	"FfCelticWall" = 3,
+	"FfCelticWall" = 4,
 	"FfNormanFort" = 3,
 	"FfNormanTrader" = 3,
-	"FfNormanWall" = 3
+	"FfNormanWall" = 4
 }
 var FriendlyPieceNumberRef = { #describes what value each piece takes in the FriendlyGameBoardArray
 	"FfCelticFort" = 3,
 	"FfCelticTrader" = 3,
-	"FfCelticWall" = 3,
+	"FfCelticWall" = 4,
 	"FfNormanFort" = 1,
 	"FfNormanTrader" = 2,
-	"FfNormanWall" = 3
+	"FfNormanWall" = 4
 }
 
 var PieceTextureDict = {
@@ -235,7 +235,7 @@ func UpdateBoardTextures():
 		#print("updating ", tile_name, " texture...") #debug message
 		
 		var tilebutton = get_node_or_null("FfMapBigger/%s" % tile_name)
-		#var PieceMetaData = tilebutton.get_meta("piece_type")
+		var PieceMetaData = tilebutton.get_meta("piece_type")
 		
 		#print(tile_name, " meta data is ", PieceMetaData) #debug message
 		
@@ -250,13 +250,20 @@ func UpdateBoardTextures():
 			var piece_name = null
 			var is_friendly = false
 			
-			if piece_number != 0:
+			if piece_number == 4:
+				var wallstylebox = preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres")
+				var wallstyleboxhover = preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres")
+				tilebutton.add_theme_stylebox_override("normal", wallstylebox)
+				tilebutton.add_theme_stylebox_override("hover", wallstylebox)
+				
+			if piece_number != 0 and piece_number !=4:
 				#var tilebutton = get_node_or_null("FfMapBigger/%s" % tile_name)
 				if tilebutton.get_meta("piece_type") == "norman": #if the tile button  is norman, use the friendly array
 					for piece in FriendlyPieceNumberRef.keys(): # this chunk finds the piece name from the FriendlyPieceNumberRef
 						if FriendlyPieceNumberRef[piece] == piece_number:
 							piece_name = piece
 							is_friendly = true
+							print("piece is friendly!")
 							break
 					
 				elif tilebutton.get_meta("piece_type") == "celt":
@@ -264,6 +271,7 @@ func UpdateBoardTextures():
 						if EnemyPieceNumberRef[enemypiece] == enemy_piece_number:
 							piece_name = enemypiece
 							is_friendly = false
+							print("piece is enemy!")
 							break
 				
 				if piece_name and stylebox_dict.has(piece_name):
@@ -273,7 +281,7 @@ func UpdateBoardTextures():
 						tilebutton.add_theme_stylebox_override("hover", stylebox_dict[piece_name]) # changes stylebox of button
 						print("Updated tile", tile_name, 	"with stylebox for ", piece_name)
 						
-			else: #this sets stylebox of empty tiles, useful for when traders are picked up
+			elif piece_number != 4: #this sets stylebox of empty tiles, useful for when traders are picked up
 				var new_stylebox = preload("res://Assets/Textures/StyleBoxes/FfEmpty.tres")
 				var new_stylebox_hover = preload("res://Assets/Textures/StyleBoxes/FfEmptyHover.tres")
 				tilebutton.add_theme_stylebox_override("normal", new_stylebox)
