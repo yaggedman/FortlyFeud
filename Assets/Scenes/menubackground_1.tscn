@@ -41,3 +41,4 @@ script = ExtResource("2_tnds8")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
 sprite_frames = SubResource("SpriteFrames_ks20j")
 frame_progress = 0.865531
+speed_scale = 100.0
