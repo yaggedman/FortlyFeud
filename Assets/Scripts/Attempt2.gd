@@ -3,9 +3,9 @@ extends Node2D
 #each tile is 216x216 pixels
 ## TO DO:
 ## - Moveable Traders
-## - Win conditions!!!
 ## - Make mini-menu work again
 ## - Side menu animations again
+## - Win conditions!!!
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board

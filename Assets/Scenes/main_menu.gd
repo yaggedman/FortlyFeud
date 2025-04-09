@@ -1,7 +1,7 @@
 extends Control
 
 func _ready():
-	pass
+	$AudioStreamPlayer2D.playing = true
 	
 
 #SinglePlayer Button
