@@ -2,11 +2,9 @@ extends Node2D
 
 #each tile is 216x216 pixels
 ## TO DO:
-## - Moveable Traders - Done I think?
 ## - Inventory
-## - Make mini-menu work again
-## - Side menu animations again
 ## - Win conditions!!!
+## - restart/quit buttons in mini menu
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -102,8 +100,12 @@ var stylebox_dict = { # need to connect this to tile buttons
 var HoldingItem: bool = false
 var SpriteFollowingMouse: Sprite2D = null
 var turnordercount: int = 1
+var FriendlyMenuShut = false
+var EnemyMenuShut = false
+var minimenushut = true
 
 func _ready():
+	
 	## gets buttons in the button group, and connects the pressed signal with argument button
 	for tilebutton in get_tree().get_nodes_in_group("TileButtons"):
 		tilebutton.pressed.connect(Callable(self, "_on_tile_button_pressed").bind(tilebutton))
@@ -348,3 +350,55 @@ func InvisibleCheck():
 		var col = int(indices[1]) - 1
 		FriendlyGameBoardArray[row][col] = 0
 		EnemyGameBoardArray[row][col] = 0
+
+###################~MENU CODE~################################
+
+func _on_piece_select_collapse_button_pressed() -> void: #on side menu button toggle, hide/show the piece side menu (friendly side)
+	if FriendlyMenuShut == false:
+		$FriendlyPieceselectpopup/CollapsePieceMenu.play_backwards("PieceSelectReveal")
+		FriendlyMenuShut = true
+		
+	elif FriendlyMenuShut == true:
+		$FriendlyPieceselectpopup/CollapsePieceMenu.play("PieceSelectReveal")
+		FriendlyMenuShut = false
+		
+
+func _on_enemy_piece_select_collapse_button_pressed() -> void: #on side menu button toggle, hide/show the piece side menu (enemy side)
+	if EnemyMenuShut == false:
+		$EnemyPieceselectpopup2/EnemyCollapsePieceMenu.play_backwards("EnemyPieceSelectReveal")
+		EnemyMenuShut = true
+		
+	elif EnemyMenuShut == true:
+		$EnemyPieceselectpopup2/EnemyCollapsePieceMenu.play("EnemyPieceSelectReveal")
+		EnemyMenuShut = false
+
+
+func _on_mini_menu_button_pressed() -> void: #toggles mini menu (in the top right)
+	if minimenushut == true:
+		$Buttonblankfix.visible = true
+		minimenushut = false
+		
+	elif minimenushut == false:
+		$Buttonblankfix.visible = false
+		minimenushut = true
+
+func _on_mini_menu_resume_pressed() -> void: #toggles mini menu from the resume button in the mini menu
+	if minimenushut == false:
+		$Buttonblankfix.visible = false
+		minimenushut = true
+	else:
+		print("error: mini menu shut but resume button pressed!")
+		
+
+func _on_mini_menu_quit_pressed() -> void:
+	if minimenushut == false:
+		get_tree().change_scene_to_file("res://Assets/Scenes/main_menu.tscn")
+	else:
+		print("error: mini menu shut but quit button pressed!")
+	
+	
+func _on_mini_menu_restart_pressed() -> void:
+	if minimenushut == false:
+		get_tree().reload_current_scene()
+	else:
+		print("error: mini menu shut but restart button pressed!")

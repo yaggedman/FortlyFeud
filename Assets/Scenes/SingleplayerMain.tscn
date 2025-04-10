@@ -1,4 +1,4 @@
-[gd_scene load_steps=64 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=65 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
@@ -9,6 +9,7 @@
 [ext_resource type="Texture2D" uid="uid://6vd5s7cdcfom" path="res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png" id="6_0hqmo"]
 [ext_resource type="Texture2D" uid="uid://cb01udofepe7f" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="7_roc48"]
 [ext_resource type="Texture2D" uid="uid://cw4t4p0qxybdt" path="res://Assets/Sprites/FF_Map_V02.png" id="8_6fmkx"]
+[ext_resource type="Script" uid="uid://dt8kdt3qvhw75" path="res://Assets/Scenes/piece_select_collapse_button.gd" id="8_6tynu"]
 [ext_resource type="Texture2D" uid="uid://bdyhnl2k6uasm" path="res://Assets/Sprites/NewSprites/minimenubutton.png" id="10_xju2p"]
 [ext_resource type="Texture2D" uid="uid://3k08hniiwxem" path="res://Assets/Sprites/buttonblankfix.png" id="11_h13b6"]
 [ext_resource type="Texture2D" uid="uid://dnwmrnwtxf4wg" path="res://Assets/Sprites/NewSprites/minimenu.png" id="12_vcfak"]
@@ -101,7 +102,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2667),
 "transitions": PackedFloat32Array(2.37, 3.36),
 "update": 0,
-"values": [Vector2(1872, 88), Vector2(1633, 88)]
+"values": [Vector2(1840, 88), Vector2(1610, 88)]
 }
 
 [sub_resource type="Animation" id="Animation_p707u"]
@@ -193,7 +194,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2667),
 "transitions": PackedFloat32Array(2.37841, 3.36359),
 "update": 0,
-"values": [Vector2(-92, 529.333), Vector2(148, 529.333)]
+"values": [Vector2(-92, 529.333), Vector2(140, 529.333)]
 }
 
 [sub_resource type="Animation" id="Animation_k34eg"]
@@ -363,6 +364,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_wdjhr")
 theme_override_styles/hover = SubResource("StyleBoxTexture_4iswa")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_4iswa")
 theme_override_styles/normal = SubResource("StyleBoxTexture_3bar1")
+script = ExtResource("8_6tynu")
 
 [node name="CollapsePieceMenu" type="AnimationPlayer" parent="FriendlyPieceselectpopup"]
 libraries = {
@@ -371,7 +373,7 @@ libraries = {
 autoplay = "PieceSelectReveal"
 
 [node name="FfMapBigger" type="Sprite2D" parent="."]
-position = Vector2(968, 540)
+position = Vector2(957, 540)
 texture = ExtResource("8_6fmkx")
 
 [node name="1_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
@@ -467,9 +469,9 @@ offset_bottom = -65.0
 
 [node name="3_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 123.0
+offset_left = 131.0
 offset_top = -85.0
-offset_right = 143.0
+offset_right = 151.0
 offset_bottom = -65.0
 
 [node name="3_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
