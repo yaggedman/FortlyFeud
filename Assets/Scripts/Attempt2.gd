@@ -3,8 +3,8 @@ extends Node2D
 #each tile is 216x216 pixels
 ## TO DO:
 ## - Inventory
-## - Win conditions!!!
-## - restart/quit buttons in mini menu
+## - Win conditions!!
+## - bug when discarding traders
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -159,6 +159,7 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 				PieceSelectionCheck[key] = false #sets all pieces to not selected
 			SpriteFollowingMouse = null #resets so there is no sprite attached to mouse
 			HoldingItem = false
+			InvisibleCheck()
 	
 func _process(float) -> void:
 	var mousepos : Vector2 = get_viewport().get_mouse_position()
