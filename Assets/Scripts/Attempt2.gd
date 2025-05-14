@@ -5,6 +5,7 @@ extends Node2D
 ## - Inventory
 ## - Win conditions!!
 ## - bug when discarding traders
+## - Currently working on determining whether there is a trader already on the board
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -159,9 +160,11 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 				PieceSelectionCheck[key] = false #sets all pieces to not selected
 			SpriteFollowingMouse = null #resets so there is no sprite attached to mouse
 			HoldingItem = false
-			InvisibleCheck()
+			#InvisibleCheck()
 	
 func _process(float) -> void:
+	#PlaceNewTrader() #debug
+	#matrix_search() #debug
 	var mousepos : Vector2 = get_viewport().get_mouse_position()
 	if HoldingItem == true and SpriteFollowingMouse == null:
 		SpriteFollowingMouse = Sprite2D.new()
@@ -174,22 +177,24 @@ func _process(float) -> void:
 				add_child(SpriteFollowingMouse)
 	if SpriteFollowingMouse:
 		SpriteFollowingMouse.position = mousepos
+		#print(SpriteFollowingMouse.name)
 	
 	
 
 func _on_tile_button_pressed(tilebutton):
+	
 	UpdateBoardTextures()
 	print("tile ", tilebutton.name, " selected") # debug - prints selected tile to console 
 	
 	#if HoldingItem == false: #when no piece is selected from menu and tile is selected, run the moveable trader script
-	TraderMove(tilebutton)
+	#TraderMove(tilebutton)
 		
 	
 	if HoldingItem == true: # only runs code if the player has a piece selected
 		for Piece in PieceSelectionCheck: # runs through all pieces, and selects the piece that has been chosen from the piece menu
 			if PieceSelectionCheck[Piece] == true:
 				print (Piece, " placed on tile ", tilebutton.name) # debug - prints name of piece and tile it has been placed on to console
-				
+				PlaceNewTrader()
 				var indices = TilesDict[tilebutton.name] # gets the [row,col] from dictionary of selected tile
 				var row = int(indices[0]) - 1 # convert to 0-based index
 				var col = int(indices[1]) - 1 # convert to 0-based index
@@ -204,16 +209,18 @@ func _on_tile_button_pressed(tilebutton):
 						
 							
 					if FriendlyGameBoardArray[row][col] == 0:
+					
+						
 						
 						FriendlyGameBoardArray[row][col] = FriendlyPieceNumberRef[Piece] # appends the piece number to the correct array location
-						print("Updated Board: ", FriendlyGameBoardArray) # prints to console
+						print("Updated Friendly Board: ", FriendlyGameBoardArray) # prints to console
 						
 						
 						SpriteFollowingMouse.queue_free() # deletes piece attached to mouse
 						SpriteFollowingMouse = null # resets sprite holder so another piece can be selected
 						HoldingItem = false # allows another piece to be picked up
 						UpdateBoardTextures()
-						InvisibleCheck()
+						#InvisibleCheck()
 						if Piece != "FfCelticWall" and Piece != "FfNormanWall":
 							turnorder()
 						
@@ -221,13 +228,13 @@ func _on_tile_button_pressed(tilebutton):
 							PieceSelectionCheck[key] = false #sets all pieces to not selected
 					
 					if EnemyGameBoardArray[row][col] == 0:
-								
+					
 						EnemyGameBoardArray[row][col] = EnemyPieceNumberRef[Piece] # appends the piece number to the correct array location
-						print("Updated Board: ", EnemyGameBoardArray) # prints to console
+						print("Updated Enemy Board: ", EnemyGameBoardArray) # prints to console
 						#tilebutton.set_meta("piece_type", "celt")
 						
 						UpdateBoardTextures()
-						InvisibleCheck()
+						#InvisibleCheck()
 						
 					else:
 						print("tile: ", tilebutton, " already occupied!")
@@ -240,6 +247,8 @@ func _on_tile_button_pressed(tilebutton):
 		
 		
 func UpdateBoardTextures():
+	
+	
 
 			
 	for tile_name in TilesDict.keys(): #loops through tile button names in dict
@@ -261,6 +270,13 @@ func UpdateBoardTextures():
 			
 			var piece_name = null
 			var is_friendly = false
+		
+			if enemy_piece_number == 0:
+				var new_stylebox = preload("res://Assets/Textures/StyleBoxes/FfEmpty.tres")
+				var new_stylebox_hover = preload("res://Assets/Textures/StyleBoxes/FfEmptyHover.tres")
+				tilebutton.add_theme_stylebox_override("normal", new_stylebox)
+				tilebutton.add_theme_stylebox_override("hover", new_stylebox_hover)
+				
 			
 			if piece_number == 4: #specifcally updates wall textures
 				var wallstylebox = preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres")
@@ -293,64 +309,104 @@ func UpdateBoardTextures():
 						tilebutton.add_theme_stylebox_override("hover", stylebox_dict[piece_name]) # changes stylebox of button
 						print("Updated tile", tile_name, 	"with stylebox for ", piece_name)
 						
-			elif piece_number != 4: #this sets stylebox of empty tiles, useful for when traders are picked up
+			elif piece_number != 4 or enemy_piece_number !=4: #this sets stylebox of empty tiles, useful for when traders are picked up
 				var new_stylebox = preload("res://Assets/Textures/StyleBoxes/FfEmpty.tres")
 				var new_stylebox_hover = preload("res://Assets/Textures/StyleBoxes/FfEmptyHover.tres")
 				tilebutton.add_theme_stylebox_override("normal", new_stylebox)
 				tilebutton.add_theme_stylebox_override("hover", new_stylebox_hover)
-
-func TraderMove(tilebutton):
-	
-	print("no piece selected! checking if ", tilebutton.name, " has a trader...")
-	
-	var indices = TilesDict[tilebutton.name] # gets [row, col] from dictionary
-	var row = int(indices[0]) - 1
-	var col = int(indices[1]) - 1
-	
-	if turnordercount %2 == 0: # if it's the celt's turn
-		var enemy_piece_number = EnemyGameBoardArray[row][col]
-		
-		if enemy_piece_number == 2:
-			tilebutton.visible = false
-			HoldingItem = true
-			print("tile is a celtic trader, picking up piece...")
-			PieceSelectionCheck["FfCelticTrader"] = true
-		else:
-			print ("tile is not a celtic trader")
-	else: #if it is the norman's turn
-		var piece_number = FriendlyGameBoardArray[row][col]
-		
-		if piece_number == 2:
-			tilebutton.visible = false
-			HoldingItem = true
-			print("tile is a norman trader, picking up piece...")
-			PieceSelectionCheck["FfNormanTrader"] = true
-			#FriendlyGameBoardArray[row][col] = 0 #does this too early...
-			UpdateBoardTextures()
+				
 			
-		else:
-			print("tile is not a norman trader")
+				
+func PlaceNewTrader():
+	#if HoldingItem == true: # only runs code if the player has a piece selected
+	for menupiece in PieceSelectionCheck:
+			#print (menupiece)
+		if PieceSelectionCheck[menupiece] == true and menupiece == ("FfCelticTrader"):
+			print("Celtic Trader Selected")
+			find_enemy_traders()
+				
+		elif PieceSelectionCheck[menupiece] == true and menupiece == ("FfNormanTrader"):
+			print("Norman Trader Selected")
+			find_friendly_traders()
 			
-func InvisibleCheck():
-	var buttons = get_tree().get_nodes_in_group("TileButtons")
-	var any_hidden = false
-	var hidden_button = null
-	
-	for button in buttons:
-		if not button.visible:
-			any_hidden = true
-			hidden_button = button
-			break
-	if any_hidden:
-		for button in buttons:
-			button.visible = true
-	
-	if hidden_button != null:
-		var indices = TilesDict[hidden_button.name] # gets [row, col] from dictionary
-		var row = int(indices[0]) - 1
-		var col = int(indices[1]) - 1
-		FriendlyGameBoardArray[row][col] = 0
-		EnemyGameBoardArray[row][col] = 0
+func find_friendly_traders():
+	for y in range(FriendlyGameBoardArray.size()):
+		for x in range(FriendlyGameBoardArray[y].size()):
+			if FriendlyGameBoardArray[y][x] == 2:
+				FriendlyGameBoardArray[y][x] = 0
+				UpdateBoardTextures()
+				
+func find_enemy_traders():
+	for y in range(EnemyGameBoardArray.size()):
+		for x in range(EnemyGameBoardArray[y].size()):
+			if EnemyGameBoardArray[y][x] == 2:
+				EnemyGameBoardArray[y][x] = 0
+				UpdateBoardTextures()
+				if SpriteFollowingMouse != null:
+					SpriteFollowingMouse = null
+				
+				
+				#for button in get_tree().get_nodes_in_group("TileButtons"):
+					#if button is Button:
+						#var current_stylebox = button.get_theme_stylebox("normal") or button.get_stylebox("normal")
+				#
+						#if current_stylebox == preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_SB.tres"):
+							#print("Trader already exists!")
+		#else:
+			#print("not a norman trader")
+		
+#func TraderMove(tilebutton):
+	#
+	#print("no piece selected! checking if ", tilebutton.name, " has a trader...")
+	#
+	#var indices = TilesDict[tilebutton.name] # gets [row, col] from dictionary
+	#var row = int(indices[0]) - 1
+	#var col = int(indices[1]) - 1
+	#
+	#if turnordercount %2 == 0: # if it's the celt's turn
+		#var enemy_piece_number = EnemyGameBoardArray[row][col]
+		#
+		#if enemy_piece_number == 2:
+			#tilebutton.visible = false
+			#HoldingItem = true
+			#print("tile is a celtic trader, picking up piece...")
+			#PieceSelectionCheck["FfCelticTrader"] = true
+		#else:
+			#print ("tile is not a celtic trader")
+	#else: #if it is the norman's turn
+		#var piece_number = FriendlyGameBoardArray[row][col]
+		#
+		#if piece_number == 2:
+			#tilebutton.visible = false
+			#HoldingItem = true
+			#print("tile is a norman trader, picking up piece...")
+			#PieceSelectionCheck["FfNormanTrader"] = true
+			##FriendlyGameBoardArray[row][col] = 0 #does this too early...
+			#UpdateBoardTextures()
+			#
+		#else:
+			#print("tile is not a norman trader")
+			#
+#func InvisibleCheck():
+	#var buttons = get_tree().get_nodes_in_group("TileButtons")
+	#var any_hidden = false
+	#var hidden_button = null
+	#
+	#for button in buttons:
+		#if not button.visible:
+			#any_hidden = true
+			#hidden_button = button
+			#break
+	#if any_hidden:
+		#for button in buttons:
+			#button.visible = true
+	#
+	#if hidden_button != null:
+		#var indices = TilesDict[hidden_button.name] # gets [row, col] from dictionary
+		#var row = int(indices[0]) - 1
+		#var col = int(indices[1]) - 1
+		#FriendlyGameBoardArray[row][col] = 0
+		#EnemyGameBoardArray[row][col] = 0
 
 ###################~MENU CODE~################################
 
