@@ -4,8 +4,7 @@ extends Node2D
 ## TO DO:
 ## - Inventory
 ## - Win conditions!!
-## - bug when discarding traders
-## - Currently working on determining whether there is a trader already on the board
+## "Advance Turn" button. instead of automatic turn order
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -221,6 +220,7 @@ func _on_tile_button_pressed(tilebutton):
 						HoldingItem = false # allows another piece to be picked up
 						UpdateBoardTextures()
 						#InvisibleCheck()
+						HoldingItem = false
 						if Piece != "FfCelticWall" and Piece != "FfNormanWall":
 							turnorder()
 						
@@ -235,6 +235,8 @@ func _on_tile_button_pressed(tilebutton):
 						
 						UpdateBoardTextures()
 						#InvisibleCheck()
+						for key in PieceSelectionCheck.keys():
+							PieceSelectionCheck[key] = false #sets all pieces to not selected
 						
 					else:
 						print("tile: ", tilebutton, " already occupied!")
@@ -323,10 +325,12 @@ func PlaceNewTrader():
 			#print (menupiece)
 		if PieceSelectionCheck[menupiece] == true and menupiece == ("FfCelticTrader"):
 			print("Celtic Trader Selected")
+			PieceSelectionCheck[menupiece] = false
 			find_enemy_traders()
 				
 		elif PieceSelectionCheck[menupiece] == true and menupiece == ("FfNormanTrader"):
 			print("Norman Trader Selected")
+			PieceSelectionCheck[menupiece] = false
 			find_friendly_traders()
 			
 func find_friendly_traders():
@@ -334,6 +338,7 @@ func find_friendly_traders():
 		for x in range(FriendlyGameBoardArray[y].size()):
 			if FriendlyGameBoardArray[y][x] == 2:
 				FriendlyGameBoardArray[y][x] = 0
+				EnemyGameBoardArray[y][x] = 0
 				UpdateBoardTextures()
 				
 func find_enemy_traders():
@@ -341,9 +346,9 @@ func find_enemy_traders():
 		for x in range(EnemyGameBoardArray[y].size()):
 			if EnemyGameBoardArray[y][x] == 2:
 				EnemyGameBoardArray[y][x] = 0
+				FriendlyGameBoardArray[y][x] = 0
 				UpdateBoardTextures()
-				if SpriteFollowingMouse != null:
-					SpriteFollowingMouse = null
+				
 				
 				
 				#for button in get_tree().get_nodes_in_group("TileButtons"):
