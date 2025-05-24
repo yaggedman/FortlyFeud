@@ -5,6 +5,7 @@ extends Node2D
 ## - Inventory
 ## - Win conditions!!
 ## "Advance Turn" button. instead of automatic turn order
+## - Add in animation of hammer over old trader
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -78,15 +79,15 @@ var FriendlyPieceNumberRef = { #describes what value each piece takes in the Fri
 }
 
 var PieceTextureDict = {
-	"FfCelticFort": preload("res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png"),
-	"FfCelticTrader": preload("res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png"),
+	"FfCelticFort": preload("res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Fort_Norman_Red.png"),
+	"FfCelticTrader": preload("res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Trader_Norman_Red.png"),
 	"FfCelticWall": preload("res://Assets/Sprites/NewSprites/FF_Wall_Bright.png"),
-	"FfNormanFort": preload("res://Assets/Sprites/NewSprites/FF_NormanFort_Bright.png"),
-	"FfNormanTrader": preload("res://Assets/Sprites/NewSprites/FF_NormanTrader_Bright.png"),
+	"FfNormanFort": preload("res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Fort_Celtic_Blue.png"),
+	"FfNormanTrader": preload("res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Trader_Celtic_Red.png"),
 	"FfNormanWall": preload("res://Assets/Sprites/NewSprites/FF_Wall_Bright.png")
 }
 
-var stylebox_dict = { # need to connect this to tile buttons
+var stylebox_dict = {
 	"FfNormanFort": preload("res://Assets/Textures/StyleBoxes/FfNormanFort_SB.tres"),
 	"FfNormanTrader": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_SB.tres"),
 	"FfNormanWall": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"),
@@ -131,12 +132,26 @@ func turnorder(): # decides turn order, and disables buttons when it's not your 
 		$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
 		$EnemyPieceselectpopup2/FfCelticFort.disabled = false
 		$EnemyPieceselectpopup2/FfCelticTrader.disabled = false
+		for InventoryPiece in EnemyInventory:
+			if InventoryPiece == "FfCelticWall" and EnemyInventory["FfCelticWall"] <= 0:
+				$EnemyPieceselectpopup2/FfCelticWall.disabled = true
 	else:
 		print("it is the Norman's turn")
 		$EnemyPieceselectpopup2/FfCelticFort.disabled = true
 		$EnemyPieceselectpopup2/FfCelticTrader.disabled = true
 		$FriendlyPieceselectpopup/FfNormanFort.disabled = false
 		$FriendlyPieceselectpopup/FfNormanTrader.disabled = false
+		for InventoryPiece in FriendlyInventory:
+			if InventoryPiece == "FfNormanWall" and FriendlyInventory["FfNormanWall"] <= 0:
+				$FriendlyPieceselectpopup/FfNormanWall.disabled = true
+		
+var FriendlyInventory = {
+	"FfNormanWall" = 1
+}
+
+var EnemyInventory = {
+	"FfCelticWall" = 2
+}
 	
 
 func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when menu piece selected
@@ -160,6 +175,8 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 			SpriteFollowingMouse = null #resets so there is no sprite attached to mouse
 			HoldingItem = false
 			#InvisibleCheck()
+	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
+		_on_mini_menu_button_pressed()
 	
 func _process(float) -> void:
 	#PlaceNewTrader() #debug
@@ -172,7 +189,9 @@ func _process(float) -> void:
 				SpriteFollowingMouse.name = str(Piece) + "_following_mouse"
 				#print(SpriteFollowingMouse.name) - debug, prints the name of the new child
 				SpriteFollowingMouse.texture = PieceTextureDict[Piece] #sets the texture
-				SpriteFollowingMouse.z_index = 5
+				if Piece != "FfCelticWall" and Piece != "FfNormanWall":
+					SpriteFollowingMouse.z_index = 5
+					SpriteFollowingMouse.scale = Vector2(8,8)
 				add_child(SpriteFollowingMouse)
 	if SpriteFollowingMouse:
 		SpriteFollowingMouse.position = mousepos
@@ -190,6 +209,7 @@ func _on_tile_button_pressed(tilebutton):
 		
 	
 	if HoldingItem == true: # only runs code if the player has a piece selected
+		
 		for Piece in PieceSelectionCheck: # runs through all pieces, and selects the piece that has been chosen from the piece menu
 			if PieceSelectionCheck[Piece] == true:
 				print (Piece, " placed on tile ", tilebutton.name) # debug - prints name of piece and tile it has been placed on to console
@@ -223,7 +243,24 @@ func _on_tile_button_pressed(tilebutton):
 						HoldingItem = false
 						if Piece != "FfCelticWall" and Piece != "FfNormanWall":
 							turnorder()
+							
+						if Piece == "FfCelticWall":
+							EnemyInventory[Piece] -= 1
+							for InventoryPiece in EnemyInventory:
+								if InventoryPiece == "FfCelticWall" and EnemyInventory["FfCelticWall"] <= 0:
+									$EnemyPieceselectpopup2/FfCelticWall.disabled = true
 						
+						if Piece == "FfNormanWall":
+							FriendlyInventory[Piece] -= 1
+							for InventoryPiece in FriendlyInventory:
+								if InventoryPiece == "FfNormanWall" and FriendlyInventory["FfNormanWall"] <= 0:
+									$FriendlyPieceselectpopup/FfNormanWall.disabled = true
+							
+							
+		
+		
+							
+
 						for key in PieceSelectionCheck.keys():
 							PieceSelectionCheck[key] = false #sets all pieces to not selected
 					

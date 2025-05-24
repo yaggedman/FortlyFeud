@@ -1,9 +1,9 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cavdsy20qi4cq"]
 
-[ext_resource type="Texture2D" uid="uid://cb01udofepe7f" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="1_dxsgi"]
+[ext_resource type="Texture2D" uid="uid://cnf7mvqih4n2x" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Trader_Norman_Red.png" id="1_07q20"]
 
 [resource]
-texture = ExtResource("1_dxsgi")
+texture = ExtResource("1_07q20")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0

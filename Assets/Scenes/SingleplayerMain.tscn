@@ -2,15 +2,15 @@
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
-[ext_resource type="Texture2D" uid="uid://ch03fwovjpced" path="res://Assets/Sprites/NewSprites/FF_NormanTrader_Bright.png" id="3_bjcie"]
+[ext_resource type="Texture2D" uid="uid://bls2usgh6vgtu" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Fort_Norman_Red.png" id="3_6tynu"]
 [ext_resource type="Texture2D" uid="uid://p0v515l1k4ae" path="res://Assets/Sprites/pieceselectpopup.png" id="3_w6ky2"]
+[ext_resource type="Texture2D" uid="uid://cnf7mvqih4n2x" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Trader_Norman_Red.png" id="4_37q80"]
 [ext_resource type="Texture2D" uid="uid://cqno4kkabvloa" path="res://Assets/Sprites/NewSprites/FF_Wall_Bright.png" id="4_t08gy"]
-[ext_resource type="Texture2D" uid="uid://b4yd7rfync3ii" path="res://Assets/Sprites/NewSprites/FF_NormanFort_Bright.png" id="5_rbioo"]
-[ext_resource type="Texture2D" uid="uid://6vd5s7cdcfom" path="res://Assets/Sprites/NewSprites/FF_CelticFort_Bright.png" id="6_0hqmo"]
-[ext_resource type="Texture2D" uid="uid://cb01udofepe7f" path="res://Assets/Sprites/NewSprites/FF_CelticTrader_Bright.png" id="7_roc48"]
+[ext_resource type="Texture2D" uid="uid://bb1bgpqmqbjcq" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Trader_Celtic_Red.png" id="6_cyndr"]
+[ext_resource type="Texture2D" uid="uid://vqwq6t6s2doc" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Fort_Celtic_Blue.png" id="7_degjt"]
 [ext_resource type="Texture2D" uid="uid://cw4t4p0qxybdt" path="res://Assets/Sprites/FF_Map_V02.png" id="8_6fmkx"]
 [ext_resource type="Script" uid="uid://dt8kdt3qvhw75" path="res://Assets/Scenes/piece_select_collapse_button.gd" id="8_6tynu"]
-[ext_resource type="Texture2D" uid="uid://bdyhnl2k6uasm" path="res://Assets/Sprites/NewSprites/minimenubutton.png" id="10_xju2p"]
+[ext_resource type="Texture2D" uid="uid://dkt3x8k6pj6tm" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_MenuButton.png" id="11_6tynu"]
 [ext_resource type="Texture2D" uid="uid://3k08hniiwxem" path="res://Assets/Sprites/buttonblankfix.png" id="11_h13b6"]
 [ext_resource type="Texture2D" uid="uid://dnwmrnwtxf4wg" path="res://Assets/Sprites/NewSprites/minimenu.png" id="12_vcfak"]
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="13_3oggu"]
@@ -19,40 +19,40 @@
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfhj0"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mjvv5"]
-texture = ExtResource("6_0hqmo")
+texture = ExtResource("3_6tynu")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_jva5i"]
-texture = ExtResource("6_0hqmo")
+texture = ExtResource("3_6tynu")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_tinvn"]
-texture = ExtResource("6_0hqmo")
+texture = ExtResource("3_6tynu")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g02d7"]
-texture = ExtResource("6_0hqmo")
+texture = ExtResource("3_6tynu")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vkj7k"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d3ql3"]
-texture = ExtResource("7_roc48")
+texture = ExtResource("4_37q80")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iocm1"]
-texture = ExtResource("7_roc48")
+texture = ExtResource("4_37q80")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gdt3t"]
-texture = ExtResource("7_roc48")
+texture = ExtResource("4_37q80")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mn2ep"]
-texture = ExtResource("7_roc48")
+texture = ExtResource("4_37q80")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_w57qp"]
 
@@ -130,21 +130,21 @@ _data = {
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_g7buy"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_txb0p"]
-texture = ExtResource("3_bjcie")
+texture = ExtResource("6_cyndr")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_06jdv"]
-texture = ExtResource("3_bjcie")
+texture = ExtResource("6_cyndr")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_t6qui"]
-texture = ExtResource("3_bjcie")
+texture = ExtResource("6_cyndr")
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_iutmy"]
-texture = ExtResource("3_bjcie")
+texture = ExtResource("6_cyndr")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r38ql"]
 
@@ -168,18 +168,18 @@ texture = ExtResource("4_t08gy")
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_n8xow"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_g56lv"]
-texture = ExtResource("5_rbioo")
+texture = ExtResource("7_degjt")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_6f7yy"]
-texture = ExtResource("5_rbioo")
+texture = ExtResource("7_degjt")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_48mej"]
-texture = ExtResource("5_rbioo")
+texture = ExtResource("7_degjt")
 
 [sub_resource type="Animation" id="Animation_gj5ho"]
 resource_name = "PieceSelectCollapse"
@@ -221,18 +221,18 @@ _data = {
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_spmop"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwqjl"]
-texture = ExtResource("10_xju2p")
+texture = ExtResource("11_6tynu")
 expand_margin_left = 2.0
 expand_margin_top = 2.0
 expand_margin_right = 2.0
 expand_margin_bottom = 2.0
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0yht5"]
-texture = ExtResource("10_xju2p")
+texture = ExtResource("11_6tynu")
 modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eamk4"]
-texture = ExtResource("10_xju2p")
+texture = ExtResource("11_6tynu")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1f3e4"]
 
@@ -552,10 +552,10 @@ offset_right = 360.0
 offset_bottom = 366.0
 
 [node name="MiniMenuButton" type="Button" parent="."]
-offset_left = 1763.0
-offset_top = 13.0
-offset_right = 1854.0
-offset_bottom = 104.0
+offset_left = 1744.0
+offset_top = 5.0
+offset_right = 1850.0
+offset_bottom = 111.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_spmop")
 theme_override_styles/hover = SubResource("StyleBoxTexture_vwqjl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_0yht5")

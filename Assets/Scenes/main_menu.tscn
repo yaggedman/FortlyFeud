@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://cy2r1llwovxg4" path="res://Assets/Scenes/main_menu.gd" id="1_4xi4l"]
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="3_lrdwn"]
+[ext_resource type="Texture2D" uid="uid://s06yyya27vcf" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/20252405_FFMainMenuLogo.png" id="4_fadmi"]
+[ext_resource type="Texture2D" uid="uid://ul3ln1onj7xu" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/20250524_FFMainMenuBG.png" id="5_shbfh"]
 [ext_resource type="Texture2D" uid="uid://bx1tvadvty6s3" path="res://Assets/Sprites/doublefixbuttonblank.png" id="6_ak0x1"]
 [ext_resource type="AudioStream" uid="uid://d12c6w06q7tau" path="res://Assets/Audio/Plague.mp3" id="6_fadmi"]
-[ext_resource type="Texture2D" uid="uid://ejrr4n6tbdo5" path="res://Assets/Sprites/FF_Logo.png" id="7_j3vxe"]
-[ext_resource type="Texture2D" uid="uid://dx4fk6hltqp0f" path="res://Assets/Sprites/FF_Menu.webp" id="7_vot0k"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_76pp1"]
 
@@ -175,7 +175,7 @@ text = "Quit"
 [node name="FfLogo" type="Sprite2D" parent="."]
 z_as_relative = false
 position = Vector2(963, 230)
-texture = ExtResource("7_j3vxe")
+texture = ExtResource("4_fadmi")
 region_enabled = true
 region_rect = Rect2(0, 0, 1920, 460.632)
 
@@ -200,7 +200,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_vot0k")
+texture = ExtResource("5_shbfh")
 
 [node name="TextureRect2" type="TextureRect" parent="Background"]
 show_behind_parent = true
@@ -214,7 +214,7 @@ offset_top = 1074.0
 offset_bottom = 1074.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_vot0k")
+texture = ExtResource("5_shbfh")
 
 [node name="TextureRect3" type="TextureRect" parent="Background"]
 show_behind_parent = true
@@ -228,7 +228,7 @@ offset_top = 2146.0
 offset_bottom = 2146.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("7_vot0k")
+texture = ExtResource("5_shbfh")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Background"]
 libraries = {

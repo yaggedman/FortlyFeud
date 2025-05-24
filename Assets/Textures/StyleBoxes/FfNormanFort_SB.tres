@@ -1,6 +1,6 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://bmk23dl1reove"]
 
-[ext_resource type="Texture2D" uid="uid://b4yd7rfync3ii" path="res://Assets/Sprites/NewSprites/FF_NormanFort_Bright.png" id="1_103r4"]
+[ext_resource type="Texture2D" uid="uid://vqwq6t6s2doc" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Fort_Celtic_Blue.png" id="1_heqiq"]
 
 [resource]
-texture = ExtResource("1_103r4")
+texture = ExtResource("1_heqiq")
