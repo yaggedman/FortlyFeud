@@ -11,8 +11,7 @@
 [ext_resource type="Texture2D" uid="uid://cw4t4p0qxybdt" path="res://Assets/Sprites/FF_Map_V02.png" id="8_6fmkx"]
 [ext_resource type="Script" uid="uid://dt8kdt3qvhw75" path="res://Assets/Scenes/piece_select_collapse_button.gd" id="8_6tynu"]
 [ext_resource type="Texture2D" uid="uid://dkt3x8k6pj6tm" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_MenuButton.png" id="11_6tynu"]
-[ext_resource type="Texture2D" uid="uid://3k08hniiwxem" path="res://Assets/Sprites/buttonblankfix.png" id="11_h13b6"]
-[ext_resource type="Texture2D" uid="uid://dnwmrnwtxf4wg" path="res://Assets/Sprites/NewSprites/minimenu.png" id="12_vcfak"]
+[ext_resource type="Texture2D" uid="uid://bd103odlxaft5" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/20252405_FFMiniMenu.png" id="12_6tynu"]
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="13_3oggu"]
 [ext_resource type="Texture2D" uid="uid://bx1tvadvty6s3" path="res://Assets/Sprites/doublefixbuttonblank.png" id="14_ytdcb"]
 
@@ -233,6 +232,8 @@ modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eamk4"]
 texture = ExtResource("11_6tynu")
+
+[sub_resource type="ImageTexture" id="ImageTexture_pm6sw"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1f3e4"]
 
@@ -565,22 +566,21 @@ theme_override_styles/normal = SubResource("StyleBoxTexture_eamk4")
 visible = false
 z_index = 200
 position = Vector2(976, 496)
-scale = Vector2(2.22738, 11.1341)
-texture = ExtResource("11_h13b6")
+texture = ExtResource("12_6tynu")
 
 [node name="Minimenu" type="Sprite2D" parent="Buttonblankfix"]
 z_index = 199
 position = Vector2(-3.59167, 4.31109)
 scale = Vector2(0.532129, 0.14264)
-texture = ExtResource("12_vcfak")
+texture = SubResource("ImageTexture_pm6sw")
 
 [node name="MiniMenuQuit" type="Button" parent="Buttonblankfix"]
 z_index = 201
-offset_left = -93.3835
-offset_top = 17.9629
-offset_right = 90.6165
-offset_bottom = 48.9629
-scale = Vector2(0.977363, 0.299059)
+offset_left = -284.0
+offset_top = 207.0
+offset_right = -100.0
+offset_bottom = 238.0
+scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("13_3oggu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
@@ -590,11 +590,11 @@ text = "quit"
 
 [node name="MiniMenuRestart" type="Button" parent="Buttonblankfix"]
 z_index = 201
-offset_left = -93.3835
-offset_top = 5.74812
-offset_right = 90.6165
-offset_bottom = 36.7481
-scale = Vector2(0.977363, 0.299059)
+offset_left = -284.0
+offset_top = 81.0
+offset_right = -100.0
+offset_bottom = 112.0
+scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("13_3oggu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
@@ -604,11 +604,11 @@ text = "restart"
 
 [node name="MiniMenuHTP" type="Button" parent="Buttonblankfix"]
 z_index = 201
-offset_left = -93.3835
-offset_top = -6.46663
-offset_right = 90.6165
-offset_bottom = 24.5334
-scale = Vector2(0.977363, 0.299059)
+offset_left = -284.0
+offset_top = -52.0
+offset_right = -100.0
+offset_bottom = -21.0
+scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("13_3oggu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
@@ -618,11 +618,11 @@ text = "how to play"
 
 [node name="MiniMenuOptions" type="Button" parent="Buttonblankfix"]
 z_index = 201
-offset_left = -93.3835
-offset_top = -18.6814
-offset_right = 90.6165
-offset_bottom = 12.3186
-scale = Vector2(0.977363, 0.299059)
+offset_left = -284.0
+offset_top = -184.0
+offset_right = -100.0
+offset_bottom = -153.0
+scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("13_3oggu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
@@ -632,11 +632,11 @@ text = "options"
 
 [node name="MiniMenuResume" type="Button" parent="Buttonblankfix"]
 z_index = 201
-offset_left = -93.3835
-offset_top = -32.3331
-offset_right = 90.6165
-offset_bottom = -1.33314
-scale = Vector2(0.977363, 0.299059)
+offset_left = -284.0
+offset_top = -311.0
+offset_right = -100.0
+offset_bottom = -280.0
+scale = Vector2(3, 3)
 theme_override_fonts/font = ExtResource("13_3oggu")
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
 theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
