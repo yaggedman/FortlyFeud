@@ -107,6 +107,9 @@ var minimenushut = true
 
 func _ready():
 	
+	$HammerAnimation.visible = false
+	$HammerAnimation.play("default")
+	
 	## gets buttons in the button group, and connects the pressed signal with argument button
 	for tilebutton in get_tree().get_nodes_in_group("TileButtons"):
 		tilebutton.pressed.connect(Callable(self, "_on_tile_button_pressed").bind(tilebutton))
@@ -160,6 +163,28 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 		print(menupiece.name, " pressed! Waiting for tile selection or discard") # debug - prints selected piece to console
 		for Piece in PieceSelectionCheck: # loops through all pieces
 			if PieceSelectionCheck.has(menupiece.name): # if the piece is valid
+				if menupiece.name == "FfNormanTrader":
+					
+					for y in range(FriendlyGameBoardArray.size()):
+						for x in range(FriendlyGameBoardArray[y].size()):
+							if FriendlyGameBoardArray[y][x] == 2:
+								var tile_name = str(y + 1) + "_" + str(x + 1)
+								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+								print("trader found at ", tile_name, ", position is ", tile_node.global_position)
+								$HammerAnimation.position = tile_node.global_position + Vector2(100,100)
+								$HammerAnimation.visible = true
+								
+				if menupiece.name == "FfCelticTrader":
+					
+					for y in range(EnemyGameBoardArray.size()):
+						for x in range(EnemyGameBoardArray[y].size()):
+							if EnemyGameBoardArray[y][x] == 2:
+								var tile_name = str(y + 1) + "_" + str(x + 1)
+								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+								print("trader found at ", tile_name, ", position is ", tile_node.global_position)
+								$HammerAnimation.position = tile_node.global_position + Vector2(100,100)
+								$HammerAnimation.visible = true
+								
 				PieceSelectionCheck[menupiece.name] = true # select that piece
 				HoldingItem = true # set holding status to true, prevents multiple valid selections
 			else:
@@ -193,6 +218,8 @@ func _process(float) -> void:
 					SpriteFollowingMouse.z_index = 5
 					SpriteFollowingMouse.scale = Vector2(8,8)
 				add_child(SpriteFollowingMouse)
+				if Piece == "FfCelticWall" or Piece == "FfNormanWall":
+					SpriteFollowingMouse.z_index = 5
 	if SpriteFollowingMouse:
 		SpriteFollowingMouse.position = mousepos
 		#print(SpriteFollowingMouse.name)
@@ -374,9 +401,13 @@ func find_friendly_traders():
 	for y in range(FriendlyGameBoardArray.size()):
 		for x in range(FriendlyGameBoardArray[y].size()):
 			if FriendlyGameBoardArray[y][x] == 2:
+				
+				
+				
 				FriendlyGameBoardArray[y][x] = 0
 				EnemyGameBoardArray[y][x] = 0
 				UpdateBoardTextures()
+				$HammerAnimation.visible = false
 				
 func find_enemy_traders():
 	for y in range(EnemyGameBoardArray.size()):
@@ -385,6 +416,7 @@ func find_enemy_traders():
 				EnemyGameBoardArray[y][x] = 0
 				FriendlyGameBoardArray[y][x] = 0
 				UpdateBoardTextures()
+				$HammerAnimation.visible = false
 				
 				
 				

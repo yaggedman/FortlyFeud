@@ -1,4 +1,4 @@
-[gd_scene load_steps=65 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=79 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://bd103odlxaft5" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/20252405_FFMiniMenu.png" id="12_6tynu"]
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="13_3oggu"]
 [ext_resource type="Texture2D" uid="uid://bx1tvadvty6s3" path="res://Assets/Sprites/doublefixbuttonblank.png" id="14_ytdcb"]
+[ext_resource type="Texture2D" uid="uid://caqahgetc40jt" path="res://Assets/Animations/20252904_FFHammerAnim.png" id="15_6tynu"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfhj0"]
 
@@ -250,6 +251,98 @@ modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_weisq"]
 texture = ExtResource("14_ytdcb")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_37q80"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(0, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cyndr"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(300, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_degjt"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(600, 0, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u075k"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(0, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mc503"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(300, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vf2r5"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(600, 300, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_288hg"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(0, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_gmbfm"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(300, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tqies"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(600, 600, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_c7l0v"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(0, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_cbthd"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(300, 900, 300, 300)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_tvj8r"]
+atlas = ExtResource("15_6tynu")
+region = Rect2(600, 900, 300, 300)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_w63gq"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_37q80")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cyndr")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_degjt")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u075k")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mc503")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vf2r5")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_288hg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_gmbfm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tqies")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_c7l0v")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cbthd")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_tvj8r")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_pa8vt")
@@ -643,6 +736,15 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
 theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
 text = "resume"
+
+[node name="HammerAnimation" type="AnimatedSprite2D" parent="."]
+z_index = 4
+position = Vector2(950, 537)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_w63gq")
+frame = 8
+frame_progress = 0.630394
+speed_scale = 2.0
 
 [connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
 [connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]
