@@ -1,4 +1,4 @@
-[gd_scene load_steps=79 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=94 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
@@ -15,6 +15,7 @@
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="13_3oggu"]
 [ext_resource type="Texture2D" uid="uid://bx1tvadvty6s3" path="res://Assets/Sprites/doublefixbuttonblank.png" id="14_ytdcb"]
 [ext_resource type="Texture2D" uid="uid://caqahgetc40jt" path="res://Assets/Animations/20252904_FFHammerAnim.png" id="15_6tynu"]
+[ext_resource type="Texture2D" uid="uid://w4iffjuyy1a0" path="res://Assets/Animations/20251406_FFSmokeAnim.png" id="16_37q80"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfhj0"]
 
@@ -341,7 +342,102 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
-"speed": 5.0
+"speed": 12.0
+}]
+
+[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_37q80"]
+blend_mode = 1
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_w63gq"]
+atlas = ExtResource("16_37q80")
+region = Rect2(0, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_emo1r"]
+atlas = ExtResource("16_37q80")
+region = Rect2(320, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u2adv"]
+atlas = ExtResource("16_37q80")
+region = Rect2(640, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_go4jv"]
+atlas = ExtResource("16_37q80")
+region = Rect2(960, 0, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hcbek"]
+atlas = ExtResource("16_37q80")
+region = Rect2(0, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_wkalj"]
+atlas = ExtResource("16_37q80")
+region = Rect2(320, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yntw2"]
+atlas = ExtResource("16_37q80")
+region = Rect2(640, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_u0kqg"]
+atlas = ExtResource("16_37q80")
+region = Rect2(960, 320, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yn50b"]
+atlas = ExtResource("16_37q80")
+region = Rect2(0, 640, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ahbk0"]
+atlas = ExtResource("16_37q80")
+region = Rect2(320, 640, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ysjiu"]
+atlas = ExtResource("16_37q80")
+region = Rect2(640, 640, 320, 320)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_uc3jy"]
+atlas = ExtResource("16_37q80")
+region = Rect2(960, 640, 320, 320)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_uc3jy"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_w63gq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_emo1r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u2adv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_go4jv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hcbek")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_wkalj")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yntw2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_u0kqg")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_yn50b")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ahbk0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ysjiu")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_uc3jy")
+}],
+"loop": false,
+"name": &"default",
+"speed": 12.0
 }]
 
 [node name="Main" type="Node2D"]
@@ -739,12 +835,20 @@ text = "resume"
 
 [node name="HammerAnimation" type="AnimatedSprite2D" parent="."]
 z_index = 4
-position = Vector2(950, 537)
+position = Vector2(2037, 1215)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_w63gq")
 frame = 8
-frame_progress = 0.630394
-speed_scale = 2.0
+frame_progress = 0.992838
+
+[node name="SmokeAnimation" type="AnimatedSprite2D" parent="."]
+modulate = Color(1, 1, 1, 0.996078)
+light_mask = 0
+material = SubResource("CanvasItemMaterial_37q80")
+position = Vector2(2150, 1080)
+scale = Vector2(0.5, 0.5)
+sprite_frames = SubResource("SpriteFrames_uc3jy")
+frame = 1
 
 [connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
 [connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]

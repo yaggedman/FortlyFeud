@@ -2,10 +2,8 @@ extends Node2D
 
 #each tile is 216x216 pixels
 ## TO DO:
-## - Inventory
 ## - Win conditions!!
 ## "Advance Turn" button. instead of automatic turn order
-## - Add in animation of hammer over old trader
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -109,6 +107,7 @@ func _ready():
 	
 	$HammerAnimation.visible = false
 	$HammerAnimation.play("default")
+	
 	
 	## gets buttons in the button group, and connects the pressed signal with argument button
 	for tilebutton in get_tree().get_nodes_in_group("TileButtons"):
@@ -391,6 +390,8 @@ func PlaceNewTrader():
 			print("Celtic Trader Selected")
 			PieceSelectionCheck[menupiece] = false
 			find_enemy_traders()
+			
+			
 				
 		elif PieceSelectionCheck[menupiece] == true and menupiece == ("FfNormanTrader"):
 			print("Norman Trader Selected")
@@ -401,7 +402,13 @@ func find_friendly_traders():
 	for y in range(FriendlyGameBoardArray.size()):
 		for x in range(FriendlyGameBoardArray[y].size()):
 			if FriendlyGameBoardArray[y][x] == 2:
-				
+			
+				var tile_name = str(y + 1) + "_" + str(x + 1)
+				var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+				print("trader found at ", tile_name, ", position is ", tile_node.global_position)
+				$SmokeAnimation.position = tile_node.global_position + Vector2(100,100)
+				$SmokeAnimation.visible = true
+				$SmokeAnimation.play("default")
 				
 				
 				FriendlyGameBoardArray[y][x] = 0
@@ -417,6 +424,13 @@ func find_enemy_traders():
 				FriendlyGameBoardArray[y][x] = 0
 				UpdateBoardTextures()
 				$HammerAnimation.visible = false
+				
+				var tile_name = str(y + 1) + "_" + str(x + 1)
+				var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+				print("trader found at ", tile_name, ", position is ", tile_node.global_position)
+				$SmokeAnimation.position = tile_node.global_position + Vector2(100,100)
+				$SmokeAnimation.visible = true
+				$SmokeAnimation.play("default")
 				
 				
 				
