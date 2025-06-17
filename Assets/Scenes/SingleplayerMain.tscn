@@ -1,4 +1,4 @@
-[gd_scene load_steps=94 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=109 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
@@ -15,7 +15,9 @@
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="13_3oggu"]
 [ext_resource type="Texture2D" uid="uid://bx1tvadvty6s3" path="res://Assets/Sprites/doublefixbuttonblank.png" id="14_ytdcb"]
 [ext_resource type="Texture2D" uid="uid://caqahgetc40jt" path="res://Assets/Animations/20252904_FFHammerAnim.png" id="15_6tynu"]
-[ext_resource type="Texture2D" uid="uid://w4iffjuyy1a0" path="res://Assets/Animations/20251406_FFSmokeAnim.png" id="16_37q80"]
+[ext_resource type="Texture2D" uid="uid://cobfn7rkt623f" path="res://Assets/Animations/20251406_FFSmokeAnimBright.png" id="16_37q80"]
+[ext_resource type="Texture2D" uid="uid://dtvj577ad7jfq" path="res://Assets/Sprites/20251706_FF_PLACEHOLDER_TacticalViewOFFButton.png" id="17_cyndr"]
+[ext_resource type="Texture2D" uid="uid://bvkssjggn4u75" path="res://Assets/Sprites/20251706_FF_PLACEHOLDER_TacticalViewONButton.png" id="18_degjt"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfhj0"]
 
@@ -345,8 +347,7 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="CanvasItemMaterial" id="CanvasItemMaterial_37q80"]
-blend_mode = 1
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_cyndr"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_w63gq"]
 atlas = ExtResource("16_37q80")
@@ -439,6 +440,69 @@ animations = [{
 "name": &"default",
 "speed": 12.0
 }]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_i7hoa"]
+atlas = ExtResource("17_cyndr")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e4rcx"]
+atlas = ExtResource("18_degjt")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xtmur"]
+atlas = ExtResource("18_degjt")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3fd66"]
+atlas = ExtResource("17_cyndr")
+region = Rect2(0, 0, 32, 16)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_xtmur"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_i7hoa")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e4rcx")
+}],
+"loop": false,
+"name": &"OffToOn",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xtmur")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3fd66")
+}],
+"loop": false,
+"name": &"OnToOff",
+"speed": 5.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_degjt"]
+
+[sub_resource type="Gradient" id="Gradient_degjt"]
+colors = PackedColorArray(0, 0, 0, 0.352941, 0, 0, 0, 0.352941)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_u075k"]
+gradient = SubResource("Gradient_degjt")
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mc503"]
+texture = SubResource("GradientTexture2D_u075k")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u075k"]
+bg_color = Color(0, 0, 0, 0.470588)
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf2r5"]
+
+[sub_resource type="Gradient" id="Gradient_u075k"]
+colors = PackedColorArray(0, 0, 0, 0.470588, 0, 0, 0, 0.470588)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mc503"]
+gradient = SubResource("Gradient_u075k")
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_pa8vt")
@@ -742,6 +806,7 @@ offset_right = 360.0
 offset_bottom = 366.0
 
 [node name="MiniMenuButton" type="Button" parent="."]
+z_index = 1
 offset_left = 1744.0
 offset_top = 5.0
 offset_right = 1850.0
@@ -844,11 +909,36 @@ frame_progress = 0.992838
 [node name="SmokeAnimation" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.996078)
 light_mask = 0
-material = SubResource("CanvasItemMaterial_37q80")
+z_index = 6
+material = SubResource("ShaderMaterial_cyndr")
 position = Vector2(2150, 1080)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_uc3jy")
-frame = 1
+frame = 11
+frame_progress = 1.0
+
+[node name="TacViewAnimation" type="AnimatedSprite2D" parent="."]
+z_index = 1
+position = Vector2(196, 49)
+scale = Vector2(6, 6)
+sprite_frames = SubResource("SpriteFrames_xtmur")
+animation = &"OffToOn"
+
+[node name="TacticalViewButton" type="Button" parent="TacViewAnimation"]
+offset_left = -16.0
+offset_top = -7.0
+offset_right = 16.0
+offset_bottom = 7.0
+theme_override_styles/focus = SubResource("StyleBoxEmpty_degjt")
+theme_override_styles/hover = SubResource("StyleBoxTexture_mc503")
+theme_override_styles/pressed = SubResource("StyleBoxFlat_u075k")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_vf2r5")
+
+[node name="TacViewGreyOverlay" type="Sprite2D" parent="."]
+visible = false
+position = Vector2(972, 537)
+scale = Vector2(33.1223, 20.2585)
+texture = SubResource("GradientTexture2D_mc503")
 
 [connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
 [connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]
@@ -856,3 +946,4 @@ frame = 1
 [connection signal="pressed" from="Buttonblankfix/MiniMenuQuit" to="." method="_on_mini_menu_quit_pressed"]
 [connection signal="pressed" from="Buttonblankfix/MiniMenuRestart" to="." method="_on_mini_menu_restart_pressed"]
 [connection signal="pressed" from="Buttonblankfix/MiniMenuResume" to="." method="_on_mini_menu_resume_pressed"]
+[connection signal="pressed" from="TacViewAnimation/TacticalViewButton" to="." method="_on_tactical_view_button_pressed"]

@@ -96,14 +96,24 @@ var stylebox_dict = {
 	"FfNormanTrader_Hover": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_Hover_SB.tres")
 }
 
+var tacview_stylebox_dict = {
+	"FfCelticFort": preload("res://Assets/Textures/StyleBoxes/TACVIEW_NormanFort.tres"),
+	"FfCelticTrader": preload("res://Assets/Textures/StyleBoxes/TACVIEW_NormanTrader.tres"),
+	"FfNormanFort": preload("res://Assets/Textures/StyleBoxes/TACVIEW_CelticFort.tres"),
+	"FfNormanTrader": preload("res://Assets/Textures/StyleBoxes/TACVIEW_CelticTrader.tres"),
+}
+
 var HoldingItem: bool = false
 var SpriteFollowingMouse: Sprite2D = null
 var turnordercount: int = 1
 var FriendlyMenuShut = false
 var EnemyMenuShut = false
 var minimenushut = true
+var tacticalview = false
 
 func _ready():
+	
+	tacticalview = false
 	
 	$HammerAnimation.visible = false
 	$HammerAnimation.play("default")
@@ -193,12 +203,17 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 func _input(event: InputEvent) -> void: #on right click, discard piece
 	if event is InputEventMouseButton:
 		if event.button_index == MOUSE_BUTTON_RIGHT and SpriteFollowingMouse != null:
+			
+			if $HammerAnimation.visible == true:
+				$HammerAnimation.visible = false
+				
 			SpriteFollowingMouse.queue_free() #kills the child
 			for key in PieceSelectionCheck.keys():
 				PieceSelectionCheck[key] = false #sets all pieces to not selected
 			SpriteFollowingMouse = null #resets so there is no sprite attached to mouse
 			HoldingItem = false
 			#InvisibleCheck()
+			
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		_on_mini_menu_button_pressed()
 	
@@ -367,11 +382,17 @@ func UpdateBoardTextures():
 							print("piece is enemy!")
 							break
 				
-				if piece_name and stylebox_dict.has(piece_name):
+				if piece_name and stylebox_dict.has(piece_name) and tacticalview == false:
 					#var tile_button = get_node_or_null("FfMapBigger/%s" % tile_name) # Find the button by name
 					if tilebutton:
 						tilebutton.add_theme_stylebox_override("normal", stylebox_dict[piece_name])
 						tilebutton.add_theme_stylebox_override("hover", stylebox_dict[piece_name]) # changes stylebox of button
+						print("Updated tile", tile_name, 	"with stylebox for ", piece_name)
+				
+				elif piece_name and tacview_stylebox_dict.has(piece_name) and tacticalview == true:
+					if tilebutton:
+						tilebutton.add_theme_stylebox_override("normal", tacview_stylebox_dict[piece_name])
+						tilebutton.add_theme_stylebox_override("hover", tacview_stylebox_dict[piece_name]) # changes stylebox of button
 						print("Updated tile", tile_name, 	"with stylebox for ", piece_name)
 						
 			elif piece_number != 4 or enemy_piece_number !=4: #this sets stylebox of empty tiles, useful for when traders are picked up
@@ -495,6 +516,8 @@ func find_enemy_traders():
 		#var col = int(indices[1]) - 1
 		#FriendlyGameBoardArray[row][col] = 0
 		#EnemyGameBoardArray[row][col] = 0
+		
+		
 
 ###################~MENU CODE~################################
 
@@ -547,3 +570,23 @@ func _on_mini_menu_restart_pressed() -> void:
 		get_tree().reload_current_scene()
 	else:
 		print("error: mini menu shut but restart button pressed!")
+
+
+func _on_tactical_view_button_pressed() -> void:
+	if tacticalview == false:
+		print("tactical view turned on")
+		$TacViewAnimation.play("OffToOn")
+		tacticalview = true
+		$TacViewGreyOverlay.visible = true
+		UpdateBoardTextures()
+		
+		
+	elif tacticalview == true:
+		print("tacitcal view turned off")
+		$TacViewAnimation.play("OnToOff")
+		tacticalview = false
+		$TacViewGreyOverlay.visible = false
+		UpdateBoardTextures()
+		
+		
+		
