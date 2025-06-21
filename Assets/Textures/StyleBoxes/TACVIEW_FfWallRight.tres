@@ -1,0 +1,6 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dc8aj3qm20ukn"]
+
+[ext_resource type="Texture2D" uid="uid://byxy66adkcvyp" path="res://Assets/Sprites/20252006_FFNewSizePack/20252006_FFGreyWallRightHighlightNewSize.png" id="1_ltxii"]
+
+[resource]
+texture = ExtResource("1_ltxii")

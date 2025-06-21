@@ -1,4 +1,4 @@
-[gd_scene load_steps=109 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=120 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="PackedScene" uid="uid://bm1od0dx7vw4h" path="res://Assets/Scenes/gameboardhovercolour.tscn" id="2_aygyd"]
@@ -8,16 +8,17 @@
 [ext_resource type="Texture2D" uid="uid://cqno4kkabvloa" path="res://Assets/Sprites/NewSprites/FF_Wall_Bright.png" id="4_t08gy"]
 [ext_resource type="Texture2D" uid="uid://bb1bgpqmqbjcq" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Trader_Celtic_Red.png" id="6_cyndr"]
 [ext_resource type="Texture2D" uid="uid://vqwq6t6s2doc" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Fort_Celtic_Blue.png" id="7_degjt"]
-[ext_resource type="Texture2D" uid="uid://cw4t4p0qxybdt" path="res://Assets/Sprites/FF_Map_V02.png" id="8_6fmkx"]
 [ext_resource type="Script" uid="uid://dt8kdt3qvhw75" path="res://Assets/Scenes/piece_select_collapse_button.gd" id="8_6tynu"]
+[ext_resource type="Texture2D" uid="uid://cjpt1pltq5xl5" path="res://Assets/Sprites/20252006_FFMapNewSize.png" id="9_u075k"]
 [ext_resource type="Texture2D" uid="uid://dkt3x8k6pj6tm" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_MenuButton.png" id="11_6tynu"]
 [ext_resource type="Texture2D" uid="uid://bd103odlxaft5" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/20252405_FFMiniMenu.png" id="12_6tynu"]
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="13_3oggu"]
 [ext_resource type="Texture2D" uid="uid://bx1tvadvty6s3" path="res://Assets/Sprites/doublefixbuttonblank.png" id="14_ytdcb"]
 [ext_resource type="Texture2D" uid="uid://caqahgetc40jt" path="res://Assets/Animations/20252904_FFHammerAnim.png" id="15_6tynu"]
 [ext_resource type="Texture2D" uid="uid://cobfn7rkt623f" path="res://Assets/Animations/20251406_FFSmokeAnimBright.png" id="16_37q80"]
-[ext_resource type="Texture2D" uid="uid://dtvj577ad7jfq" path="res://Assets/Sprites/20251706_FF_PLACEHOLDER_TacticalViewOFFButton.png" id="17_cyndr"]
-[ext_resource type="Texture2D" uid="uid://bvkssjggn4u75" path="res://Assets/Sprites/20251706_FF_PLACEHOLDER_TacticalViewONButton.png" id="18_degjt"]
+[ext_resource type="Texture2D" uid="uid://btniio62dhagf" path="res://Assets/Animations/FF_TacticalMap.png" id="17_cyndr"]
+[ext_resource type="Texture2D" uid="uid://uu3wqs4k7oaf" path="res://Assets/Animations/20251606_FFBlueTraderAntlineAnim.png" id="18_degjt"]
+[ext_resource type="Texture2D" uid="uid://ci1orhgd40vsk" path="res://Assets/Animations/20251606_FFRedTraderAntlineAnim.png" id="19_u075k"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfhj0"]
 
@@ -443,19 +444,19 @@ animations = [{
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_i7hoa"]
 atlas = ExtResource("17_cyndr")
-region = Rect2(0, 0, 32, 16)
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_e4rcx"]
-atlas = ExtResource("18_degjt")
-region = Rect2(0, 0, 32, 16)
+atlas = ExtResource("17_cyndr")
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_xtmur"]
-atlas = ExtResource("18_degjt")
-region = Rect2(0, 0, 32, 16)
+atlas = ExtResource("17_cyndr")
+region = Rect2(0, 32, 32, 32)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_3fd66"]
 atlas = ExtResource("17_cyndr")
-region = Rect2(0, 0, 32, 16)
+region = Rect2(0, 0, 32, 32)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_xtmur"]
 animations = [{
@@ -484,25 +485,103 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_degjt"]
 
-[sub_resource type="Gradient" id="Gradient_degjt"]
-colors = PackedColorArray(0, 0, 0, 0.352941, 0, 0, 0, 0.352941)
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cyndr"]
 
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_u075k"]
-gradient = SubResource("Gradient_degjt")
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u075k"]
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_mc503"]
-texture = SubResource("GradientTexture2D_u075k")
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_u075k"]
-bg_color = Color(0, 0, 0, 0.470588)
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_vf2r5"]
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mc503"]
 
 [sub_resource type="Gradient" id="Gradient_u075k"]
 colors = PackedColorArray(0, 0, 0, 0.470588, 0, 0, 0, 0.470588)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_mc503"]
 gradient = SubResource("Gradient_u075k")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ncd35"]
+atlas = ExtResource("18_degjt")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jm4qc"]
+atlas = ExtResource("18_degjt")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ecsp6"]
+atlas = ExtResource("18_degjt")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_8vno0"]
+atlas = ExtResource("18_degjt")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j3pry"]
+atlas = ExtResource("18_degjt")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_q4gry"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ncd35")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jm4qc")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ecsp6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_8vno0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j3pry")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q0c57"]
+atlas = ExtResource("19_u075k")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ikif0"]
+atlas = ExtResource("19_u075k")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_q4gry"]
+atlas = ExtResource("19_u075k")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ut4r6"]
+atlas = ExtResource("19_u075k")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_kry1m"]
+atlas = ExtResource("19_u075k")
+region = Rect2(0, 64, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_etoee"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q0c57")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ikif0")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_q4gry")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ut4r6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_kry1m")
+}],
+"loop": true,
+"name": &"default",
+"speed": 12.0
+}]
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_pa8vt")
@@ -627,183 +706,209 @@ libraries = {
 autoplay = "PieceSelectReveal"
 
 [node name="FfMapBigger" type="Sprite2D" parent="."]
-position = Vector2(957, 540)
-texture = ExtResource("8_6fmkx")
+position = Vector2(960.94, 540)
+scale = Vector2(5.143, 5.143)
+texture = ExtResource("9_u075k")
 
 [node name="1_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -537.0
-offset_top = -516.0
-offset_right = -517.0
-offset_bottom = -496.0
+offset_left = -105.047
+offset_top = -105.0
+offset_right = -63.0467
+offset_bottom = -63.0
+scale = Vector2(1, 1)
 
 [node name="1_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -318.0
-offset_top = -516.0
-offset_right = -298.0
-offset_bottom = -496.0
+offset_left = -63.0467
+offset_top = -104.997
+offset_right = -21.0467
+offset_bottom = -62.9971
+scale = Vector2(1, 1)
 
 [node name="1_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -104.0
-offset_top = -516.0
-offset_right = -84.0001
-offset_bottom = -496.0
+offset_left = -21.0468
+offset_top = -105.0
+offset_right = 20.9532
+offset_bottom = -63.0
+scale = Vector2(1, 1)
 
 [node name="1_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 114.0
-offset_top = -516.0
-offset_right = 134.0
-offset_bottom = -496.0
+offset_left = 20.9533
+offset_top = -104.997
+offset_right = 62.9533
+offset_bottom = -62.9971
+scale = Vector2(1, 1)
 
 [node name="1_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 330.0
-offset_top = -516.0
-offset_right = 350.0
-offset_bottom = -496.0
+offset_left = 62.9533
+offset_top = -105.0
+offset_right = 104.953
+offset_bottom = -63.0
+scale = Vector2(1, 1)
 
 [node name="2_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -523.0
-offset_top = -300.0
-offset_right = -503.0
-offset_bottom = -280.0
+offset_left = -105.047
+offset_top = -63.0
+offset_right = -63.0467
+offset_bottom = -21.0
+scale = Vector2(1, 1)
 
 [node name="2_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -307.0
-offset_top = -300.0
-offset_right = -287.0
-offset_bottom = -280.0
+offset_left = -63.0467
+offset_top = -62.9971
+offset_right = -21.0467
+offset_bottom = -20.9971
+scale = Vector2(1, 1)
 
 [node name="2_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -93.0001
-offset_top = -300.0
-offset_right = -73.0001
-offset_bottom = -280.0
+offset_left = -21.0468
+offset_top = -62.9971
+offset_right = 20.9532
+offset_bottom = -20.9971
+scale = Vector2(1, 1)
 
 [node name="2_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 120.0
-offset_top = -300.0
-offset_right = 140.0
-offset_bottom = -280.0
+offset_left = 20.9532
+offset_top = -63.0
+offset_right = 62.9532
+offset_bottom = -21.0
+scale = Vector2(1, 1)
 
 [node name="2_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 333.333
-offset_top = -300.0
-offset_right = 353.333
-offset_bottom = -280.0
+offset_left = 62.9533
+offset_top = -62.9971
+offset_right = 104.953
+offset_bottom = -20.9971
+scale = Vector2(1, 1)
 
 [node name="3_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -525.0
-offset_top = -85.0
-offset_right = -505.0
-offset_bottom = -65.0
+offset_left = -105.047
+offset_top = -20.9994
+offset_right = -63.0467
+offset_bottom = 21.0006
+scale = Vector2(1, 1)
 
 [node name="3_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -309.0
-offset_top = -85.0
-offset_right = -289.0
-offset_bottom = -65.0
+offset_left = -63.0467
+offset_top = -20.9971
+offset_right = -21.0467
+offset_bottom = 21.0029
+scale = Vector2(1, 1)
 
 [node name="3_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -95.6671
-offset_top = -85.0
-offset_right = -75.6671
-offset_bottom = -65.0
+offset_left = -21.0468
+offset_top = -21.0
+offset_right = 20.9532
+offset_bottom = 21.0
+scale = Vector2(1, 1)
 
 [node name="3_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 131.0
-offset_top = -85.0
-offset_right = 151.0
-offset_bottom = -65.0
+offset_left = 20.9532
+offset_top = -20.9971
+offset_right = 62.9532
+offset_bottom = 21.0029
+scale = Vector2(1, 1)
 
 [node name="3_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 336.0
-offset_top = -85.0
-offset_right = 356.0
-offset_bottom = -65.0
+offset_left = 62.9532
+offset_top = -20.9971
+offset_right = 104.953
+offset_bottom = 21.0029
+scale = Vector2(1, 1)
 
 [node name="4_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -522.0
-offset_top = 135.0
-offset_right = -502.0
-offset_bottom = 155.0
+offset_left = -105.047
+offset_top = 21.0006
+offset_right = -63.0468
+offset_bottom = 63.0006
+scale = Vector2(1, 1)
 
 [node name="4_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -311.0
-offset_top = 135.0
-offset_right = -291.0
-offset_bottom = 155.0
+offset_left = -63.0468
+offset_top = 21.0029
+offset_right = -21.0468
+offset_bottom = 63.0029
+scale = Vector2(1, 1)
 
 [node name="4_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -95.0001
-offset_top = 135.0
-offset_right = -75.0001
-offset_bottom = 155.0
+offset_left = -21.0468
+offset_top = 21.0029
+offset_right = 20.9532
+offset_bottom = 63.0029
+scale = Vector2(1, 1)
 
 [node name="4_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 127.0
-offset_top = 135.0
-offset_right = 147.0
-offset_bottom = 155.0
+offset_left = 20.9532
+offset_top = 21.0029
+offset_right = 62.9532
+offset_bottom = 63.0029
+scale = Vector2(1, 1)
 
 [node name="4_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 343.0
-offset_top = 135.0
-offset_right = 363.0
-offset_bottom = 155.0
+offset_left = 62.9532
+offset_top = 21.0029
+offset_right = 104.953
+offset_bottom = 63.0029
+scale = Vector2(1, 1)
 
 [node name="5_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -522.0
-offset_top = 346.0
-offset_right = -502.0
-offset_bottom = 366.0
+offset_left = -105.047
+offset_top = 62.9983
+offset_right = -63.0468
+offset_bottom = 104.998
+scale = Vector2(1, 1)
 
 [node name="5_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -309.0
-offset_top = 346.0
-offset_right = -289.0
-offset_bottom = 366.0
+offset_left = -63.0468
+offset_top = 62.9982
+offset_right = -21.0468
+offset_bottom = 104.998
+scale = Vector2(1, 1)
 
 [node name="5_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = -95.0001
-offset_top = 346.0
-offset_right = -75.0001
-offset_bottom = 366.0
+offset_left = -21.0468
+offset_top = 62.9983
+offset_right = 20.9532
+offset_bottom = 104.998
+scale = Vector2(1, 1)
 
 [node name="5_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 131.0
-offset_top = 346.0
-offset_right = 151.0
-offset_bottom = 366.0
+offset_left = 20.9532
+offset_top = 62.9982
+offset_right = 62.9532
+offset_bottom = 104.998
+scale = Vector2(1, 1)
 
 [node name="5_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 1
-offset_left = 340.0
-offset_top = 346.0
-offset_right = 360.0
-offset_bottom = 366.0
+offset_left = 62.9532
+offset_top = 63.0029
+offset_right = 104.953
+offset_bottom = 105.003
+scale = Vector2(1, 1)
 
 [node name="MiniMenuButton" type="Button" parent="."]
 z_index = 1
@@ -919,26 +1024,39 @@ frame_progress = 1.0
 
 [node name="TacViewAnimation" type="AnimatedSprite2D" parent="."]
 z_index = 1
-position = Vector2(196, 49)
-scale = Vector2(6, 6)
+position = Vector2(1666, 60)
+scale = Vector2(3.92, 3.92)
 sprite_frames = SubResource("SpriteFrames_xtmur")
 animation = &"OffToOn"
+speed_scale = 5.0
 
 [node name="TacticalViewButton" type="Button" parent="TacViewAnimation"]
 offset_left = -16.0
-offset_top = -7.0
+offset_top = -14.0
 offset_right = 16.0
-offset_bottom = 7.0
+offset_bottom = 13.0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_degjt")
-theme_override_styles/hover = SubResource("StyleBoxTexture_mc503")
-theme_override_styles/pressed = SubResource("StyleBoxFlat_u075k")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_vf2r5")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_cyndr")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_u075k")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_mc503")
 
 [node name="TacViewGreyOverlay" type="Sprite2D" parent="."]
 visible = false
 position = Vector2(972, 537)
 scale = Vector2(33.1223, 20.2585)
 texture = SubResource("GradientTexture2D_mc503")
+
+[node name="TraderGuideAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(1308.75, 1328.5)
+scale = Vector2(7, 7)
+sprite_frames = SubResource("SpriteFrames_q4gry")
+frame_progress = 0.734779
+
+[node name="EnemyTraderGuideAnimation" type="AnimatedSprite2D" parent="."]
+position = Vector2(1538.88, 1328.25)
+scale = Vector2(7, 7)
+sprite_frames = SubResource("SpriteFrames_etoee")
+frame_progress = 0.987381
 
 [connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
 [connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]

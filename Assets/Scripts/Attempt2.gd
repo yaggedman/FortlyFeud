@@ -93,7 +93,10 @@ var stylebox_dict = {
 	"FfCelticTrader": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_SB.tres"),
 	"FfCelticWall": preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres"), # this uses the norman SB because I messed up the celtic one
 	"FfCelticTrader_Hover": preload("res://Assets/Textures/StyleBoxes/FfCelticTrader_Hover_SB.tres"),
-	"FfNormanTrader_Hover": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_Hover_SB.tres")
+	"FfNormanTrader_Hover": preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_Hover_SB.tres"),
+	"FfWall_Left": preload("res://Assets/Textures/StyleBoxes/WALLLEFT_FfWall_SB.tres"),
+	"FfWall_Right": preload("res://Assets/Textures/StyleBoxes/WALLRIGHT_FfWall_SB.tres"),
+	"FfWall_Both": preload("res://Assets/Textures/StyleBoxes/WALLBOTH_FfWall_SB.tres")
 }
 
 var tacview_stylebox_dict = {
@@ -101,6 +104,10 @@ var tacview_stylebox_dict = {
 	"FfCelticTrader": preload("res://Assets/Textures/StyleBoxes/TACVIEW_NormanTrader.tres"),
 	"FfNormanFort": preload("res://Assets/Textures/StyleBoxes/TACVIEW_CelticFort.tres"),
 	"FfNormanTrader": preload("res://Assets/Textures/StyleBoxes/TACVIEW_CelticTrader.tres"),
+	"FfWall_Left": preload("res://Assets/Textures/StyleBoxes/TACVIEW_FfWallLeft.tres"),
+	"FfWall_Right": preload("res://Assets/Textures/StyleBoxes/TACVIEW_FfWallRight.tres"),
+	"FfWall_Both": preload("res://Assets/Textures/StyleBoxes/TACVIEW_FfWallBoth.tres"),
+	"FfWall": preload("res://Assets/Textures/StyleBoxes/TACVIEW_FfWall.tres"),
 }
 
 var HoldingItem: bool = false
@@ -242,6 +249,9 @@ func _process(float) -> void:
 
 func _on_tile_button_pressed(tilebutton):
 	
+	tacticalview = true
+	_on_tactical_view_button_pressed()
+	
 	UpdateBoardTextures()
 	print("tile ", tilebutton.name, " selected") # debug - prints selected tile to console 
 	
@@ -359,10 +369,56 @@ func UpdateBoardTextures():
 				
 			
 			if piece_number == 4: #specifcally updates wall textures
-				var wallstylebox = preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres")
-				var wallstyleboxhover = preload("res://Assets/Textures/StyleBoxes/FfNormanWall_SB.tres")
-				tilebutton.add_theme_stylebox_override("normal", wallstylebox)
-				tilebutton.add_theme_stylebox_override("hover", wallstylebox)
+				var connect_left = false
+				var connect_right = false
+				
+				var directions = {
+					"west": [0, -1],
+					"east": [0, 1],
+				}
+				for dir in directions.keys():
+					var new_row = row + directions[dir][0]
+					var new_col = col + directions[dir][1]
+					
+					if new_row >= 0 and new_row <5 and new_col >= 0 and new_col < 5:
+						var neighbour_value = FriendlyGameBoardArray[new_row][new_col]
+						if neighbour_value == 4:
+							if dir == "east":
+								connect_right = true
+							elif dir == "west":
+								connect_left = true
+				
+				if tacticalview == false:
+								
+					if connect_left and connect_right:
+						tilebutton.add_theme_stylebox_override("normal", stylebox_dict["FfWall_Both"])
+						tilebutton.add_theme_stylebox_override("hover", stylebox_dict["FfWall_Both"])
+					elif connect_left:
+						tilebutton.add_theme_stylebox_override("normal", stylebox_dict["FfWall_Left"])
+						tilebutton.add_theme_stylebox_override("hover", stylebox_dict["FfWall_Left"])
+					elif connect_right:
+						tilebutton.add_theme_stylebox_override("normal", stylebox_dict["FfWall_Right"])
+						tilebutton.add_theme_stylebox_override("hover", stylebox_dict["FfWall_Right"])
+					else:
+						tilebutton.add_theme_stylebox_override("normal", stylebox_dict["FfNormanWall"])
+						tilebutton.add_theme_stylebox_override("hover", stylebox_dict["FfNormanWall"])
+				
+				elif tacticalview == true:
+													
+					if connect_left and connect_right:
+						tilebutton.add_theme_stylebox_override("normal", tacview_stylebox_dict["FfWall_Both"])
+						tilebutton.add_theme_stylebox_override("hover", tacview_stylebox_dict["FfWall_Both"])
+					elif connect_left:
+						tilebutton.add_theme_stylebox_override("normal", tacview_stylebox_dict["FfWall_Left"])
+						tilebutton.add_theme_stylebox_override("hover", tacview_stylebox_dict["FfWall_Left"])
+					elif connect_right:
+						tilebutton.add_theme_stylebox_override("normal", tacview_stylebox_dict["FfWall_Right"])
+						tilebutton.add_theme_stylebox_override("hover", tacview_stylebox_dict["FfWall_Right"])
+					else:
+						tilebutton.add_theme_stylebox_override("normal", tacview_stylebox_dict["FfWall"])
+						tilebutton.add_theme_stylebox_override("hover", tacview_stylebox_dict["FfWall"])
+										
+										
 				
 			if piece_number != 0 and piece_number !=4:
 				#var tilebutton = get_node_or_null("FfMapBigger/%s" % tile_name)
@@ -580,13 +636,113 @@ func _on_tactical_view_button_pressed() -> void:
 		$TacViewGreyOverlay.visible = true
 		UpdateBoardTextures()
 		
+		for row in range(FriendlyGameBoardArray.size()):
+			for col in range(FriendlyGameBoardArray.size()):
+				if FriendlyGameBoardArray[row][col] == 2:
+					print("Found a trader at: ", row, col)
+					
+					var directions = {
+						"north": [-1, 0],
+						"south": [1, 0],
+						"west": [0, -1],
+						"east": [0, 1],
+					}
+					for dir in directions.keys():
+						var new_row = row + directions[dir][0]
+						var new_col = col + directions[dir][1]
+						
+						if new_row >= 0 and new_row < 5 and new_col >= 0 and new_col < 5:
+							var neighbour_value = FriendlyGameBoardArray[new_row][new_col]
+							if neighbour_value == 3 or neighbour_value == 4: # if piece is able to be "jumped over" by trader
+								
+								var original = $TraderGuideAnimation
+								var clone = original.duplicate()
+								add_child(clone)
+								
+								clone.name = "TraderGuideClone" + str(Time.get_ticks_usec())
+								clone.add_to_group("Clone_Group")
+								
+								print("Value to the ", dir, " of trader is: ", neighbour_value)
+							
+								var tile_name = str(new_row + 1) + "_" + str(new_col + 1)
+								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+								print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
+								clone.position = tile_node.global_position + Vector2(108,108)
+								if dir == "north":
+									clone.rotation_degrees = 180.0
+								if dir == "east":
+									clone.rotation_degrees = 270.0
+								if dir == "west":
+									clone.rotation_degrees = 90.0
+								if dir == "south":
+									clone.rotation_degrees = 0.0
+								clone.visible = true
+								clone.z_index = 4
+								clone.play("default")
+							
+						else:
+							print("No value to the ", dir, " out of bounds")
+								
+		
+		for row in range(EnemyGameBoardArray.size()):
+			for col in range(EnemyGameBoardArray.size()):
+				if EnemyGameBoardArray[row][col] == 2:
+					print("Found a trader at: ", row, col)
+					
+					var directions = {
+						"north": [-1, 0],
+						"south": [1, 0],
+						"west": [0, -1],
+						"east": [0, 1],
+					}
+					for dir in directions.keys():
+						var new_row = row + directions[dir][0]
+						var new_col = col + directions[dir][1]
+						
+						if new_row >= 0 and new_row < 5 and new_col >= 0 and new_col < 5:
+							var neighbour_value = EnemyGameBoardArray[new_row][new_col]
+							if neighbour_value == 3 or neighbour_value == 4: # if piece is able to be "jumped over" by trader
+								var original = $EnemyTraderGuideAnimation
+								var clone = original.duplicate()
+								add_child(clone)
+								
+								clone.name = "TraderGuideClone" + str(Time.get_ticks_usec())
+								clone.add_to_group("Clone_Group")
+								
+								print("Value to the ", dir, " of trader is: ", neighbour_value)
+							
+								var tile_name = str(new_row + 1) + "_" + str(new_col + 1)
+								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+								print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
+								clone.position = tile_node.global_position + Vector2(108, 108)
+								if dir == "north":
+									clone.rotation_degrees = 180.0
+								if dir == "east":
+									clone.rotation_degrees = 270.0
+								if dir == "west":
+									clone.rotation_degrees = 90.0
+								if dir == "south":
+									clone.rotation_degrees = 0.0
+								clone.visible = true
+								clone.z_index = 4
+								clone.play("default")
+							
+						else:
+							print("No value to the ", dir, " out of bounds")
+		
 		
 	elif tacticalview == true:
+		for node in get_tree().get_nodes_in_group("Clone_Group"):
+			node.queue_free()
 		print("tacitcal view turned off")
 		$TacViewAnimation.play("OnToOff")
 		tacticalview = false
 		$TacViewGreyOverlay.visible = false
 		UpdateBoardTextures()
+		print("Children count: ", $TraderGuideAnimation.get_child_count())
+		
+		
+		
 		
 		
 		

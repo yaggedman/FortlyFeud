@@ -1,6 +1,6 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://1ycrqfpk8wit"]
 
-[ext_resource type="Texture2D" uid="uid://gbmkqc0ld5c0" path="res://Assets/Sprites/Highlights/20251606_FFBlueHighlightBaked.png" id="1_u6ae6"]
+[ext_resource type="Texture2D" uid="uid://dmiojkbre0bn2" path="res://Assets/Sprites/20252006_FFNewSizePack/20252006_FFBlueFortHighlightNewSize.png" id="1_u6ae6"]
 
 [resource]
 texture = ExtResource("1_u6ae6")

@@ -1,0 +1,6 @@
+[gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cyim4w8d8ho24"]
+
+[ext_resource type="Texture2D" uid="uid://dv2dtts8fatsy" path="res://Assets/Sprites/20252006_FFNewSizePack/20252006_FFGreyWallRightNewSize.png" id="1_xgqc7"]
+
+[resource]
+texture = ExtResource("1_xgqc7")

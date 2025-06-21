@@ -1,6 +1,6 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://cavdsy20qi4cq"]
 
-[ext_resource type="Texture2D" uid="uid://cnf7mvqih4n2x" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/FF_Trader_Norman_Red.png" id="1_07q20"]
+[ext_resource type="Texture2D" uid="uid://cwr4ctgv3sv1v" path="res://Assets/Sprites/20252006_FFNewSizePack/20252006_FFRedTraderNewSize.png" id="1_07q20"]
 
 [resource]
 texture = ExtResource("1_07q20")

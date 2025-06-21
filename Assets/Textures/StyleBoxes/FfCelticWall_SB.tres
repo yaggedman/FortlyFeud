@@ -1,8 +1,7 @@
 [gd_resource type="StyleBoxTexture" load_steps=2 format=3 uid="uid://dfeyl32xy8jiy"]
 
-[ext_resource type="Texture2D" uid="uid://81vrwb5jb6yt" path="res://Assets/Sprites/NewSprites/OLDFF_Wall_Bright.png" id="1_ps2bc"]
+[ext_resource type="Texture2D" uid="uid://b7an28rxqocq2" path="res://Assets/Sprites/20252006_FFNewSizePack/20252006_FFGreyWallNewSize.png" id="1_he2jp"]
 
 [resource]
-texture = ExtResource("1_ps2bc")
-expand_margin_bottom = 10.0
-region_rect = Rect2(0, 0, 224, 154)
+texture = ExtResource("1_he2jp")
+region_rect = Rect2(0, 0, 42, 42)
