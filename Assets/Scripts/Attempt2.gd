@@ -117,10 +117,13 @@ var FriendlyMenuShut = false
 var EnemyMenuShut = false
 var minimenushut = true
 var tacticalview = false
+var gamewon: bool = false
+
 
 func _ready():
 	
 	tacticalview = false
+	$Victory.visible = false
 	
 	$HammerAnimation.visible = false
 	$HammerAnimation.play("default")
@@ -144,6 +147,7 @@ func _ready():
 	$FriendlyPieceselectpopup/FfNormanTrader.disabled = false
 		
 func turnorder(): # decides turn order, and disables buttons when it's not your turn
+	LaneUpdates()
 	turnordercount += 1
 	if turnordercount %2 == 0:
 		print("it is the Celt's turn")
@@ -248,6 +252,7 @@ func _process(float) -> void:
 	
 
 func _on_tile_button_pressed(tilebutton):
+	LaneUpdates()
 	
 	tacticalview = true
 	_on_tactical_view_button_pressed()
@@ -334,11 +339,13 @@ func _on_tile_button_pressed(tilebutton):
 					
 					
 					
-		
+		LaneUpdates()
 		
 func UpdateBoardTextures():
+	LaneUpdates()
 	
-	
+	if gamewon == true:
+		$Victory.visible = true
 
 			
 	for tile_name in TilesDict.keys(): #loops through tile button names in dict
@@ -457,7 +464,7 @@ func UpdateBoardTextures():
 				tilebutton.add_theme_stylebox_override("normal", new_stylebox)
 				tilebutton.add_theme_stylebox_override("hover", new_stylebox_hover)
 				
-			
+	LaneUpdates()
 				
 func PlaceNewTrader():
 	#if HoldingItem == true: # only runs code if the player has a piece selected
@@ -626,9 +633,13 @@ func _on_mini_menu_restart_pressed() -> void:
 		get_tree().reload_current_scene()
 	else:
 		print("error: mini menu shut but restart button pressed!")
+		
+
+###############TACTICAL VIEW###########################
 
 
 func _on_tactical_view_button_pressed() -> void:
+	LaneUpdates()
 	if tacticalview == false:
 		print("tactical view turned on")
 		$TacViewAnimation.play("OffToOn")
@@ -669,15 +680,16 @@ func _on_tactical_view_button_pressed() -> void:
 								print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
 								clone.position = tile_node.global_position + Vector2(108,108)
 								if dir == "north":
-									clone.rotation_degrees = 180.0
-								if dir == "east":
-									clone.rotation_degrees = 270.0
-								if dir == "west":
-									clone.rotation_degrees = 90.0
-								if dir == "south":
 									clone.rotation_degrees = 0.0
+								if dir == "east":
+									clone.rotation_degrees = 90.0
+								if dir == "west":
+									clone.rotation_degrees = 270.0
+								if dir == "south":
+									clone.rotation_degrees = 180.0
 								clone.visible = true
 								clone.z_index = 4
+								clone.frame = 0
 								clone.play("default")
 							
 						else:
@@ -716,15 +728,16 @@ func _on_tactical_view_button_pressed() -> void:
 								print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
 								clone.position = tile_node.global_position + Vector2(108, 108)
 								if dir == "north":
-									clone.rotation_degrees = 180.0
-								if dir == "east":
-									clone.rotation_degrees = 270.0
-								if dir == "west":
-									clone.rotation_degrees = 90.0
-								if dir == "south":
 									clone.rotation_degrees = 0.0
+								if dir == "east":
+									clone.rotation_degrees = 90.0
+								if dir == "west":
+									clone.rotation_degrees = 270.0
+								if dir == "south":
+									clone.rotation_degrees = 180.0
 								clone.visible = true
 								clone.z_index = 4
+								clone.frame = 0
 								clone.play("default")
 							
 						else:
@@ -742,7 +755,208 @@ func _on_tactical_view_button_pressed() -> void:
 		print("Children count: ", $TraderGuideAnimation.get_child_count())
 		
 		
+## ==================================WINCONDITIONS=====================================================
+## ====================================================================================================
+
+var FriendlyRows = {}
+var FriendlyColumns = {}
+var FriendlyDiagonals = {}
+var EnemyRows = {}
+var EnemyColumns = {}
+var EnemyDiagonals = {}
+
+var FriendlySize = FriendlyGameBoardArray.size()
+var EnemySize = EnemyGameBoardArray.size()
+
+
+func LaneUpdates() -> void:
+	
+	print(FriendlyDiagonals) ## this is working but it is one turn delayed...
+	
+	var friendly_num_rows = FriendlyGameBoardArray.size()
+	var friendly_num_cols = FriendlyGameBoardArray[0].size()
+	var enemy_num_rows = EnemyGameBoardArray.size()
+	var enemy_num_cols = EnemyGameBoardArray[0].size()
+	
+#########FRIENDLY ROWS############
+	for i in friendly_num_rows:
+		var row_label = "Row %d" % (i + 1)
+		FriendlyRows[row_label] = FriendlyGameBoardArray[i]
+	
+	for col_index in friendly_num_cols:
+		var col_label = "Column %d" % (col_index +1)
+		var column_values = []
+		
+#########FRIENDLY COLUMNS##########
+		for row_index in friendly_num_rows:
+			column_values.append(FriendlyGameBoardArray[row_index][col_index])
+		FriendlyColumns[col_label] = column_values
 		
 		
+#########ENEMY ROWS############
+	for i in enemy_num_rows:
+		var row_label = "Row %d" % (i + 1)
+		EnemyRows[row_label] = EnemyGameBoardArray[i]
+		
+#########ENEMY COLUMNS############
+	for col_index in enemy_num_cols:
+		var col_label = "Column %d" % (col_index +1)
+		var column_values = []
+		
+		for row_index in enemy_num_rows:
+			column_values.append(EnemyGameBoardArray[row_index][col_index])
+		EnemyColumns[col_label] = column_values
+		
+#######FRIENDLY DIAGONALS##########
+
+	var friendlysize = FriendlyGameBoardArray.size()
+	
+	
+	#print(EnemyColumns)
+		
+	var friendlydiag_tl_br = [] ## top left to bottom right
+	var friendlydiag_tr_bl = [] ## top right to bottom left
+
+	for i in friendlysize:
+		friendlydiag_tl_br.append(FriendlyGameBoardArray[i][i])
+		friendlydiag_tr_bl.append(FriendlyGameBoardArray[i][friendlysize - 1 - i])
+	FriendlyDiagonals["Diagonal TL-BR"] = friendlydiag_tl_br
+	FriendlyDiagonals["Diagonal TR-BL"] = friendlydiag_tr_bl
+	
+	#######FRIENDLY OFFSET DIAGONALS#######################
+	
+	var friendlydiag_b1_e4 = []
+	for i in range(friendlysize - 1):
+		friendlydiag_b1_e4.append(FriendlyGameBoardArray[i][i + 1])
+	FriendlyDiagonals["Diagonal B1-E4"] = friendlydiag_b1_e4
+	
+	var friendlydiag_a2_d5 = []
+	for i in range(friendlysize - 1):
+		friendlydiag_a2_d5.append(FriendlyGameBoardArray[i + 1][i])
+	FriendlyDiagonals["Diagonal A2-D5"] = friendlydiag_a2_d5
+	
+	var friendlydiag_d1_a4 = []
+	for i in range(friendlysize - 1):
+		friendlydiag_d1_a4.append(FriendlyGameBoardArray[i][friendlysize - 2 - i])
+	FriendlyDiagonals["Diagonal D1-A4"] = friendlydiag_d1_a4
+	
+	var friendlydiag_e2_b5 = []
+	for i in range(friendlysize - 1):
+		friendlydiag_e2_b5.append(FriendlyGameBoardArray[i + 1][friendlysize - 1 - i])
+	FriendlyDiagonals["Diagonal E2-B5"] = friendlydiag_e2_b5
+	
+	#######ENEMY DIAGONALS##########
+
+	var enemysize = EnemyGameBoardArray.size()
+	var enemydiag_tr_bl = []
+	var enemydiag_tl_br = []
+	
+	for i in enemysize:
+		enemydiag_tl_br.append(EnemyGameBoardArray[i][i])
+		enemydiag_tr_bl.append(EnemyGameBoardArray[i][enemysize - 1 - i])
+	EnemyDiagonals["Diagonal TL-BR"] = enemydiag_tl_br
+	EnemyDiagonals["Diagonal TR-BL"] = enemydiag_tr_bl
+	
+	#######ENEMY OFFSET DIAGONALS#######################
+	
+	var enemydiag_b1_e4 = []
+	for i in range(enemysize - 1):
+		enemydiag_b1_e4.append(EnemyGameBoardArray[i][i + 1])
+		EnemyDiagonals["Diagonal B1-E4"] = enemydiag_b1_e4
+	
+	var enemydiag_a2_d5 = []
+	for i in range(enemysize - 1):
+		enemydiag_a2_d5.append(EnemyGameBoardArray[i + 1][i])
+		EnemyDiagonals["Diagonal A2-D5"] = enemydiag_a2_d5
+	
+	var enemydiag_d1_a4 = []
+	for i in range(enemysize - 1):
+		enemydiag_d1_a4.append(EnemyGameBoardArray[i][enemysize - 2 - i])
+		EnemyDiagonals["Diagonal D1-A4"] = enemydiag_d1_a4
+	
+	var enemydiag_e2_b5 = []
+	for i in range(enemysize - 1):
+		enemydiag_e2_b5.append(EnemyGameBoardArray[i + 1][enemysize - 1 - i])
+		EnemyDiagonals["Diagonal E2-B5"] = enemydiag_e2_b5
 		
 		
+	for key in FriendlyRows.keys():
+		if check_lane_for_win(FriendlyRows[key]):
+			print("Win in", key)
+			gamewon = true
+
+	for key in FriendlyColumns.keys():
+		if check_lane_for_win(FriendlyColumns[key]):
+			print("Win in", key)
+			gamewon = true
+
+	for key in FriendlyDiagonals.keys():
+		if check_lane_for_win(FriendlyDiagonals[key]):
+			print("Win in", key)
+			gamewon = true
+	
+	for key in EnemyRows.keys():
+		if check_lane_for_win(EnemyRows[key]):
+			print("Win in", key)
+			gamewon = true
+	
+	for key in EnemyColumns.keys():
+		if check_lane_for_win(EnemyColumns[key]):
+			print("Win in", key)
+			gamewon = true
+			
+	for key in EnemyDiagonals.keys():
+		if check_lane_for_win(EnemyDiagonals[key]):
+			print("Win in", key)
+			gamewon = true
+			
+	
+	
+	
+func check_lane_for_win(lane: Array) -> bool:
+	
+	
+	if lane.size() == 4:
+		for piece in lane:
+			if piece != 1 and piece != 2:
+				return false
+		return true # all numbers are valid, you win
+		
+	
+	
+	
+	
+	elif lane.size() == 5:
+		for start in range(0, 2):
+			var score = 0
+			var i = start
+			
+			while i < lane.size():
+				var piece = lane[i]
+		
+				if piece == 1:
+					score += 1
+					i += 1
+		
+				elif piece == 2:
+					score += 1
+					i += 1
+					if i < lane.size() and (lane[i] == 3 or lane[i] == 4):
+						i += 1
+				
+				elif piece == 3 or piece == 4:
+					if i + 1 < lane.size() and lane[i + 1] == 2:
+						score += 1
+						i += 2
+					else:
+						score = 0
+						break #blocked
+				else:
+					score = 0
+					break # space is a 0 or invalid
+		
+				if score >=4:
+					return true
+			
+	return false
+			
