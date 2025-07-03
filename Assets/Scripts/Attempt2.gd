@@ -4,7 +4,9 @@ extends Node2D
 ## TO DO:
 ## - Enemy AI
 ## "Advance Turn" button. instead of automatic turn order
+## undo/reset button when your turn
 ## Walls must be destroyed when all spaces are filled on board
+## Tactical view bug, trader doesn't jump diagonal
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -667,8 +669,12 @@ func _on_tactical_view_button_pressed() -> void:
 					
 					var directions = {
 						"north": [-1, 0],
+						"northeast": [-1, 1],
+						"southeast": [1, 1],
 						"south": [1, 0],
+						"southwest":[1, -1],
 						"west": [0, -1],
+						"northwest": [-1, -1],
 						"east": [0, 1],
 					}
 					for dir in directions.keys():
@@ -691,19 +697,39 @@ func _on_tactical_view_button_pressed() -> void:
 								var tile_name = str(new_row + 1) + "_" + str(new_col + 1)
 								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 								#print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
-								clone.position = tile_node.global_position + Vector2(108,108)
+								clone.position = tile_node.global_position + Vector2(108,104)
 								if dir == "north":
+									clone.play("default")
 									clone.rotation_degrees = 0.0
 								if dir == "east":
+									clone.play("default")
 									clone.rotation_degrees = 90.0
 								if dir == "west":
+									clone.play("default")
 									clone.rotation_degrees = 270.0
 								if dir == "south":
+									clone.play("default")
 									clone.rotation_degrees = 180.0
+								if dir == "northeast":
+									clone.play("friendlydiagonal")
+									clone.position = tile_node.global_position + Vector2(108,103)
+									clone.rotation_degrees = 0.0
+								if dir == "southeast":
+									clone.play("friendlydiagonal")
+									clone.position = tile_node.global_position + Vector2(113,108)
+									clone.rotation_degrees = 90.0
+								if dir == "southwest":
+									clone.play("friendlydiagonal")
+									clone.position = tile_node.global_position + Vector2(109,114)
+									clone.rotation_degrees = 180.0
+								if dir == "northwest":
+									clone.play("friendlydiagonal")
+									clone.position = tile_node.global_position + Vector2(104,109)
+									clone.rotation_degrees = 270.0
 								clone.visible = true
 								clone.z_index = 4
 								clone.frame = 0
-								clone.play("default")
+								
 							
 						else:
 							print("No value to the ", dir, " out of bounds")
@@ -716,8 +742,12 @@ func _on_tactical_view_button_pressed() -> void:
 					
 					var directions = {
 						"north": [-1, 0],
+						"northeast": [-1, 1],
+						"southeast": [1, 1],
 						"south": [1, 0],
+						"southwest":[1, -1],
 						"west": [0, -1],
+						"northwest": [-1, -1],
 						"east": [0, 1],
 					}
 					for dir in directions.keys():
@@ -741,17 +771,37 @@ func _on_tactical_view_button_pressed() -> void:
 								#print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
 								clone.position = tile_node.global_position + Vector2(108, 108)
 								if dir == "north":
+									clone.play("default")
 									clone.rotation_degrees = 0.0
 								if dir == "east":
+									clone.play("default")
 									clone.rotation_degrees = 90.0
 								if dir == "west":
+									clone.play("default")
 									clone.rotation_degrees = 270.0
 								if dir == "south":
+									clone.play("default")
 									clone.rotation_degrees = 180.0
+								if dir == "northeast":
+									clone.play("enemydiagonal")
+									clone.position = tile_node.global_position + Vector2(108,103)
+									clone.rotation_degrees = 0.0
+								if dir == "southeast":
+									clone.play("enemydiagonal")
+									clone.position = tile_node.global_position + Vector2(113,108)
+									clone.rotation_degrees = 90.0
+								if dir == "southwest":
+									clone.play("enemydiagonal")
+									clone.position = tile_node.global_position + Vector2(109,114)
+									clone.rotation_degrees = 180.0
+								if dir == "northwest":
+									clone.play("enemydiagonal")
+									clone.position = tile_node.global_position + Vector2(104,109)
+									clone.rotation_degrees = 270.0
 								clone.visible = true
 								clone.z_index = 4
 								clone.frame = 0
-								clone.play("default")
+								
 							
 						else:
 							print("No value to the ", dir, " out of bounds")

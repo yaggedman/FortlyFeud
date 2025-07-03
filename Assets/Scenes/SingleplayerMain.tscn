@@ -1,4 +1,4 @@
-[gd_scene load_steps=127 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=135 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="Texture2D" uid="uid://bn4i42wli8s3w" path="res://Assets/Sprites/SideMenuNewPack/20252706_FFNormanInventory.png" id="2_288hg"]
@@ -22,7 +22,9 @@
 [ext_resource type="Texture2D" uid="uid://b4t7wys0me6qg" path="res://Assets/Sprites/SideMenuNewPack/20252806_FFTacticalModeOpen.png" id="19_c7l0v"]
 [ext_resource type="Texture2D" uid="uid://bg57dmuuc7af8" path="res://Assets/Animations/FF_RedArrow_2.png" id="19_vf2r5"]
 [ext_resource type="Texture2D" uid="uid://dj5x2ppjgmpng" path="res://Assets/Sprites/SuperSecretFolder/amongarse.png" id="20_mc503"]
+[ext_resource type="Texture2D" uid="uid://cvnff8cqjvh8v" path="res://Assets/Animations/FF_DiagonalTacticalArrowBlueBig.png" id="21_c7l0v"]
 [ext_resource type="Texture2D" uid="uid://wwi21x7l3kg3" path="res://Assets/Animations/FF_Map_WaterTile1.png" id="21_vf2r5"]
+[ext_resource type="Texture2D" uid="uid://bcwnfb3qh8s3v" path="res://Assets/Animations/FF_DiagonalTacticalArrowRedBig.png" id="23_cbthd"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wfhj0"]
 
@@ -513,6 +515,18 @@ region = Rect2(420, 0, 420, 420)
 atlas = ExtResource("18_mc503")
 region = Rect2(0, 420, 420, 420)
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_cd1j2"]
+atlas = ExtResource("21_c7l0v")
+region = Rect2(0, 0, 420, 420)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ifnrq"]
+atlas = ExtResource("21_c7l0v")
+region = Rect2(420, 0, 420, 420)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_aoa5j"]
+atlas = ExtResource("21_c7l0v")
+region = Rect2(0, 420, 420, 420)
+
 [sub_resource type="SpriteFrames" id="SpriteFrames_q4gry"]
 animations = [{
 "frames": [{
@@ -528,6 +542,20 @@ animations = [{
 "loop": true,
 "name": &"default",
 "speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_cd1j2")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ifnrq")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_aoa5j")
+}],
+"loop": true,
+"name": &"friendlydiagonal",
+"speed": 2.0
 }]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_8vno0"]
@@ -540,6 +568,18 @@ region = Rect2(420, 0, 420, 420)
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_q0c57"]
 atlas = ExtResource("19_vf2r5")
+region = Rect2(0, 420, 420, 420)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_x4w1u"]
+atlas = ExtResource("23_cbthd")
+region = Rect2(0, 0, 420, 420)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ru23r"]
+atlas = ExtResource("23_cbthd")
+region = Rect2(420, 0, 420, 420)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_hwpxq"]
+atlas = ExtResource("23_cbthd")
 region = Rect2(0, 420, 420, 420)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_etoee"]
@@ -556,6 +596,20 @@ animations = [{
 }],
 "loop": true,
 "name": &"default",
+"speed": 2.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_x4w1u")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ru23r")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_hwpxq")
+}],
+"loop": true,
+"name": &"enemydiagonal",
 "speed": 2.0
 }]
 
@@ -945,7 +999,7 @@ offset_bottom = 105.003
 scale = Vector2(1, 1)
 
 [node name="MiniMenuButton" type="Button" parent="."]
-z_index = 1
+z_index = 2
 offset_left = 1744.0
 offset_top = 5.0
 offset_right = 1850.0
@@ -1057,7 +1111,7 @@ frame = 11
 frame_progress = 1.0
 
 [node name="TacViewAnimation" type="AnimatedSprite2D" parent="."]
-z_index = 1
+z_index = 2
 position = Vector2(1675, 60)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_xtmur")
@@ -1084,15 +1138,18 @@ scale = Vector2(33.1223, 20.2585)
 texture = SubResource("GradientTexture2D_mc503")
 
 [node name="TraderGuideAnimation" type="AnimatedSprite2D" parent="."]
-position = Vector2(1248, 1313.5)
+position = Vector2(1304, 1304)
 scale = Vector2(0.519875, 0.491089)
 sprite_frames = SubResource("SpriteFrames_q4gry")
-frame_progress = 0.996045
+animation = &"friendlydiagonal"
 
 [node name="EnemyTraderGuideAnimation" type="AnimatedSprite2D" parent="."]
-position = Vector2(1538.88, 1328.25)
+position = Vector2(1432, 1392)
 scale = Vector2(0.52, 0.491)
 sprite_frames = SubResource("SpriteFrames_etoee")
+animation = &"enemydiagonal"
+frame = 1
+frame_progress = 0.499013
 
 [node name="Amongarse" type="Sprite2D" parent="."]
 position = Vector2(2032, 1232)
