@@ -2,8 +2,9 @@ extends Node2D
 
 #each tile is 216x216 pixels
 ## TO DO:
-## - Win conditions!!
+## - Enemy AI
 ## "Advance Turn" button. instead of automatic turn order
+## Walls must be destroyed when all spaces are filled on board
 
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
@@ -149,7 +150,9 @@ func _ready():
 func turnorder(): # decides turn order, and disables buttons when it's not your turn
 	LaneUpdates()
 	turnordercount += 1
+	
 	if turnordercount %2 == 0:
+		#dumb_bot_move_picker()
 		print("it is the Celt's turn")
 		$FriendlyPieceselectpopup/FfNormanFort.disabled = true
 		$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
@@ -173,7 +176,9 @@ var FriendlyInventory = {
 }
 
 var EnemyInventory = {
-	"FfCelticWall" = 2
+	"FfCelticWall" = 2,
+	"FfCelticTrader" = 999,
+	"FfCelticFort" = 999
 }
 	
 
@@ -209,7 +214,7 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 				HoldingItem = true # set holding status to true, prevents multiple valid selections
 			else:
 				print(menupiece, " not found in dictionary") # debug, piece does not exist in the dictionary
-	print(PieceSelectionCheck) # prints all pieces and whether they are selected or not (true/false)
+	#print(PieceSelectionCheck) # prints all pieces and whether they are selected or not (true/false)
 	
 func _input(event: InputEvent) -> void: #on right click, discard piece
 	if event is InputEventMouseButton:
@@ -288,7 +293,7 @@ func _on_tile_button_pressed(tilebutton):
 						
 						
 						FriendlyGameBoardArray[row][col] = FriendlyPieceNumberRef[Piece] # appends the piece number to the correct array location
-						print("Updated Friendly Board: ", FriendlyGameBoardArray) # prints to console
+						#print("Updated Friendly Board: ", FriendlyGameBoardArray) # prints to console
 						
 						
 						SpriteFollowingMouse.queue_free() # deletes piece attached to mouse
@@ -323,7 +328,7 @@ func _on_tile_button_pressed(tilebutton):
 					if EnemyGameBoardArray[row][col] == 0:
 					
 						EnemyGameBoardArray[row][col] = EnemyPieceNumberRef[Piece] # appends the piece number to the correct array location
-						print("Updated Enemy Board: ", EnemyGameBoardArray) # prints to console
+						#print("Updated Enemy Board: ", EnemyGameBoardArray) # prints to console
 						#tilebutton.set_meta("piece_type", "celt")
 						
 						UpdateBoardTextures()
@@ -343,6 +348,7 @@ func _on_tile_button_pressed(tilebutton):
 		
 func UpdateBoardTextures():
 	LaneUpdates()
+	boardfull()
 	
 	if gamewon == true:
 		$Victory.visible = true
@@ -434,7 +440,7 @@ func UpdateBoardTextures():
 						if FriendlyPieceNumberRef[piece] == piece_number:
 							piece_name = piece
 							is_friendly = true
-							print("piece is friendly!")
+							#print("piece is friendly!")
 							break
 					
 				elif tilebutton.get_meta("piece_type") == "celt":
@@ -442,7 +448,7 @@ func UpdateBoardTextures():
 						if EnemyPieceNumberRef[enemypiece] == enemy_piece_number:
 							piece_name = enemypiece
 							is_friendly = false
-							print("piece is enemy!")
+							#print("piece is enemy!")
 							break
 				
 				if piece_name and stylebox_dict.has(piece_name) and tacticalview == false:
@@ -638,6 +644,13 @@ func _on_mini_menu_restart_pressed() -> void:
 ###############TACTICAL VIEW###########################
 
 
+func _on_tactical_view_button_mouse_entered() -> void:
+	$TacViewAnimation.scale = Vector2(5.5,5.5)
+	
+func _on_tactical_view_button_mouse_exited() -> void:
+	$TacViewAnimation.scale = Vector2(5,5)
+	
+
 func _on_tactical_view_button_pressed() -> void:
 	LaneUpdates()
 	if tacticalview == false:
@@ -673,11 +686,11 @@ func _on_tactical_view_button_pressed() -> void:
 								clone.name = "TraderGuideClone" + str(Time.get_ticks_usec())
 								clone.add_to_group("Clone_Group")
 								
-								print("Value to the ", dir, " of trader is: ", neighbour_value)
+								#print("Value to the ", dir, " of trader is: ", neighbour_value)
 							
 								var tile_name = str(new_row + 1) + "_" + str(new_col + 1)
 								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
-								print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
+								#print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
 								clone.position = tile_node.global_position + Vector2(108,108)
 								if dir == "north":
 									clone.rotation_degrees = 0.0
@@ -721,11 +734,11 @@ func _on_tactical_view_button_pressed() -> void:
 								clone.name = "TraderGuideClone" + str(Time.get_ticks_usec())
 								clone.add_to_group("Clone_Group")
 								
-								print("Value to the ", dir, " of trader is: ", neighbour_value)
+								#print("Value to the ", dir, " of trader is: ", neighbour_value)
 							
 								var tile_name = str(new_row + 1) + "_" + str(new_col + 1)
 								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
-								print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
+								#print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
 								clone.position = tile_node.global_position + Vector2(108, 108)
 								if dir == "north":
 									clone.rotation_degrees = 0.0
@@ -771,7 +784,7 @@ var EnemySize = EnemyGameBoardArray.size()
 
 func LaneUpdates() -> void:
 	
-	print(FriendlyDiagonals) ## this is working but it is one turn delayed...
+	#print(FriendlyDiagonals) ## this is working but it is one turn delayed...
 	
 	var friendly_num_rows = FriendlyGameBoardArray.size()
 	var friendly_num_cols = FriendlyGameBoardArray[0].size()
@@ -882,32 +895,32 @@ func LaneUpdates() -> void:
 		
 	for key in FriendlyRows.keys():
 		if check_lane_for_win(FriendlyRows[key]):
-			print("Win in", key)
+			print("Win in ", key)
 			gamewon = true
 
 	for key in FriendlyColumns.keys():
 		if check_lane_for_win(FriendlyColumns[key]):
-			print("Win in", key)
+			print("Win in ", key)
 			gamewon = true
 
 	for key in FriendlyDiagonals.keys():
 		if check_lane_for_win(FriendlyDiagonals[key]):
-			print("Win in", key)
+			print("Win in ", key)
 			gamewon = true
 	
 	for key in EnemyRows.keys():
 		if check_lane_for_win(EnemyRows[key]):
-			print("Win in", key)
+			print("Win in ", key)
 			gamewon = true
 	
 	for key in EnemyColumns.keys():
 		if check_lane_for_win(EnemyColumns[key]):
-			print("Win in", key)
+			print("Win in ", key)
 			gamewon = true
 			
 	for key in EnemyDiagonals.keys():
 		if check_lane_for_win(EnemyDiagonals[key]):
-			print("Win in", key)
+			print("Win in ", key)
 			gamewon = true
 			
 	
@@ -959,4 +972,57 @@ func check_lane_for_win(lane: Array) -> bool:
 					return true
 			
 	return false
+	
+#######################################SUDDEN DEATH#####################################################
+
+func boardfull() -> void:
+	var numberofpiecesonboard: int = 0
+	numberofpiecesonboard = 0
+	for y in range(FriendlyGameBoardArray.size()):
+		for x in range(FriendlyGameBoardArray[y].size()):
+			if FriendlyGameBoardArray[y][x] != 0:
+				numberofpiecesonboard += 1
+				if numberofpiecesonboard == 25:
+					print("board fulL! destroying walls")
+					numberofpiecesonboard = 0
+					
+			else:
+				break
+
 			
+			
+## ==================================ENEMY BOTS=====================================================
+## =================================================================================================
+
+#######################################DUMB BOT#####################################################
+
+#func dumb_bot_move_picker() -> void:
+	## 1. Collect all empty positions as Vector2i(row, col)
+	#var empty_positions: Array[Vector2i] = []
+	#for row in range(EnemyGameBoardArray.size()):
+		#for col in range(EnemyGameBoardArray[row].size()):
+			#if EnemyGameBoardArray[row][col] == 0:
+				#empty_positions.append(Vector2i(row, col))
+				#
+	## 2. If no empty spots, do nothing or print message
+	#if empty_positions.is_empty():
+		#print("No empty spots available for the bot to move.")
+		#return
+	#
+	## 3. Pick a random empty spot
+	#var chosen_pos: Vector2i = empty_positions.pick_random()
+	#
+	## 4. Bot’s inventory (example)
+	#var bot_inventory: Array = [1, 2, 4]
+	#
+	## 5. Pick a random item from inventory
+	#var chosen_item = bot_inventory.pick_random()
+	#
+	## 6. Place the chosen item at the chosen position
+	#EnemyGameBoardArray[chosen_pos.x][chosen_pos.y] = chosen_item
+	#
+	#print("Bot placed item ", chosen_item, " at position ", chosen_pos)
+	#
+	#print(EnemyGameBoardArray)
+	
+	
