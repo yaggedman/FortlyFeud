@@ -1,0 +1,80 @@
+[gd_scene load_steps=7 format=3 uid="uid://dcd4wxqb81iiu"]
+
+[ext_resource type="Texture2D" uid="uid://c20nih5oaqip1" path="res://Assets/Sprites/splashscreen/strawbhillgamestemptransparent.png" id="1_1cno2"]
+[ext_resource type="Script" uid="uid://btq4xc7yud6e" path="res://Assets/Scenes/splashscreen.gd" id="1_hjfwo"]
+
+[sub_resource type="Animation" id="Animation_dgn45"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_hjfwo"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
+}
+
+[sub_resource type="Animation" id="Animation_dop2b"]
+resource_name = "new_animation_2"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 1),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_dop2b"]
+_data = {
+&"RESET": SubResource("Animation_dgn45"),
+&"new_animation": SubResource("Animation_hjfwo"),
+&"new_animation_2": SubResource("Animation_dop2b")
+}
+
+[node name="Node2D" type="Node2D"]
+script = ExtResource("1_hjfwo")
+
+[node name="Strawbhillgamestemptransparent" type="Sprite2D" parent="."]
+position = Vector2(969, 544)
+texture = ExtResource("1_1cno2")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Strawbhillgamestemptransparent"]
+libraries = {
+&"": SubResource("AnimationLibrary_dop2b")
+}
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+one_shot = true
+autostart = true
+
+[node name="Timer2" type="Timer" parent="."]
+wait_time = 1.5
+
+[connection signal="animation_finished" from="Strawbhillgamestemptransparent/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
+[connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

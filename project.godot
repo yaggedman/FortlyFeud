@@ -11,9 +11,10 @@ config_version=5
 [application]
 
 config/name="FortlyFeud"
-run/main_scene="res://Assets/Scenes/main_menu.tscn"
+run/main_scene="uid://dcd4wxqb81iiu"
 config/features=PackedStringArray("4.4", "Mobile")
-config/icon="res://icon.svg"
+config/icon="uid://ce1yip427d8ap"
+config/windows_native_icon="res://FF_NormanTrader_Bright.ico"
 
 [display]
 

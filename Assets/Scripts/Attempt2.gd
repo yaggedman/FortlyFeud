@@ -121,8 +121,22 @@ var EnemyMenuShut = false
 var minimenushut = true
 var tacticalview = false
 var gamewon: bool = false
+var hoverpitch : float = 1
 
-
+func _on_tile_button_hovered(button): #this determines the sound and pitch of when you hover over the menu pieces
+	var PieceMetaData = button.get_meta("piece_type")
+	if PieceMetaData == null:
+		hoverpitch = randf_range(1, 5) #pitch scale range, picks a number between 1.00 and 2.00
+		$Hover_Tile_Button_Sound.pitch_scale = hoverpitch
+		$Hover_Tile_Button_Sound.play()
+		#print("tile button hovered over")
+	
+func _on_menu_button_hovered(button): #this determines the sound and pitch of when you hover over the menu pieces
+	hoverpitch = randf_range(1, 2) #pitch scale range, picks a number between 1.00 and 2.00
+	$Hover_Pop.pitch_scale = hoverpitch
+	$Hover_Pop.play()
+	#print("tile button hovered over")
+	
 func _ready():
 	
 	tacticalview = false
@@ -135,6 +149,10 @@ func _ready():
 	## gets buttons in the button group, and connects the pressed signal with argument button
 	for tilebutton in get_tree().get_nodes_in_group("TileButtons"):
 		tilebutton.pressed.connect(Callable(self, "_on_tile_button_pressed").bind(tilebutton))
+		tilebutton.mouse_entered.connect(self._on_tile_button_hovered.bind(tilebutton))
+	
+	for menubutton in get_tree().get_nodes_in_group("MenuPieces"):
+		menubutton.mouse_entered.connect(self._on_menu_button_hovered.bind(menubutton))
 		
 ## gets buttons in the menupieces group and connects the pressed signal with argument menupiece
 	for menupiece in get_tree().get_nodes_in_group("MenuPieces"):
@@ -471,6 +489,7 @@ func UpdateBoardTextures():
 				var new_stylebox_hover = preload("res://Assets/Textures/StyleBoxes/FfEmptyHover.tres")
 				tilebutton.add_theme_stylebox_override("normal", new_stylebox)
 				tilebutton.add_theme_stylebox_override("hover", new_stylebox_hover)
+				tilebutton.remove_meta("piece_type")
 				
 	LaneUpdates()
 				
