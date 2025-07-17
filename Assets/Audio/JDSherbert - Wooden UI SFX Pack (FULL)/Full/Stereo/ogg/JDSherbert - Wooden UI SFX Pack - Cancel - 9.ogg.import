@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://dk6vxx4x0ykdt"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Cancel - 9.ogg-28b660a845c376780068c1556c5789e6.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Stereo/ogg/JDSherbert - Wooden UI SFX Pack - Cancel - 9.ogg"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Cancel - 9.ogg-28b660a845c376780068c1556c5789e6.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

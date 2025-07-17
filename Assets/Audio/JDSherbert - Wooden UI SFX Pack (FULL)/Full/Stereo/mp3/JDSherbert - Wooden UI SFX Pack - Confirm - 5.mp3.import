@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://p6vopg6np4qc"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Confirm - 5.mp3-64bff5f1489dcb629f8f8fb1c2a2897a.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Stereo/mp3/JDSherbert - Wooden UI SFX Pack - Confirm - 5.mp3"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Confirm - 5.mp3-64bff5f1489dcb629f8f8fb1c2a2897a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

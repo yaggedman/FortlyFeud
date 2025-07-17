@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://ddsturs0ccagp"
+path="res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Popup Close 1 (Saw).wav-7c4b22d73984270f13c1d374355d56a8.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Pixel UI SFX Pack (FREE) (2)/JDSherbert - Pixel UI SFX Pack (FREE)/Free/Mono/wav (HD)/JDSherbert - Pixel UI SFX Pack - Popup Close 1 (Saw).wav"
+dest_files=["res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Popup Close 1 (Saw).wav-7c4b22d73984270f13c1d374355d56a8.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

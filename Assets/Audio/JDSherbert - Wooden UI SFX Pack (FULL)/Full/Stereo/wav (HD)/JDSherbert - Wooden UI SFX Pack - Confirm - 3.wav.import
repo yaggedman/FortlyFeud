@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://bp1rdi7p6fvoq"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Confirm - 3.wav-32708e7a3c2da3ac577a452655f4e0b0.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Stereo/wav (HD)/JDSherbert - Wooden UI SFX Pack - Confirm - 3.wav"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Confirm - 3.wav-32708e7a3c2da3ac577a452655f4e0b0.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

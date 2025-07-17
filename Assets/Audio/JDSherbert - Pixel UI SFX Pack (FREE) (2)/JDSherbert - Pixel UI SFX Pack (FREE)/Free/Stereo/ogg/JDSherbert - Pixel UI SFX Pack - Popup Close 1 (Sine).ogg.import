@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://c34ho7smv4j7f"
+path="res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Popup Close 1 (Sine).ogg-b9624e4fe3254cb9d9ebc9186dc9b18c.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Pixel UI SFX Pack (FREE) (2)/JDSherbert - Pixel UI SFX Pack (FREE)/Free/Stereo/ogg/JDSherbert - Pixel UI SFX Pack - Popup Close 1 (Sine).ogg"
+dest_files=["res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Popup Close 1 (Sine).ogg-b9624e4fe3254cb9d9ebc9186dc9b18c.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

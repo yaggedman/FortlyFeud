@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://dbtqc3v0ts5ga"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Error - 2.wav-a852874f4b199ebd7e62b90fce0739bd.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Mono/wav (HD)/JDSherbert - Wooden UI SFX Pack - Error - 2.wav"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Error - 2.wav-a852874f4b199ebd7e62b90fce0739bd.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

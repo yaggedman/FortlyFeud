@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b1rwgu2l71pjm"
+path="res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Error 1 (Square).mp3-b536c2ca922d85b6f9ce993db7ea5e0e.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Pixel UI SFX Pack (FREE) (2)/JDSherbert - Pixel UI SFX Pack (FREE)/Free/Stereo/mp3/JDSherbert - Pixel UI SFX Pack - Error 1 (Square).mp3"
+dest_files=["res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Error 1 (Square).mp3-b536c2ca922d85b6f9ce993db7ea5e0e.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

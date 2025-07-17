@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://cxea44vcm4jia"
+path="res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Cancel 1 (Sine).mp3-0551e394bb65063183326d134fb8950a.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Pixel UI SFX Pack (FREE) (2)/JDSherbert - Pixel UI SFX Pack (FREE)/Free/Stereo/mp3/JDSherbert - Pixel UI SFX Pack - Cancel 1 (Sine).mp3"
+dest_files=["res://.godot/imported/JDSherbert - Pixel UI SFX Pack - Cancel 1 (Sine).mp3-0551e394bb65063183326d134fb8950a.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

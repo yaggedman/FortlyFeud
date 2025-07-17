@@ -1,0 +1,24 @@
+[remap]
+
+importer="wav"
+type="AudioStreamWAV"
+uid="uid://v0fhq2ttsice"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Cursor - 4.wav-4e05bb71b26ec5aeb8dc291242ec0bf5.sample"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Stereo/wav (SD)/JDSherbert - Wooden UI SFX Pack - Cursor - 4.wav"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Cursor - 4.wav-4e05bb71b26ec5aeb8dc291242ec0bf5.sample"]
+
+[params]
+
+force/8_bit=false
+force/mono=false
+force/max_rate=false
+force/max_rate_hz=44100
+edit/trim=false
+edit/normalize=false
+edit/loop_mode=0
+edit/loop_begin=0
+edit/loop_end=-1
+compress/mode=2

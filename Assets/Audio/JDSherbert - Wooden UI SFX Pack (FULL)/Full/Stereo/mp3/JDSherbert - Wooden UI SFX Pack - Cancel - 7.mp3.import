@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://b0selgixwihxv"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Cancel - 7.mp3-253d64193b6f88a02728b92c3e353dea.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Stereo/mp3/JDSherbert - Wooden UI SFX Pack - Cancel - 7.mp3"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Cancel - 7.mp3-253d64193b6f88a02728b92c3e353dea.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

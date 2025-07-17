@@ -123,21 +123,10 @@ var tacticalview = false
 var gamewon: bool = false
 var hoverpitch : float = 1
 
-func _on_tile_button_hovered(button): #this determines the sound and pitch of when you hover over the menu pieces
-	var PieceMetaData = button.get_meta("piece_type")
-	if PieceMetaData == null:
-		hoverpitch = randf_range(1, 5) #pitch scale range, picks a number between 1.00 and 2.00
-		$Hover_Tile_Button_Sound.pitch_scale = hoverpitch
-		$Hover_Tile_Button_Sound.play()
-		#print("tile button hovered over")
-	
-func _on_menu_button_hovered(button): #this determines the sound and pitch of when you hover over the menu pieces
-	hoverpitch = randf_range(1, 2) #pitch scale range, picks a number between 1.00 and 2.00
-	$Hover_Pop.pitch_scale = hoverpitch
-	$Hover_Pop.play()
-	#print("tile button hovered over")
 	
 func _ready():
+	
+	$"Background Waves".play()
 	
 	tacticalview = false
 	$Victory.visible = false
@@ -148,6 +137,7 @@ func _ready():
 	
 	## gets buttons in the button group, and connects the pressed signal with argument button
 	for tilebutton in get_tree().get_nodes_in_group("TileButtons"):
+		tilebutton.set_meta("piece_type", "empty")
 		tilebutton.pressed.connect(Callable(self, "_on_tile_button_pressed").bind(tilebutton))
 		tilebutton.mouse_entered.connect(self._on_tile_button_hovered.bind(tilebutton))
 	
@@ -160,6 +150,9 @@ func _ready():
 	
 	for PieceSelectionKey in PieceSelectionCheck.keys(): # sets all pieces to be deselected on game start-up
 		PieceSelectionCheck[PieceSelectionKey] = false
+	
+	for menubutton in get_tree().get_nodes_in_group("MenuButtons"):
+		menubutton.mouse_entered.connect(self._on_mini_menu_button_hovered.bind(menubutton))
 		
 	print("it is the Norman's turn")
 	$EnemyPieceselectpopup2/FfCelticFort.disabled = true
@@ -205,6 +198,7 @@ var EnemyInventory = {
 func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when menu piece selected
 	UpdateBoardTextures()
 	if HoldingItem == false: # only runs code if hand is empty
+		$PickUpPiece.play()
 		print(menupiece.name, " pressed! Waiting for tile selection or discard") # debug - prints selected piece to console
 		for Piece in PieceSelectionCheck: # loops through all pieces
 			if PieceSelectionCheck.has(menupiece.name): # if the piece is valid
@@ -290,6 +284,8 @@ func _on_tile_button_pressed(tilebutton):
 		
 	
 	if HoldingItem == true: # only runs code if the player has a piece selected
+		
+		$PlacePieceOnBoard.play()
 		
 		for Piece in PieceSelectionCheck: # runs through all pieces, and selects the piece that has been chosen from the piece menu
 			if PieceSelectionCheck[Piece] == true:
@@ -489,7 +485,7 @@ func UpdateBoardTextures():
 				var new_stylebox_hover = preload("res://Assets/Textures/StyleBoxes/FfEmptyHover.tres")
 				tilebutton.add_theme_stylebox_override("normal", new_stylebox)
 				tilebutton.add_theme_stylebox_override("hover", new_stylebox_hover)
-				tilebutton.remove_meta("piece_type")
+				tilebutton.set_meta("piece_type", "empty")
 				
 	LaneUpdates()
 				
@@ -634,10 +630,14 @@ func _on_enemy_piece_select_collapse_button_pressed() -> void: #on side menu but
 func _on_mini_menu_button_pressed() -> void: #toggles mini menu (in the top right)
 	if minimenushut == true:
 		$Buttonblankfix.visible = true
+		for button in get_tree().get_nodes_in_group("TileButtons"):
+			button.disabled = true
 		minimenushut = false
 		
 	elif minimenushut == false:
 		$Buttonblankfix.visible = false
+		for button in get_tree().get_nodes_in_group("TileButtons"):
+			button.disabled = false
 		minimenushut = true
 
 func _on_mini_menu_resume_pressed() -> void: #toggles mini menu from the resume button in the mini menu
@@ -666,6 +666,7 @@ func _on_mini_menu_restart_pressed() -> void:
 
 
 func _on_tactical_view_button_mouse_entered() -> void:
+	$MiniMenuHover.play()
 	$TacViewAnimation.scale = Vector2(5.5,5.5)
 	
 func _on_tactical_view_button_mouse_exited() -> void:
@@ -1094,4 +1095,29 @@ func boardfull() -> void:
 	#
 	#print(EnemyGameBoardArray)
 	
+####################SOUNDDESIGN###########################################
+##########################################################################
+
+
+func _on_mini_menu_button_mouse_entered() -> void:
+	$MiniMenuHover.play()
 	
+func _on_tile_button_hovered(button): #this determines the sound and pitch of when you hover over the menu pieces
+	#var PieceMetaData = button.get_meta("piece_type")
+	if button.get_meta("piece_type") == "empty" and button.disabled == false:
+		hoverpitch = randf_range(1, 2) #pitch scale range, picks a number between 1.00 and 2.00
+		$Hover_Tile_Button_Sound.pitch_scale = hoverpitch
+		$Hover_Tile_Button_Sound.play()
+		#print("tile button hovered over")
+	else:
+		print("no meta data found")
+	
+func _on_menu_button_hovered(button): #this determines the sound and pitch of when you hover over the menu pieces
+	if button.disabled == false:
+		hoverpitch = randf_range(1, 2) #pitch scale range, picks a number between 1.00 and 2.00
+		$Hover_Pop.pitch_scale = hoverpitch
+		$Hover_Pop.play()
+		#print("tile button hovered over")
+		
+func _on_mini_menu_button_hovered(button):
+	$MiniMenuHover.play()

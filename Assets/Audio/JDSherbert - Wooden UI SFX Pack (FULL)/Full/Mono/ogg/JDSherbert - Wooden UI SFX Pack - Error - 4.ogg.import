@@ -1,0 +1,19 @@
+[remap]
+
+importer="oggvorbisstr"
+type="AudioStreamOggVorbis"
+uid="uid://cilu2yk78fuq1"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Error - 4.ogg-70454a56e5ce16f719db2fef42bc7864.oggvorbisstr"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Mono/ogg/JDSherbert - Wooden UI SFX Pack - Error - 4.ogg"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Error - 4.ogg-70454a56e5ce16f719db2fef42bc7864.oggvorbisstr"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

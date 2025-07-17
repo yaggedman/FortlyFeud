@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://ckdu7nptj4rab"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Error - 1.mp3-9136b82b73a1408de71f8df68bda83e8.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Mono/mp3/JDSherbert - Wooden UI SFX Pack - Error - 1.mp3"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Error - 1.mp3-9136b82b73a1408de71f8df68bda83e8.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4

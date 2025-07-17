@@ -1,0 +1,19 @@
+[remap]
+
+importer="mp3"
+type="AudioStreamMP3"
+uid="uid://bvpmit2184gw0"
+path="res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Cursor - 2.mp3-bea3a1c41a39415d15c50c0a5a9ee5fe.mp3str"
+
+[deps]
+
+source_file="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Stereo/mp3/JDSherbert - Wooden UI SFX Pack - Cursor - 2.mp3"
+dest_files=["res://.godot/imported/JDSherbert - Wooden UI SFX Pack - Cursor - 2.mp3-bea3a1c41a39415d15c50c0a5a9ee5fe.mp3str"]
+
+[params]
+
+loop=false
+loop_offset=0
+bpm=0
+beat_count=0
+bar_beats=4
