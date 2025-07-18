@@ -273,6 +273,7 @@ func _process(float) -> void:
 func _on_tile_button_pressed(tilebutton):
 	LaneUpdates()
 	
+	
 	tacticalview = true
 	_on_tactical_view_button_pressed()
 	
@@ -361,10 +362,11 @@ func _on_tile_button_pressed(tilebutton):
 					
 					
 		LaneUpdates()
+		boardfull()
 		
 func UpdateBoardTextures():
 	LaneUpdates()
-	boardfull()
+	#boardfull()
 	
 	if gamewon == true:
 		$Victory.visible = true
@@ -398,6 +400,7 @@ func UpdateBoardTextures():
 				
 			
 			if piece_number == 4: #specifcally updates wall textures
+				tilebutton.set_meta("piece_type", "wall")
 				var connect_left = false
 				var connect_right = false
 				
@@ -472,13 +475,13 @@ func UpdateBoardTextures():
 					if tilebutton:
 						tilebutton.add_theme_stylebox_override("normal", stylebox_dict[piece_name])
 						tilebutton.add_theme_stylebox_override("hover", stylebox_dict[piece_name]) # changes stylebox of button
-						print("Updated tile", tile_name, 	"with stylebox for ", piece_name)
+						#print("Updated tile", tile_name, 	"with stylebox for ", piece_name)
 				
 				elif piece_name and tacview_stylebox_dict.has(piece_name) and tacticalview == true:
 					if tilebutton:
 						tilebutton.add_theme_stylebox_override("normal", tacview_stylebox_dict[piece_name])
 						tilebutton.add_theme_stylebox_override("hover", tacview_stylebox_dict[piece_name]) # changes stylebox of button
-						print("Updated tile", tile_name, 	"with stylebox for ", piece_name)
+						#print("Updated tile", tile_name, 	"with stylebox for ", piece_name)
 						
 			elif piece_number != 4 or enemy_piece_number !=4: #this sets stylebox of empty tiles, useful for when traders are picked up
 				var new_stylebox = preload("res://Assets/Textures/StyleBoxes/FfEmpty.tres")
@@ -498,8 +501,6 @@ func PlaceNewTrader():
 			PieceSelectionCheck[menupiece] = false
 			find_enemy_traders()
 			
-			
-				
 		elif PieceSelectionCheck[menupiece] == true and menupiece == ("FfNormanTrader"):
 			print("Norman Trader Selected")
 			PieceSelectionCheck[menupiece] = false
@@ -539,71 +540,6 @@ func find_enemy_traders():
 				$SmokeAnimation.visible = true
 				$SmokeAnimation.play("default")
 				
-				
-				
-				#for button in get_tree().get_nodes_in_group("TileButtons"):
-					#if button is Button:
-						#var current_stylebox = button.get_theme_stylebox("normal") or button.get_stylebox("normal")
-				#
-						#if current_stylebox == preload("res://Assets/Textures/StyleBoxes/FfNormanTrader_SB.tres"):
-							#print("Trader already exists!")
-		#else:
-			#print("not a norman trader")
-		
-#func TraderMove(tilebutton):
-	#
-	#print("no piece selected! checking if ", tilebutton.name, " has a trader...")
-	#
-	#var indices = TilesDict[tilebutton.name] # gets [row, col] from dictionary
-	#var row = int(indices[0]) - 1
-	#var col = int(indices[1]) - 1
-	#
-	#if turnordercount %2 == 0: # if it's the celt's turn
-		#var enemy_piece_number = EnemyGameBoardArray[row][col]
-		#
-		#if enemy_piece_number == 2:
-			#tilebutton.visible = false
-			#HoldingItem = true
-			#print("tile is a celtic trader, picking up piece...")
-			#PieceSelectionCheck["FfCelticTrader"] = true
-		#else:
-			#print ("tile is not a celtic trader")
-	#else: #if it is the norman's turn
-		#var piece_number = FriendlyGameBoardArray[row][col]
-		#
-		#if piece_number == 2:
-			#tilebutton.visible = false
-			#HoldingItem = true
-			#print("tile is a norman trader, picking up piece...")
-			#PieceSelectionCheck["FfNormanTrader"] = true
-			##FriendlyGameBoardArray[row][col] = 0 #does this too early...
-			#UpdateBoardTextures()
-			#
-		#else:
-			#print("tile is not a norman trader")
-			#
-#func InvisibleCheck():
-	#var buttons = get_tree().get_nodes_in_group("TileButtons")
-	#var any_hidden = false
-	#var hidden_button = null
-	#
-	#for button in buttons:
-		#if not button.visible:
-			#any_hidden = true
-			#hidden_button = button
-			#break
-	#if any_hidden:
-		#for button in buttons:
-			#button.visible = true
-	#
-	#if hidden_button != null:
-		#var indices = TilesDict[hidden_button.name] # gets [row, col] from dictionary
-		#var row = int(indices[0]) - 1
-		#var col = int(indices[1]) - 1
-		#FriendlyGameBoardArray[row][col] = 0
-		#EnemyGameBoardArray[row][col] = 0
-		
-		
 
 ###################~MENU CODE~################################
 
@@ -1056,8 +992,36 @@ func boardfull() -> void:
 					print("board fulL! destroying walls")
 					numberofpiecesonboard = 0
 					
+					for tilebutton in get_tree().get_nodes_in_group("TileButtons"):
+						if tilebutton.has_meta("piece_type") and tilebutton.get_meta("piece_type") == "wall":
+							for y2 in range(FriendlyGameBoardArray.size()):
+								for x2 in range(FriendlyGameBoardArray[y].size()):
+					
+									if FriendlyGameBoardArray[y2][x2] == 4:
+			
+										var tile_name = str(y + 1) + "_" + str(x + 1)
+										var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+										print("wall found at ", tile_name, ", position is ", tile_node.global_position)
+										FriendlyGameBoardArray[y2][x2] = 0
+										EnemyGameBoardArray[y2][x2] = 0
+										UpdateBoardTextures()
+										numberofpiecesonboard = 0
+										
+					var draw_check: int = 0
+					for y3 in range(FriendlyGameBoardArray.size()):
+						for x3 in range(FriendlyGameBoardArray[y].size()):
+					
+							if FriendlyGameBoardArray[y3][x3] != 0:
+								draw_check += 1
+								if draw_check == 25:
+									print("game is a draw")
+									draw_check = 0
+							else:
+								draw_check = 0
+					
+					
 			else:
-				break
+				pass
 
 			
 			
