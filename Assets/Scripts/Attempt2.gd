@@ -5,9 +5,7 @@ extends Node2D
 ## - Enemy AI
 ## "Advance Turn" button. instead of automatic turn order
 ## undo/reset button when your turn
-## Walls must be destroyed when all spaces are filled on board
-## Tactical view bug, trader doesn't jump diagonal
-
+## draw/victory labels can appear at the same time, if the last piece is placed on a winning tile.
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
 	[0, 0, 0, 0, 0],
@@ -122,9 +120,10 @@ var minimenushut = true
 var tacticalview = false
 var gamewon: bool = false
 var hoverpitch : float = 1
+var suddendeathtoggle : bool = false
 
-	
 func _ready():
+	randomize()
 	
 	$"Background Waves".play()
 	
@@ -165,7 +164,7 @@ func turnorder(): # decides turn order, and disables buttons when it's not your 
 	turnordercount += 1
 	
 	if turnordercount %2 == 0:
-		#dumb_bot_move_picker()
+		$"Dumb Bot Delay".start()
 		print("it is the Celt's turn")
 		$FriendlyPieceselectpopup/FfNormanFort.disabled = true
 		$FriendlyPieceselectpopup/FfNormanTrader.disabled = true
@@ -183,7 +182,7 @@ func turnorder(): # decides turn order, and disables buttons when it's not your 
 		for InventoryPiece in FriendlyInventory:
 			if InventoryPiece == "FfNormanWall" and FriendlyInventory["FfNormanWall"] <= 0:
 				$FriendlyPieceselectpopup/FfNormanWall.disabled = true
-		
+
 var FriendlyInventory = {
 	"FfNormanWall" = 1
 }
@@ -193,7 +192,6 @@ var EnemyInventory = {
 	"FfCelticTrader" = 999,
 	"FfCelticFort" = 999
 }
-	
 
 func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when menu piece selected
 	UpdateBoardTextures()
@@ -247,7 +245,7 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 	if event is InputEventKey and event.pressed and event.keycode == KEY_ESCAPE:
 		_on_mini_menu_button_pressed()
 	
-func _process(float) -> void:
+func _process(_float) -> void:
 	#PlaceNewTrader() #debug
 	#matrix_search() #debug
 	var mousepos : Vector2 = get_viewport().get_mouse_position()
@@ -267,8 +265,6 @@ func _process(float) -> void:
 	if SpriteFollowingMouse:
 		SpriteFollowingMouse.position = mousepos
 		#print(SpriteFollowingMouse.name)
-	
-	
 
 func _on_tile_button_pressed(tilebutton):
 	LaneUpdates()
@@ -312,8 +308,8 @@ func _on_tile_button_pressed(tilebutton):
 						FriendlyGameBoardArray[row][col] = FriendlyPieceNumberRef[Piece] # appends the piece number to the correct array location
 						#print("Updated Friendly Board: ", FriendlyGameBoardArray) # prints to console
 						
-						
-						SpriteFollowingMouse.queue_free() # deletes piece attached to mouse
+						if SpriteFollowingMouse != null:
+							SpriteFollowingMouse.queue_free() # deletes piece attached to mouse
 						SpriteFollowingMouse = null # resets sprite holder so another piece can be selected
 						HoldingItem = false # allows another piece to be picked up
 						UpdateBoardTextures()
@@ -333,10 +329,6 @@ func _on_tile_button_pressed(tilebutton):
 							for InventoryPiece in FriendlyInventory:
 								if InventoryPiece == "FfNormanWall" and FriendlyInventory["FfNormanWall"] <= 0:
 									$FriendlyPieceselectpopup/FfNormanWall.disabled = true
-							
-							
-		
-		
 							
 
 						for key in PieceSelectionCheck.keys():
@@ -363,7 +355,7 @@ func _on_tile_button_pressed(tilebutton):
 					
 		LaneUpdates()
 		boardfull()
-		
+
 func UpdateBoardTextures():
 	LaneUpdates()
 	#boardfull()
@@ -390,7 +382,7 @@ func UpdateBoardTextures():
 			var enemy_piece_number = EnemyGameBoardArray[row][col]
 			
 			var piece_name = null
-			var is_friendly = false
+			var _is_friendly = false
 		
 			if enemy_piece_number == 0:
 				var new_stylebox = preload("res://Assets/Textures/StyleBoxes/FfEmpty.tres")
@@ -458,7 +450,7 @@ func UpdateBoardTextures():
 					for piece in FriendlyPieceNumberRef.keys(): # this chunk finds the piece name from the FriendlyPieceNumberRef
 						if FriendlyPieceNumberRef[piece] == piece_number:
 							piece_name = piece
-							is_friendly = true
+							_is_friendly = true
 							#print("piece is friendly!")
 							break
 					
@@ -466,7 +458,7 @@ func UpdateBoardTextures():
 					for enemypiece in EnemyPieceNumberRef.keys():
 						if EnemyPieceNumberRef[enemypiece] == enemy_piece_number:
 							piece_name = enemypiece
-							is_friendly = false
+							_is_friendly = false
 							#print("piece is enemy!")
 							break
 				
@@ -491,7 +483,7 @@ func UpdateBoardTextures():
 				tilebutton.set_meta("piece_type", "empty")
 				
 	LaneUpdates()
-				
+
 func PlaceNewTrader():
 	#if HoldingItem == true: # only runs code if the player has a piece selected
 	for menupiece in PieceSelectionCheck:
@@ -505,7 +497,7 @@ func PlaceNewTrader():
 			print("Norman Trader Selected")
 			PieceSelectionCheck[menupiece] = false
 			find_friendly_traders()
-			
+
 func find_friendly_traders():
 	for y in range(FriendlyGameBoardArray.size()):
 		for x in range(FriendlyGameBoardArray[y].size()):
@@ -523,7 +515,7 @@ func find_friendly_traders():
 				EnemyGameBoardArray[y][x] = 0
 				UpdateBoardTextures()
 				$HammerAnimation.visible = false
-				
+
 func find_enemy_traders():
 	for y in range(EnemyGameBoardArray.size()):
 		for x in range(EnemyGameBoardArray[y].size()):
@@ -539,7 +531,6 @@ func find_enemy_traders():
 				$SmokeAnimation.position = tile_node.global_position + Vector2(100,100)
 				$SmokeAnimation.visible = true
 				$SmokeAnimation.play("default")
-				
 
 ###################~MENU CODE~################################
 
@@ -552,7 +543,6 @@ func _on_piece_select_collapse_button_pressed() -> void: #on side menu button to
 		$FriendlyPieceselectpopup/CollapsePieceMenu.play("PieceSelectReveal")
 		FriendlyMenuShut = false
 		
-
 func _on_enemy_piece_select_collapse_button_pressed() -> void: #on side menu button toggle, hide/show the piece side menu (enemy side)
 	if EnemyMenuShut == false:
 		$EnemyPieceselectpopup2/EnemyCollapsePieceMenu.play_backwards("EnemyPieceSelectReveal")
@@ -562,52 +552,51 @@ func _on_enemy_piece_select_collapse_button_pressed() -> void: #on side menu but
 		$EnemyPieceselectpopup2/EnemyCollapsePieceMenu.play("EnemyPieceSelectReveal")
 		EnemyMenuShut = false
 
-
 func _on_mini_menu_button_pressed() -> void: #toggles mini menu (in the top right)
 	if minimenushut == true:
 		$Buttonblankfix.visible = true
 		for button in get_tree().get_nodes_in_group("TileButtons"):
-			button.disabled = true
+			if button.get_meta("piece_type") == "empty":
+				button.disabled = true
 		minimenushut = false
 		
 	elif minimenushut == false:
 		$Buttonblankfix.visible = false
 		for button in get_tree().get_nodes_in_group("TileButtons"):
-			button.disabled = false
+			if button.get_meta("piece_type") == "empty":
+				button.disabled = false
 		minimenushut = true
 
 func _on_mini_menu_resume_pressed() -> void: #toggles mini menu from the resume button in the mini menu
 	if minimenushut == false:
 		$Buttonblankfix.visible = false
 		minimenushut = true
+		for button in get_tree().get_nodes_in_group("TileButtons"):
+			if button.get_meta("piece_type") == "empty":
+				button.disabled = false
 	else:
 		print("error: mini menu shut but resume button pressed!")
-		
 
 func _on_mini_menu_quit_pressed() -> void:
 	if minimenushut == false:
 		get_tree().change_scene_to_file("res://Assets/Scenes/main_menu.tscn")
 	else:
 		print("error: mini menu shut but quit button pressed!")
-	
-	
+
 func _on_mini_menu_restart_pressed() -> void:
 	if minimenushut == false:
 		get_tree().reload_current_scene()
 	else:
 		print("error: mini menu shut but restart button pressed!")
-		
 
 ###############TACTICAL VIEW###########################
-
 
 func _on_tactical_view_button_mouse_entered() -> void:
 	$MiniMenuHover.play()
 	$TacViewAnimation.scale = Vector2(5.5,5.5)
-	
+
 func _on_tactical_view_button_mouse_exited() -> void:
 	$TacViewAnimation.scale = Vector2(5,5)
-	
 
 func _on_tactical_view_button_pressed() -> void:
 	LaneUpdates()
@@ -772,8 +761,7 @@ func _on_tactical_view_button_pressed() -> void:
 		$TacViewGreyOverlay.visible = false
 		UpdateBoardTextures()
 		print("Children count: ", $TraderGuideAnimation.get_child_count())
-		
-		
+
 ## ==================================WINCONDITIONS=====================================================
 ## ====================================================================================================
 
@@ -786,7 +774,6 @@ var EnemyDiagonals = {}
 
 var FriendlySize = FriendlyGameBoardArray.size()
 var EnemySize = EnemyGameBoardArray.size()
-
 
 func LaneUpdates() -> void:
 	
@@ -928,10 +915,7 @@ func LaneUpdates() -> void:
 		if check_lane_for_win(EnemyDiagonals[key]):
 			print("Win in ", key)
 			gamewon = true
-			
-	
-	
-	
+
 func check_lane_for_win(lane: Array) -> bool:
 	
 	
@@ -978,7 +962,7 @@ func check_lane_for_win(lane: Array) -> bool:
 					return true
 			
 	return false
-	
+
 #######################################SUDDEN DEATH#####################################################
 
 func boardfull() -> void:
@@ -1006,6 +990,13 @@ func boardfull() -> void:
 										EnemyGameBoardArray[y2][x2] = 0
 										UpdateBoardTextures()
 										numberofpiecesonboard = 0
+										if suddendeathtoggle == false:
+											suddendeathtoggle = true
+											print("starting sudden death")
+											$"Sudden Death Label".visible = true
+											$SuddenDeathTitleTimer.start()
+										else:
+											print("sudden death already triggered this round, blocking it.")
 										
 					var draw_check: int = 0
 					for y3 in range(FriendlyGameBoardArray.size()):
@@ -1015,6 +1006,7 @@ func boardfull() -> void:
 								draw_check += 1
 								if draw_check == 25:
 									print("game is a draw")
+									$"Draw Label".visible = true
 									draw_check = 0
 							else:
 								draw_check = 0
@@ -1023,49 +1015,83 @@ func boardfull() -> void:
 			else:
 				pass
 
-			
-			
-## ==================================ENEMY BOTS=====================================================
-## =================================================================================================
+func _on_sudden_death_title_timer_timeout() -> void:
+	$"Sudden Death Label".visible = false
+
+#################################ENEMY BOTS#########################################################
 
 #######################################DUMB BOT#####################################################
 
-#func dumb_bot_move_picker() -> void:
-	## 1. Collect all empty positions as Vector2i(row, col)
-	#var empty_positions: Array[Vector2i] = []
-	#for row in range(EnemyGameBoardArray.size()):
-		#for col in range(EnemyGameBoardArray[row].size()):
-			#if EnemyGameBoardArray[row][col] == 0:
-				#empty_positions.append(Vector2i(row, col))
-				#
-	## 2. If no empty spots, do nothing or print message
-	#if empty_positions.is_empty():
-		#print("No empty spots available for the bot to move.")
-		#return
-	#
-	## 3. Pick a random empty spot
-	#var chosen_pos: Vector2i = empty_positions.pick_random()
-	#
-	## 4. Bot’s inventory (example)
-	#var bot_inventory: Array = [1, 2, 4]
-	#
-	## 5. Pick a random item from inventory
-	#var chosen_item = bot_inventory.pick_random()
-	#
-	## 6. Place the chosen item at the chosen position
-	#EnemyGameBoardArray[chosen_pos.x][chosen_pos.y] = chosen_item
-	#
-	#print("Bot placed item ", chosen_item, " at position ", chosen_pos)
-	#
-	#print(EnemyGameBoardArray)
-	
-####################SOUNDDESIGN###########################################
-##########################################################################
+func _on_dumb_bot_delay_timeout() -> void: # makes dumb bot wait 3 seconds before thinking
+	dumb_bot_move_picker()
 
+func dumb_bot_move_picker() -> void:
+	var walls_available : bool = true
+	if gamewon == false:
+		var random_y = randi() % EnemyGameBoardArray.size()
+	
+		var random_x = randi() % EnemyGameBoardArray[random_y].size()
+	
+		print(EnemyGameBoardArray)
+	
+		var random_value = EnemyGameBoardArray[random_x][random_y]
+		print("[Dumb Bot] Random value: ", random_value, " at ", (random_x + 1), ", ", (random_y + 1))
+		if random_value == 0:
+			
+			var available_pieces = []
+			for piece in EnemyInventory.keys():
+				if EnemyInventory[piece] <= 0:
+					walls_available = false
+				if EnemyInventory[piece] > 0:
+					var weight = 1
+					if piece.find("FfCelticFort") != -1:
+						weight = 6
+					if piece.find("FfCelticWall") != -1:
+						walls_available = true
+						weight = 1
+					if piece.find("FfCelticTrader") != -1:
+						if walls_available == true:
+							weight = 1
+						else:
+							weight = 2
+					for i in range(weight):
+						available_pieces.append(piece)
+						print(available_pieces)
+						
+			if available_pieces.size() == 0:
+				print("[Dumb Bot] My inventory is empty!")
+			
+			var size = available_pieces.size()
+			var random_piece = available_pieces[randi() % available_pieces.size()]
+		
+			print("[Dumb Bot] Placing ", random_piece, " on ", (random_x + 1), ", ", (random_y + 1))
+			HoldingItem = true
+			PieceSelectionCheck[random_piece] = true
+			var tile_name = "%d_%d" % [random_x + 1, random_y + 1]
+			var tile_path = "FfMapBigger/"+ tile_name
+			if has_node(tile_path):
+				var tile_node = get_node(tile_path)
+				_on_tile_button_pressed(tile_node)
+			else:
+				print("Tile node not found: ", tile_path)
+			
+			if random_piece == "FfCelticWall":
+				print("[Dumb Bot] I placed a wall, taking another turn...")
+				$"Dumb Bot Delay".start()
+		
+		else:
+			print("[Dumb Bot] Tile: ", (random_x + 1), ", ", (random_y + 1), " already occupied, picking another spot...")
+			dumb_bot_move_picker()
+	
+	
+	
+
+
+####################SOUNDDESIGN#########################################################################
 
 func _on_mini_menu_button_mouse_entered() -> void:
 	$MiniMenuHover.play()
-	
+
 func _on_tile_button_hovered(button): #this determines the sound and pitch of when you hover over the menu pieces
 	#var PieceMetaData = button.get_meta("piece_type")
 	if button.get_meta("piece_type") == "empty" and button.disabled == false:
@@ -1074,14 +1100,15 @@ func _on_tile_button_hovered(button): #this determines the sound and pitch of wh
 		$Hover_Tile_Button_Sound.play()
 		#print("tile button hovered over")
 	else:
-		print("no meta data found")
-	
+		#print("no meta data found")
+		pass
+
 func _on_menu_button_hovered(button): #this determines the sound and pitch of when you hover over the menu pieces
 	if button.disabled == false:
 		hoverpitch = randf_range(1, 2) #pitch scale range, picks a number between 1.00 and 2.00
 		$Hover_Pop.pitch_scale = hoverpitch
 		$Hover_Pop.play()
 		#print("tile button hovered over")
-		
-func _on_mini_menu_button_hovered(button):
+
+func _on_mini_menu_button_hovered(_button):
 	$MiniMenuHover.play()
