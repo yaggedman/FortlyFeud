@@ -74,6 +74,8 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
 script = ExtResource("1_4xi4l")
 
 [node name="SingleplayerButton" type="Button" parent="."]
@@ -172,12 +174,37 @@ theme_override_styles/pressed = SubResource("StyleBoxTexture_x24nr")
 theme_override_styles/normal = SubResource("StyleBoxTexture_k7wsi")
 text = "Quit"
 
-[node name="FfLogo" type="Sprite2D" parent="."]
+[node name="Label" type="Label" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -202.0
+offset_top = -118.0
+offset_right = 202.0
+offset_bottom = -95.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "ty max for placeholder music it is awesome and cool"
+
+[node name="FfLogo" type="TextureRect" parent="."]
 z_as_relative = false
-position = Vector2(963, 230)
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("4_fadmi")
-region_enabled = true
-region_rect = Rect2(0, 0, 1920, 460.632)
+stretch_mode = 3
 
 [node name="Background" type="Control" parent="."]
 show_behind_parent = true
@@ -238,14 +265,6 @@ autoplay = "BGScroll"
 
 [node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="."]
 stream = ExtResource("6_fadmi")
-
-[node name="Label" type="Label" parent="."]
-layout_mode = 0
-offset_left = 762.0
-offset_top = 426.0
-offset_right = 1166.0
-offset_bottom = 449.0
-text = "ty max for placeholder music it is awesome and cool"
 
 [connection signal="pressed" from="SingleplayerButton" to="." method="_on_singleplayer_button_pressed"]
 [connection signal="pressed" from="MultiplayerButton" to="." method="_on_multiplayer_button_pressed"]

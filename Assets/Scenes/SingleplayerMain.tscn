@@ -104,6 +104,19 @@ texture = SubResource("GradientTexture1D_07qpu")
 
 [sub_resource type="Animation" id="Animation_o7osr"]
 resource_name = "EnemyCollapsePieceMenu"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("..:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(2.37, 3.36),
+"update": 0,
+"values": [Vector2(1824, 112), Vector2(1584, 112)]
+}
 
 [sub_resource type="Animation" id="Animation_a17lq"]
 resource_name = "EnemyPieceSelectCollapse"
@@ -210,7 +223,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2667),
 "transitions": PackedFloat32Array(2.37841, 3.36359),
 "update": 0,
-"values": [Vector2(-93, 536), Vector2(168, 536)]
+"values": [Vector2(-256, 80), Vector2(0.335, 90)]
 }
 
 [sub_resource type="Animation" id="Animation_k34eg"]
@@ -326,6 +339,14 @@ region = Rect2(600, 900, 300, 300)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_w63gq"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"blank",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_37q80")
@@ -715,15 +736,32 @@ _data = {
 &"fortdancetest": SubResource("Animation_go4jv")
 }
 
-[node name="Main" type="Node2D"]
+[node name="Main" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 script = ExtResource("1_pa8vt")
 
-[node name="EnemyPieceselectpopup2" type="Sprite2D" parent="."]
+[node name="EnemyPieceselectpopup2" type="TextureRect" parent="."]
 z_index = 1
-position = Vector2(1872, 88)
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -452.0
+offset_right = 19.0
+offset_bottom = -292.0
+grow_horizontal = 0
+grow_vertical = 2
 scale = Vector2(5, 5)
 texture = ExtResource("2_288hg")
-centered = false
 
 [node name="FfCelticFort" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 z_index = 1
@@ -737,6 +775,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_mjvv5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_jva5i")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_tinvn")
 theme_override_styles/normal = SubResource("StyleBoxTexture_g02d7")
+metadata/_edit_use_anchors_ = true
 
 [node name="FfCelticTrader" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 z_index = 1
@@ -750,6 +789,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_d3ql3")
 theme_override_styles/hover = SubResource("StyleBoxTexture_iocm1")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_gdt3t")
 theme_override_styles/normal = SubResource("StyleBoxTexture_mn2ep")
+metadata/_edit_use_anchors_ = true
 
 [node name="FfCelticWall" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 z_index = 1
@@ -763,6 +803,7 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_iap8q")
 theme_override_styles/hover = SubResource("StyleBoxTexture_lilpd")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_hrrey")
 theme_override_styles/normal = SubResource("StyleBoxTexture_omdwt")
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyPieceSelectCollapseButton" type="Button" parent="EnemyPieceselectpopup2"]
 z_index = 1
@@ -774,6 +815,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_wdjhr")
 theme_override_styles/hover = SubResource("StyleBoxTexture_4iswa")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_4iswa")
 theme_override_styles/normal = SubResource("StyleBoxTexture_3bar1")
+metadata/_edit_use_anchors_ = true
 
 [node name="EnemyCollapsePieceMenu" type="AnimationPlayer" parent="EnemyPieceselectpopup2"]
 root_node = NodePath("../EnemyPieceSelectCollapseButton")
@@ -782,14 +824,28 @@ libraries = {
 }
 autoplay = "EnemyPieceSelectReveal"
 
-[node name="FriendlyPieceselectpopup" type="Sprite2D" parent="."]
+[node name="FriendlyPieceselectpopup" type="TextureRect" parent="."]
 z_index = 1
-position = Vector2(152, 529.333)
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 152.0
+offset_top = -10.667
+offset_right = 219.0
+offset_bottom = 164.333
+grow_vertical = 2
 scale = Vector2(5, 5)
 texture = ExtResource("6_cbthd")
 
 [node name="FfNormanFort" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
 z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.501492
+anchor_top = 0.504381
+anchor_right = 0.501492
+anchor_bottom = 0.504381
 offset_left = -27.2
 offset_top = -56.2666
 offset_right = -2.2
@@ -800,9 +856,16 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_g56lv")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6f7yy")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_48mej")
 theme_override_styles/normal = SubResource("StyleBoxTexture_48mej")
+metadata/_edit_use_anchors_ = true
 
 [node name="FfNormanTrader" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
 z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.477612
+anchor_top = 0.507806
+anchor_right = 0.477612
+anchor_bottom = 0.507806
 offset_left = -25.6
 offset_top = -9.0666
 offset_right = -0.6
@@ -813,9 +876,16 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_txb0p")
 theme_override_styles/hover = SubResource("StyleBoxTexture_06jdv")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_t6qui")
 theme_override_styles/normal = SubResource("StyleBoxTexture_iutmy")
+metadata/_edit_use_anchors_ = true
 
 [node name="FfNormanWall" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
 z_index = 1
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.507463
+anchor_top = 0.499809
+anchor_right = 0.507463
+anchor_bottom = 0.499809
 offset_left = -26.0
 offset_top = 38.9334
 offset_right = -1.0
@@ -826,8 +896,15 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_ajrxn")
 theme_override_styles/hover = SubResource("StyleBoxTexture_6omu4")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_5hptv")
 theme_override_styles/normal = SubResource("StyleBoxTexture_b7sxe")
+metadata/_edit_use_anchors_ = true
 
 [node name="PieceSelectCollapseButton" type="Button" parent="FriendlyPieceselectpopup"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.500493
+anchor_top = 0.510095
+anchor_right = 0.500493
+anchor_bottom = 0.510095
 offset_left = 22.4
 offset_top = -1.8666
 offset_right = 30.4
@@ -838,6 +915,7 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_4iswa")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_4iswa")
 theme_override_styles/normal = SubResource("StyleBoxTexture_3bar1")
 script = ExtResource("8_6tynu")
+metadata/_edit_use_anchors_ = true
 
 [node name="CollapsePieceMenu" type="AnimationPlayer" parent="FriendlyPieceselectpopup"]
 libraries = {
@@ -858,6 +936,7 @@ offset_right = -63.0467
 offset_bottom = -63.0
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_u2adv")
+metadata/_edit_use_anchors_ = true
 
 [node name="1_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -867,6 +946,7 @@ offset_right = -21.0467
 offset_bottom = -62.9971
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_go4jv")
+metadata/_edit_use_anchors_ = true
 
 [node name="1_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -876,6 +956,7 @@ offset_right = 20.9532
 offset_bottom = -63.0
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_hcbek")
+metadata/_edit_use_anchors_ = true
 
 [node name="1_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -885,6 +966,7 @@ offset_right = 62.9533
 offset_bottom = -62.9971
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="1_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -894,6 +976,7 @@ offset_right = 104.953
 offset_bottom = -63.0
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="2_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -903,6 +986,7 @@ offset_right = -63.0467
 offset_bottom = -21.0
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="2_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -912,6 +996,7 @@ offset_right = -21.0467
 offset_bottom = -20.9971
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="2_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -921,6 +1006,7 @@ offset_right = 20.9532
 offset_bottom = -20.9971
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="2_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -930,6 +1016,7 @@ offset_right = 62.9532
 offset_bottom = -21.0
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="2_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -939,6 +1026,7 @@ offset_right = 104.953
 offset_bottom = -20.9971
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="3_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -948,6 +1036,7 @@ offset_right = -63.0467
 offset_bottom = 21.0006
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="3_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -957,6 +1046,7 @@ offset_right = -21.0467
 offset_bottom = 21.0029
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="3_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -966,6 +1056,7 @@ offset_right = 20.9532
 offset_bottom = 21.0
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="3_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -975,6 +1066,7 @@ offset_right = 62.9532
 offset_bottom = 21.0029
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="3_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -984,6 +1076,7 @@ offset_right = 104.953
 offset_bottom = 21.0029
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="4_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -993,6 +1086,7 @@ offset_right = -63.0468
 offset_bottom = 63.0006
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="4_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1002,6 +1096,7 @@ offset_right = -21.0468
 offset_bottom = 63.0029
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="4_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1011,6 +1106,7 @@ offset_right = 20.9532
 offset_bottom = 63.0029
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="4_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1020,6 +1116,7 @@ offset_right = 62.9532
 offset_bottom = 63.0029
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="4_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1029,6 +1126,7 @@ offset_right = 104.953
 offset_bottom = 63.0029
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="5_1" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1038,6 +1136,7 @@ offset_right = -63.0468
 offset_bottom = 104.998
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="5_2" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1047,6 +1146,7 @@ offset_right = -21.0468
 offset_bottom = 104.998
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="5_3" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1056,6 +1156,7 @@ offset_right = 20.9532
 offset_bottom = 104.998
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="5_4" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1065,6 +1166,7 @@ offset_right = 62.9532
 offset_bottom = 104.998
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="5_5" parent="FfMapBigger" groups=["TileButtons"] instance=ExtResource("2_aygyd")]
 z_index = 2
@@ -1074,6 +1176,7 @@ offset_right = 104.953
 offset_bottom = 105.003
 scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
+metadata/_edit_use_anchors_ = true
 
 [node name="MiniMenuButton" type="Button" parent="."]
 z_index = 2
@@ -1085,6 +1188,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_spmop")
 theme_override_styles/hover = SubResource("StyleBoxTexture_vwqjl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_0yht5")
 theme_override_styles/normal = SubResource("StyleBoxTexture_eamk4")
+metadata/_edit_use_anchors_ = true
 
 [node name="Buttonblankfix" type="Sprite2D" parent="."]
 visible = false
@@ -1173,8 +1277,7 @@ z_index = 4
 position = Vector2(2024, 1168)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_w63gq")
-frame = 8
-frame_progress = 0.992838
+animation = &"blank"
 
 [node name="SmokeAnimation" type="AnimatedSprite2D" parent="."]
 modulate = Color(1, 1, 1, 0.996078)
@@ -1206,6 +1309,7 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_degjt")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_cyndr")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_u075k")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_mc503")
+metadata/_edit_use_anchors_ = true
 
 [node name="TacViewGreyOverlay" type="Sprite2D" parent="."]
 visible = false
@@ -1414,13 +1518,11 @@ one_shot = true
 
 [connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
 [connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]
-[connection signal="focus_entered" from="MiniMenuButton" to="." method="_on_mini_menu_button_focus_entered"]
 [connection signal="mouse_entered" from="MiniMenuButton" to="." method="_on_mini_menu_button_mouse_entered"]
 [connection signal="pressed" from="MiniMenuButton" to="." method="_on_mini_menu_button_pressed"]
 [connection signal="pressed" from="Buttonblankfix/MiniMenuQuit" to="." method="_on_mini_menu_quit_pressed"]
 [connection signal="pressed" from="Buttonblankfix/MiniMenuRestart" to="." method="_on_mini_menu_restart_pressed"]
 [connection signal="pressed" from="Buttonblankfix/MiniMenuResume" to="." method="_on_mini_menu_resume_pressed"]
-[connection signal="animation_finished" from="TacViewAnimation" to="." method="_on_tac_view_animation_animation_finished"]
 [connection signal="mouse_entered" from="TacViewAnimation/TacticalViewButton" to="." method="_on_tactical_view_button_mouse_entered"]
 [connection signal="mouse_exited" from="TacViewAnimation/TacticalViewButton" to="." method="_on_tactical_view_button_mouse_exited"]
 [connection signal="pressed" from="TacViewAnimation/TacticalViewButton" to="." method="_on_tactical_view_button_pressed"]

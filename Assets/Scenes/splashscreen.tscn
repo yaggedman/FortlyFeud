@@ -1,9 +1,196 @@
-[gd_scene load_steps=7 format=3 uid="uid://dcd4wxqb81iiu"]
+[gd_scene load_steps=52 format=3 uid="uid://dcd4wxqb81iiu"]
 
-[ext_resource type="Texture2D" uid="uid://c20nih5oaqip1" path="res://Assets/Sprites/splashscreen/strawbhillgamestemptransparent.png" id="1_1cno2"]
 [ext_resource type="Script" uid="uid://btq4xc7yud6e" path="res://Assets/Scenes/splashscreen.gd" id="1_hjfwo"]
+[ext_resource type="Texture2D" uid="uid://b14gj3i4p16j8" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216000.png" id="2_bgfiu"]
+[ext_resource type="Texture2D" uid="uid://cegudksrxnpfa" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216001.png" id="3_sfl1m"]
+[ext_resource type="Texture2D" uid="uid://cxxewy4e7oiht" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216002.png" id="4_5k6tv"]
+[ext_resource type="Texture2D" uid="uid://woo8hlrkdx5r" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216003.png" id="5_jq2rl"]
+[ext_resource type="Texture2D" uid="uid://c83pwijcw2dgy" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216004.png" id="6_h77bg"]
+[ext_resource type="Texture2D" uid="uid://cbof38n2udkaf" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216005.png" id="7_ck66r"]
+[ext_resource type="Texture2D" uid="uid://dgmq0j3r8khfy" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216006.png" id="8_1l7cg"]
+[ext_resource type="Texture2D" uid="uid://c56lbktg1gy6o" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216007.png" id="9_7l8vi"]
+[ext_resource type="Texture2D" uid="uid://dwed8r8xhtsbp" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216008.png" id="10_2mtwt"]
+[ext_resource type="Texture2D" uid="uid://c876el7f1471r" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216009.png" id="11_pe2hx"]
+[ext_resource type="Texture2D" uid="uid://dugkhc2r6u55q" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216010.png" id="12_axe2d"]
+[ext_resource type="Texture2D" uid="uid://1lyo8h3ks51j" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216011.png" id="13_unykp"]
+[ext_resource type="Texture2D" uid="uid://dul4jt1fiqy30" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216012.png" id="14_jrtrk"]
+[ext_resource type="Texture2D" uid="uid://jdrjjyjwj2vi" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216013.png" id="15_h7k8d"]
+[ext_resource type="Texture2D" uid="uid://4ygg3kpempjy" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216014.png" id="16_d2cnw"]
+[ext_resource type="Texture2D" uid="uid://dp0g7ayjec6p6" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216015.png" id="17_774tt"]
+[ext_resource type="Texture2D" uid="uid://cury0hs08lec4" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216016.png" id="18_m4wi8"]
+[ext_resource type="Texture2D" uid="uid://d1wnilkjugsil" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216017.png" id="19_2slja"]
+[ext_resource type="Texture2D" uid="uid://ce756w35bdh2o" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216018.png" id="20_j44kp"]
+[ext_resource type="Texture2D" uid="uid://cf5drsfhbjbpt" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216019.png" id="21_yyp2m"]
+[ext_resource type="Texture2D" uid="uid://b4jfmqkuy8cet" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216020.png" id="22_t5eyk"]
+[ext_resource type="Texture2D" uid="uid://et07kxu4gsgh" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216021.png" id="23_p0217"]
+[ext_resource type="Texture2D" uid="uid://30pus3n0226k" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216022.png" id="24_txaqr"]
+[ext_resource type="Texture2D" uid="uid://c5m6l01m4v8us" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216023.png" id="25_f12w8"]
+[ext_resource type="Texture2D" uid="uid://dgyvhbbhhl713" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216024.png" id="26_cxcym"]
+[ext_resource type="Texture2D" uid="uid://dt17t5m7ei41h" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216025.png" id="27_hu6lt"]
+[ext_resource type="Texture2D" uid="uid://cieifdruipt7q" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216026.png" id="28_77toc"]
+[ext_resource type="Texture2D" uid="uid://dr4w5artvuuwv" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216027.png" id="29_s11ei"]
+[ext_resource type="Texture2D" uid="uid://mb3ct26tyg5e" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216028.png" id="30_fxm28"]
+[ext_resource type="Texture2D" uid="uid://vtryw1nb7gyd" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216029.png" id="31_mv7du"]
+[ext_resource type="Texture2D" uid="uid://d3oa5nnyv1j6s" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216030.png" id="32_355qa"]
+[ext_resource type="Texture2D" uid="uid://dvo10f1cqlh40" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216031.png" id="33_kn6q6"]
+[ext_resource type="Texture2D" uid="uid://bld8rla2rg55k" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216032.png" id="34_kgo8f"]
+[ext_resource type="Texture2D" uid="uid://cendnlmyj7dfb" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216033.png" id="35_0a17c"]
+[ext_resource type="Texture2D" uid="uid://bncuv20w1icxq" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216034.png" id="36_xmh7a"]
+[ext_resource type="Texture2D" uid="uid://ush5vlv4keno" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216035.png" id="37_igpyc"]
+[ext_resource type="Texture2D" uid="uid://c53ny4nwl0yy5" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216036.png" id="38_uw6n3"]
+[ext_resource type="Texture2D" uid="uid://b7pqem201faje" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216037.png" id="39_r11wr"]
+[ext_resource type="Texture2D" uid="uid://bo1bxbkvul6lq" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216038.png" id="40_g2m0y"]
+[ext_resource type="Texture2D" uid="uid://borbaodnxslg2" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216039.png" id="41_jsf2j"]
+[ext_resource type="Texture2D" uid="uid://2l5r43tsrmas" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216040.png" id="42_imkpk"]
+[ext_resource type="Texture2D" uid="uid://dw0dcqj7i8omv" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216041.png" id="43_nvscl"]
+[ext_resource type="Texture2D" uid="uid://d1qb1y3dubeej" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216042.png" id="44_dowy6"]
+[ext_resource type="Texture2D" uid="uid://uf6scuisngdo" path="res://Assets/Animations/Splash Screen/20252307_FFSplashScreenBG.png" id="45_khdc8"]
 
-[sub_resource type="Animation" id="Animation_dgn45"]
+[sub_resource type="Gradient" id="Gradient_bgfiu"]
+offsets = PackedFloat32Array(0)
+colors = PackedColorArray(0.337255, 0.764706, 0.796078, 1)
+
+[sub_resource type="GradientTexture1D" id="GradientTexture1D_sfl1m"]
+gradient = SubResource("Gradient_bgfiu")
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_14r0y"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_bgfiu")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_sfl1m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_5k6tv")
+}, {
+"duration": 1.0,
+"texture": ExtResource("5_jq2rl")
+}, {
+"duration": 1.0,
+"texture": ExtResource("6_h77bg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("7_ck66r")
+}, {
+"duration": 1.0,
+"texture": ExtResource("8_1l7cg")
+}, {
+"duration": 1.0,
+"texture": ExtResource("9_7l8vi")
+}, {
+"duration": 1.0,
+"texture": ExtResource("10_2mtwt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("11_pe2hx")
+}, {
+"duration": 1.0,
+"texture": ExtResource("12_axe2d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("13_unykp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("14_jrtrk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("15_h7k8d")
+}, {
+"duration": 1.0,
+"texture": ExtResource("16_d2cnw")
+}, {
+"duration": 1.0,
+"texture": ExtResource("17_774tt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("18_m4wi8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("19_2slja")
+}, {
+"duration": 1.0,
+"texture": ExtResource("20_j44kp")
+}, {
+"duration": 1.0,
+"texture": ExtResource("21_yyp2m")
+}, {
+"duration": 1.0,
+"texture": ExtResource("22_t5eyk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("23_p0217")
+}, {
+"duration": 1.0,
+"texture": ExtResource("24_txaqr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("25_f12w8")
+}, {
+"duration": 1.0,
+"texture": ExtResource("26_cxcym")
+}, {
+"duration": 1.0,
+"texture": ExtResource("27_hu6lt")
+}, {
+"duration": 1.0,
+"texture": ExtResource("28_77toc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("29_s11ei")
+}, {
+"duration": 1.0,
+"texture": ExtResource("30_fxm28")
+}, {
+"duration": 1.0,
+"texture": ExtResource("31_mv7du")
+}, {
+"duration": 1.0,
+"texture": ExtResource("32_355qa")
+}, {
+"duration": 1.0,
+"texture": ExtResource("33_kn6q6")
+}, {
+"duration": 1.0,
+"texture": ExtResource("34_kgo8f")
+}, {
+"duration": 1.0,
+"texture": ExtResource("35_0a17c")
+}, {
+"duration": 1.0,
+"texture": ExtResource("36_xmh7a")
+}, {
+"duration": 1.0,
+"texture": ExtResource("37_igpyc")
+}, {
+"duration": 1.0,
+"texture": ExtResource("38_uw6n3")
+}, {
+"duration": 1.0,
+"texture": ExtResource("39_r11wr")
+}, {
+"duration": 1.0,
+"texture": ExtResource("40_g2m0y")
+}, {
+"duration": 1.0,
+"texture": ExtResource("41_jsf2j")
+}, {
+"duration": 1.0,
+"texture": ExtResource("42_imkpk")
+}, {
+"duration": 1.0,
+"texture": ExtResource("43_nvscl")
+}, {
+"duration": 40.0,
+"texture": ExtResource("44_dowy6")
+}],
+"loop": false,
+"name": &"default",
+"speed": 30.0
+}]
+
+[sub_resource type="Animation" id="Animation_uy351"]
 length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
@@ -18,8 +205,8 @@ tracks/0/keys = {
 "values": [Color(1, 1, 1, 1)]
 }
 
-[sub_resource type="Animation" id="Animation_hjfwo"]
-resource_name = "new_animation"
+[sub_resource type="Animation" id="Animation_vuayl"]
+resource_name = "fadetoblack"
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
@@ -27,54 +214,75 @@ tracks/0/path = NodePath(".:modulate")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
+"times": PackedFloat32Array(0.1, 0.933333),
 "transitions": PackedFloat32Array(1, 1),
 "update": 0,
 "values": [Color(1, 1, 1, 1), Color(1, 1, 1, 0)]
 }
 
-[sub_resource type="Animation" id="Animation_dop2b"]
-resource_name = "new_animation_2"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath(".:modulate")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 1),
-"transitions": PackedFloat32Array(1, 1),
-"update": 0,
-"values": [Color(1, 1, 1, 0), Color(1, 1, 1, 1)]
-}
-
-[sub_resource type="AnimationLibrary" id="AnimationLibrary_dop2b"]
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_pykut"]
 _data = {
-&"RESET": SubResource("Animation_dgn45"),
-&"new_animation": SubResource("Animation_hjfwo"),
-&"new_animation_2": SubResource("Animation_dop2b")
+&"RESET": SubResource("Animation_uy351"),
+&"fadetoblack": SubResource("Animation_vuayl")
 }
 
-[node name="Node2D" type="Node2D"]
+[node name="Node2D" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
 script = ExtResource("1_hjfwo")
 
-[node name="Strawbhillgamestemptransparent" type="Sprite2D" parent="."]
-position = Vector2(969, 544)
-texture = ExtResource("1_1cno2")
-
-[node name="AnimationPlayer" type="AnimationPlayer" parent="Strawbhillgamestemptransparent"]
-libraries = {
-&"": SubResource("AnimationLibrary_dop2b")
-}
-
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 3.5
 one_shot = true
 autostart = true
 
 [node name="Timer2" type="Timer" parent="."]
-wait_time = 1.5
+wait_time = 2.5
 
-[connection signal="animation_finished" from="Strawbhillgamestemptransparent/AnimationPlayer" to="." method="_on_animation_player_animation_finished"]
+[node name="TextureRect" type="TextureRect" parent="Timer2"]
+z_index = -4
+offset_left = -760.0
+offset_top = -408.0
+offset_right = 2832.0
+offset_bottom = 1640.0
+size_flags_horizontal = 4
+texture = SubResource("GradientTexture1D_sfl1m")
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -540.0
+offset_right = 960.0
+offset_bottom = 540.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 4
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
+position = Vector2(960, 540)
+sprite_frames = SubResource("SpriteFrames_14r0y")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Control/AnimatedSprite2D"]
+libraries = {
+&"": SubResource("AnimationLibrary_pykut")
+}
+
+[node name="Sprite2D" type="Sprite2D" parent="Control"]
+
+[node name="20252307FfSplashScreenBg" type="Sprite2D" parent="Control"]
+z_index = -1
+position = Vector2(960, 540)
+texture = ExtResource("45_khdc8")
+
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]

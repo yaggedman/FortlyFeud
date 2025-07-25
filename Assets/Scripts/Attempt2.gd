@@ -1,4 +1,4 @@
-extends Node2D
+extends Control
 
 #each tile is 216x216 pixels
 ## TO DO:
@@ -125,13 +125,17 @@ var suddendeathtoggle : bool = false
 func _ready():
 	randomize()
 	
+	if OS.has_feature("pc") == false:
+		$SmokeAnimation.play("blank")
+	
 	$"Background Waves".play()
 	
 	tacticalview = false
 	$Victory.visible = false
 	
 	$HammerAnimation.visible = false
-	$HammerAnimation.play("default")
+	if OS.has_feature("windows") == true:
+		$HammerAnimation.play("default")
 	
 	
 	## gets buttons in the button group, and connects the pressed signal with argument button
@@ -206,10 +210,11 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 						for x in range(FriendlyGameBoardArray[y].size()):
 							if FriendlyGameBoardArray[y][x] == 2:
 								var tile_name = str(y + 1) + "_" + str(x + 1)
-								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+								var tile_node = get_node_or_null("Control/FfMapBigger/" + tile_name)
 								print("trader found at ", tile_name, ", position is ", tile_node.global_position)
 								$HammerAnimation.position = tile_node.global_position + Vector2(100,100)
-								$HammerAnimation.visible = true
+								if OS.has_feature("windows") == true:
+									$HammerAnimation.visible = true
 								
 				if menupiece.name == "FfCelticTrader":
 					
@@ -217,10 +222,11 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 						for x in range(EnemyGameBoardArray[y].size()):
 							if EnemyGameBoardArray[y][x] == 2:
 								var tile_name = str(y + 1) + "_" + str(x + 1)
-								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
+								var tile_node = get_node_or_null("Control/FfMapBigger/" + tile_name)
 								print("trader found at ", tile_name, ", position is ", tile_node.global_position)
 								$HammerAnimation.position = tile_node.global_position + Vector2(100,100)
-								$HammerAnimation.visible = true
+								if OS.has_feature("windows"):
+									$HammerAnimation.visible = true
 								
 				PieceSelectionCheck[menupiece.name] = true # select that piece
 				HoldingItem = true # set holding status to true, prevents multiple valid selections
@@ -288,6 +294,10 @@ func _on_tile_button_pressed(tilebutton):
 			if PieceSelectionCheck[Piece] == true:
 				print (Piece, " placed on tile ", tilebutton.name) # debug - prints name of piece and tile it has been placed on to console
 				PlaceNewTrader()
+				$SmokeAnimation.position = tilebutton.global_position + Vector2(100,100)
+				if OS.has_feature("windows"):
+					$SmokeAnimation.visible = true
+					$SmokeAnimation.play("default")
 				var indices = TilesDict[tilebutton.name] # gets the [row,col] from dictionary of selected tile
 				var row = int(indices[0]) - 1 # convert to 0-based index
 				var col = int(indices[1]) - 1 # convert to 0-based index
@@ -507,7 +517,8 @@ func find_friendly_traders():
 				var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 				print("trader found at ", tile_name, ", position is ", tile_node.global_position)
 				$SmokeAnimation.position = tile_node.global_position + Vector2(100,100)
-				$SmokeAnimation.visible = true
+				if OS.has_feature("windows"):
+					$SmokeAnimation.visible = true
 				$SmokeAnimation.play("default")
 				
 				
@@ -529,7 +540,8 @@ func find_enemy_traders():
 				var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 				print("trader found at ", tile_name, ", position is ", tile_node.global_position)
 				$SmokeAnimation.position = tile_node.global_position + Vector2(100,100)
-				$SmokeAnimation.visible = true
+				if OS.has_feature("windows"):
+					$SmokeAnimation.visible = true
 				$SmokeAnimation.play("default")
 
 ###################~MENU CODE~################################
@@ -990,7 +1002,7 @@ func boardfull() -> void:
 										EnemyGameBoardArray[y2][x2] = 0
 										UpdateBoardTextures()
 										numberofpiecesonboard = 0
-										if suddendeathtoggle == false:
+										if suddendeathtoggle == false and gamewon == false:
 											suddendeathtoggle = true
 											print("starting sudden death")
 											$"Sudden Death Label".visible = true
@@ -1004,7 +1016,7 @@ func boardfull() -> void:
 					
 							if FriendlyGameBoardArray[y3][x3] != 0:
 								draw_check += 1
-								if draw_check == 25:
+								if draw_check == 25 and gamewon == false:
 									print("game is a draw")
 									$"Draw Label".visible = true
 									draw_check = 0
@@ -1019,6 +1031,7 @@ func _on_sudden_death_title_timer_timeout() -> void:
 	$"Sudden Death Label".visible = false
 
 #################################ENEMY BOTS#########################################################
+@export var BotDifficulty : int = 0 ## 0 for dumb bot, 1 for semi smart, 1 for expert
 
 #######################################DUMB BOT#####################################################
 
@@ -1027,7 +1040,7 @@ func _on_dumb_bot_delay_timeout() -> void: # makes dumb bot wait 3 seconds befor
 
 func dumb_bot_move_picker() -> void:
 	var walls_available : bool = true
-	if gamewon == false:
+	if gamewon == false and BotDifficulty == 0:
 		var random_y = randi() % EnemyGameBoardArray.size()
 	
 		var random_x = randi() % EnemyGameBoardArray[random_y].size()

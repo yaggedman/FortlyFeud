@@ -1,9 +1,9 @@
-extends Node2D
+extends Control
 
 func _ready():
 	$Timer.start()
 	$Timer2.start()
-	$Strawbhillgamestemptransparent/AnimationPlayer.play("new_animation_2")
+	$Control/AnimatedSprite2D.play("default")
 	
 	
 
@@ -13,4 +13,4 @@ func _on_timer_timeout() -> void:
 
 
 func _on_timer_2_timeout() -> void:
-	$Strawbhillgamestemptransparent/AnimationPlayer.play("new_animation")
+	$Control/AnimatedSprite2D/AnimationPlayer.play("fadetoblack")
