@@ -104,19 +104,6 @@ texture = SubResource("GradientTexture1D_07qpu")
 
 [sub_resource type="Animation" id="Animation_o7osr"]
 resource_name = "EnemyCollapsePieceMenu"
-length = 0.3
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.3),
-"transitions": PackedFloat32Array(2.37, 3.36),
-"update": 0,
-"values": [Vector2(1824, 112), Vector2(1584, 112)]
-}
 
 [sub_resource type="Animation" id="Animation_a17lq"]
 resource_name = "EnemyPieceSelectCollapse"
@@ -223,7 +210,7 @@ tracks/0/keys = {
 "times": PackedFloat32Array(0, 0.2667),
 "transitions": PackedFloat32Array(2.37841, 3.36359),
 "update": 0,
-"values": [Vector2(-256, 80), Vector2(0.335, 90)]
+"values": [Vector2(-285.295, 90), Vector2(0.335, 90)]
 }
 
 [sub_resource type="Animation" id="Animation_k34eg"]
@@ -441,6 +428,20 @@ region = Rect2(960, 640, 320, 320)
 
 [sub_resource type="SpriteFrames" id="SpriteFrames_uc3jy"]
 animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}, {
+"duration": 1.0,
+"texture": null
+}],
+"loop": true,
+"name": &"blank",
+"speed": 5.0
+}, {
 "frames": [{
 "duration": 1.0,
 "texture": SubResource("AtlasTexture_w63gq")
@@ -738,9 +739,15 @@ _data = {
 
 [node name="Main" type="Control"]
 layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -960.0
+offset_top = -541.0
+offset_right = -960.0
+offset_bottom = -541.0
 grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
@@ -754,10 +761,10 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -452.0
-offset_right = 19.0
-offset_bottom = -292.0
+offset_left = 1872.0
+offset_top = 88.0
+offset_right = 1939.0
+offset_bottom = 248.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(5, 5)
@@ -831,9 +838,9 @@ anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 152.0
-offset_top = -10.667
+offset_top = 529.333
 offset_right = 219.0
-offset_bottom = 164.333
+offset_bottom = 704.333
 grow_vertical = 2
 scale = Vector2(5, 5)
 texture = ExtResource("6_cbthd")
@@ -1287,8 +1294,7 @@ material = SubResource("ShaderMaterial_cyndr")
 position = Vector2(2150, 1080)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_uc3jy")
-frame = 11
-frame_progress = 1.0
+animation = &"blank"
 
 [node name="TacViewAnimation" type="AnimatedSprite2D" parent="."]
 z_index = 2
