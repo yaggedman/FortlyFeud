@@ -1,4 +1,4 @@
-[gd_scene load_steps=148 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=147 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="Texture2D" uid="uid://bn4i42wli8s3w" path="res://Assets/Sprites/SideMenuNewPack/20252706_FFNormanInventory.png" id="2_288hg"]
@@ -21,7 +21,6 @@
 [ext_resource type="Texture2D" uid="uid://dfdn2ayyty7xe" path="res://Assets/Sprites/SideMenuNewPack/20252806_FFTacticalModeClosed.png" id="18_tqies"]
 [ext_resource type="Texture2D" uid="uid://b4t7wys0me6qg" path="res://Assets/Sprites/SideMenuNewPack/20252806_FFTacticalModeOpen.png" id="19_c7l0v"]
 [ext_resource type="Texture2D" uid="uid://bg57dmuuc7af8" path="res://Assets/Animations/FF_RedArrow_2.png" id="19_vf2r5"]
-[ext_resource type="Texture2D" uid="uid://dj5x2ppjgmpng" path="res://Assets/Sprites/SuperSecretFolder/amongarse.png" id="20_mc503"]
 [ext_resource type="Texture2D" uid="uid://cvnff8cqjvh8v" path="res://Assets/Animations/FF_DiagonalTacticalArrowBlueBig.png" id="21_c7l0v"]
 [ext_resource type="Texture2D" uid="uid://wwi21x7l3kg3" path="res://Assets/Animations/FF_Map_WaterTile1.png" id="21_vf2r5"]
 [ext_resource type="Texture2D" uid="uid://bcwnfb3qh8s3v" path="res://Assets/Animations/FF_DiagonalTacticalArrowRedBig.png" id="23_cbthd"]
@@ -241,6 +240,12 @@ _data = {
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_hcbek"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wkalj"]
+
+[sub_resource type="Gradient" id="Gradient_u075k"]
+colors = PackedColorArray(0, 0, 0, 0.470588, 0, 0, 0, 0.470588)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_mc503"]
+gradient = SubResource("Gradient_u075k")
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_spmop"]
 
@@ -533,12 +538,6 @@ animations = [{
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mc503"]
 
-[sub_resource type="Gradient" id="Gradient_u075k"]
-colors = PackedColorArray(0, 0, 0, 0.470588, 0, 0, 0, 0.470588)
-
-[sub_resource type="GradientTexture2D" id="GradientTexture2D_mc503"]
-gradient = SubResource("Gradient_u075k")
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ncd35"]
 atlas = ExtResource("18_mc503")
 region = Rect2(0, 0, 420, 420)
@@ -754,24 +753,30 @@ size_flags_horizontal = 4
 script = ExtResource("1_pa8vt")
 
 [node name="EnemyPieceselectpopup2" type="TextureRect" parent="."]
-z_index = 1
+top_level = true
+z_index = 6
+y_sort_enabled = true
+layout_direction = 1
 layout_mode = 1
 anchors_preset = 6
 anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = 1872.0
-offset_top = 88.0
-offset_right = 1939.0
-offset_bottom = 248.0
+offset_left = -48.0
+offset_top = -452.0
+offset_right = 19.0
+offset_bottom = -292.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(5, 5)
 texture = ExtResource("2_288hg")
+metadata/_edit_use_anchors_ = true
 
 [node name="FfCelticFort" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 z_index = 1
+y_sort_enabled = true
+layout_mode = 0
 offset_left = 20.8
 offset_top = 19.2
 offset_right = 45.8
@@ -782,10 +787,11 @@ theme_override_styles/disabled = SubResource("StyleBoxTexture_mjvv5")
 theme_override_styles/hover = SubResource("StyleBoxTexture_jva5i")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_tinvn")
 theme_override_styles/normal = SubResource("StyleBoxTexture_g02d7")
-metadata/_edit_use_anchors_ = true
 
 [node name="FfCelticTrader" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 z_index = 1
+y_sort_enabled = true
+layout_mode = 0
 offset_left = 20.8
 offset_top = 66.4
 offset_right = 45.8
@@ -800,6 +806,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="FfCelticWall" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 z_index = 1
+y_sort_enabled = true
+layout_mode = 0
 offset_left = 20.8
 offset_top = 113.6
 offset_right = 45.8
@@ -814,6 +822,8 @@ metadata/_edit_use_anchors_ = true
 
 [node name="EnemyPieceSelectCollapseButton" type="Button" parent="EnemyPieceselectpopup2"]
 z_index = 1
+y_sort_enabled = true
+layout_mode = 0
 offset_top = 75.4
 offset_right = 8.0
 offset_bottom = 83.4
@@ -832,15 +842,18 @@ libraries = {
 autoplay = "EnemyPieceSelectReveal"
 
 [node name="FriendlyPieceselectpopup" type="TextureRect" parent="."]
-z_index = 1
+top_level = true
+z_index = 6
+y_sort_enabled = true
+layout_direction = 1
 layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
 offset_left = 152.0
-offset_top = 529.333
+offset_top = -10.667
 offset_right = 219.0
-offset_bottom = 704.333
+offset_bottom = 164.333
 grow_vertical = 2
 scale = Vector2(5, 5)
 texture = ExtResource("6_cbthd")
@@ -887,6 +900,7 @@ metadata/_edit_use_anchors_ = true
 
 [node name="FfNormanWall" type="Button" parent="FriendlyPieceselectpopup" groups=["MenuPieces"]]
 z_index = 1
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.507463
@@ -931,6 +945,8 @@ libraries = {
 autoplay = "PieceSelectReveal"
 
 [node name="FfMapBigger" type="Sprite2D" parent="."]
+z_index = -2
+y_sort_enabled = true
 position = Vector2(960.94, 540)
 scale = Vector2(5.143, 5.143)
 texture = ExtResource("9_u075k")
@@ -1185,12 +1201,36 @@ scale = Vector2(1, 1)
 theme_override_styles/disabled = SubResource("StyleBoxEmpty_wkalj")
 metadata/_edit_use_anchors_ = true
 
+[node name="TacViewGreyOverlay" type="TextureRect" parent="FfMapBigger"]
+visible = false
+show_behind_parent = true
+z_index = 1
+y_sort_enabled = true
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -193.066
+offset_top = -111.219
+offset_right = -193.066
+offset_bottom = -111.219
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(33.1223, 20.2585)
+texture = SubResource("GradientTexture2D_mc503")
+
 [node name="MiniMenuButton" type="Button" parent="."]
-z_index = 2
-offset_left = 1744.0
-offset_top = 5.0
-offset_right = 1850.0
-offset_bottom = 111.0
+top_level = true
+z_index = 6
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.946354
+anchor_top = 0.00555556
+anchor_right = 0.946354
+anchor_bottom = 0.00555556
+offset_left = -106.0
+offset_bottom = 106.0
+grow_horizontal = 0
 theme_override_styles/focus = SubResource("StyleBoxEmpty_spmop")
 theme_override_styles/hover = SubResource("StyleBoxTexture_vwqjl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_0yht5")
@@ -1296,7 +1336,16 @@ scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_uc3jy")
 animation = &"blank"
 
-[node name="TacViewAnimation" type="AnimatedSprite2D" parent="."]
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="TacViewAnimation" type="AnimatedSprite2D" parent="Control"]
 z_index = 2
 position = Vector2(1675, 60)
 scale = Vector2(5, 5)
@@ -1306,23 +1355,23 @@ frame = 1
 frame_progress = 1.0
 speed_scale = 5.0
 
-[node name="TacticalViewButton" type="Button" parent="TacViewAnimation"]
-offset_left = -16.0
-offset_top = -14.0
-offset_right = 16.0
-offset_bottom = 13.0
+[node name="TacticalViewButton" type="Button" parent="Control"]
+top_level = true
+z_index = 4
+z_as_relative = false
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.826042
+anchor_top = 0.00833333
+anchor_right = 0.826042
+anchor_bottom = 0.00833333
+offset_right = 32.0
+offset_bottom = 27.0
+scale = Vector2(3.16, 3.88)
 theme_override_styles/focus = SubResource("StyleBoxEmpty_degjt")
 theme_override_styles/hover = SubResource("StyleBoxEmpty_cyndr")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_u075k")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_mc503")
-metadata/_edit_use_anchors_ = true
-
-[node name="TacViewGreyOverlay" type="Sprite2D" parent="."]
-visible = false
-z_index = 1
-position = Vector2(972, 537)
-scale = Vector2(33.1223, 20.2585)
-texture = SubResource("GradientTexture2D_mc503")
 
 [node name="TraderGuideAnimation" type="AnimatedSprite2D" parent="."]
 position = Vector2(1304, 1304)
@@ -1338,11 +1387,13 @@ animation = &"enemydiagonal"
 frame = 1
 frame_progress = 0.499013
 
-[node name="Amongarse" type="Sprite2D" parent="."]
-position = Vector2(2032, 1232)
-texture = ExtResource("20_mc503")
+[node name="WaveControl" type="Control" parent="."]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Wave1" type="AnimatedSprite2D" parent="."]
+[node name="Wave1" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(1616, 104)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_cd1j2")
@@ -1350,7 +1401,8 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.0198603
 
-[node name="Wave2" type="AnimatedSprite2D" parent="."]
+[node name="Wave2" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(1616, 314)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_cd1j2")
@@ -1358,7 +1410,8 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.0198603
 
-[node name="Wave3" type="AnimatedSprite2D" parent="."]
+[node name="Wave3" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(1616, 524)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_cd1j2")
@@ -1366,7 +1419,8 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.0198603
 
-[node name="Wave4" type="AnimatedSprite2D" parent="."]
+[node name="Wave4" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(1616, 734)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_cd1j2")
@@ -1374,7 +1428,8 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.0198603
 
-[node name="Wave5" type="AnimatedSprite2D" parent="."]
+[node name="Wave5" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(1616, 944)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_cd1j2")
@@ -1382,7 +1437,8 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.0198603
 
-[node name="Wave6" type="AnimatedSprite2D" parent="."]
+[node name="Wave6" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(1616, 1154)
 scale = Vector2(5, 5)
 sprite_frames = SubResource("SpriteFrames_cd1j2")
@@ -1390,7 +1446,8 @@ autoplay = "default"
 frame = 3
 frame_progress = 0.0198603
 
-[node name="Wave7" type="AnimatedSprite2D" parent="."]
+[node name="Wave7" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(257, 102.28)
 rotation = 3.14159
 scale = Vector2(5, 5)
@@ -1398,7 +1455,9 @@ sprite_frames = SubResource("SpriteFrames_cd1j2")
 autoplay = "default"
 speed_scale = -1.0
 
-[node name="Wave8" type="AnimatedSprite2D" parent="."]
+[node name="Wave8" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
+y_sort_enabled = true
 position = Vector2(257, 312.28)
 rotation = 3.14159
 scale = Vector2(5, 5)
@@ -1408,7 +1467,8 @@ frame = 3
 frame_progress = 0.0198603
 speed_scale = -1.0
 
-[node name="Wave9" type="AnimatedSprite2D" parent="."]
+[node name="Wave9" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(257, 522.28)
 rotation = 3.14159
 scale = Vector2(5, 5)
@@ -1418,7 +1478,8 @@ frame = 3
 frame_progress = 0.0198603
 speed_scale = -1.0
 
-[node name="Wave10" type="AnimatedSprite2D" parent="."]
+[node name="Wave10" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(257, 732.28)
 rotation = 3.14159
 scale = Vector2(5, 5)
@@ -1428,7 +1489,8 @@ frame = 3
 frame_progress = 0.0198603
 speed_scale = -1.0
 
-[node name="Wave11" type="AnimatedSprite2D" parent="."]
+[node name="Wave11" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(257, 942)
 rotation = 3.14159
 scale = Vector2(5, 5)
@@ -1438,7 +1500,8 @@ frame = 3
 frame_progress = 0.0198603
 speed_scale = -1.0
 
-[node name="Wave12" type="AnimatedSprite2D" parent="."]
+[node name="Wave12" type="AnimatedSprite2D" parent="WaveControl"]
+z_index = -2
 position = Vector2(257, 1152)
 rotation = 3.14159
 scale = Vector2(5, 5)
@@ -1450,6 +1513,7 @@ speed_scale = -1.0
 
 [node name="Victory" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 624.0
 offset_top = 392.0
 offset_right = 691.0
@@ -1459,6 +1523,7 @@ text = "VICTORY"
 
 [node name="Draw Label" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 736.0
 offset_top = 416.0
 offset_right = 785.0
@@ -1468,6 +1533,7 @@ text = "DRAW"
 
 [node name="Sudden Death Label" type="Label" parent="."]
 visible = false
+layout_mode = 0
 offset_left = 368.0
 offset_top = 400.0
 offset_right = 491.0
@@ -1529,8 +1595,8 @@ one_shot = true
 [connection signal="pressed" from="Buttonblankfix/MiniMenuQuit" to="." method="_on_mini_menu_quit_pressed"]
 [connection signal="pressed" from="Buttonblankfix/MiniMenuRestart" to="." method="_on_mini_menu_restart_pressed"]
 [connection signal="pressed" from="Buttonblankfix/MiniMenuResume" to="." method="_on_mini_menu_resume_pressed"]
-[connection signal="mouse_entered" from="TacViewAnimation/TacticalViewButton" to="." method="_on_tactical_view_button_mouse_entered"]
-[connection signal="mouse_exited" from="TacViewAnimation/TacticalViewButton" to="." method="_on_tactical_view_button_mouse_exited"]
-[connection signal="pressed" from="TacViewAnimation/TacticalViewButton" to="." method="_on_tactical_view_button_pressed"]
+[connection signal="mouse_entered" from="Control/TacticalViewButton" to="." method="_on_tactical_view_button_mouse_entered"]
+[connection signal="mouse_exited" from="Control/TacticalViewButton" to="." method="_on_tactical_view_button_mouse_exited"]
+[connection signal="pressed" from="Control/TacticalViewButton" to="." method="_on_tactical_view_button_pressed"]
 [connection signal="timeout" from="SuddenDeathTitleTimer" to="." method="_on_sudden_death_title_timer_timeout"]
 [connection signal="timeout" from="Dumb Bot Delay" to="." method="_on_dumb_bot_delay_timeout"]

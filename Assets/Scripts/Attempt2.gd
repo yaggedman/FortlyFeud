@@ -6,6 +6,7 @@ extends Control
 ## "Advance Turn" button. instead of automatic turn order
 ## undo/reset button when your turn
 ## draw/victory labels can appear at the same time, if the last piece is placed on a winning tile.
+## on mobile, players cannot discard pieces after they have picked them. some kind of bin would work here.
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
 	[0, 0, 0, 0, 0],
@@ -210,7 +211,7 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 						for x in range(FriendlyGameBoardArray[y].size()):
 							if FriendlyGameBoardArray[y][x] == 2:
 								var tile_name = str(y + 1) + "_" + str(x + 1)
-								var tile_node = get_node_or_null("Control/FfMapBigger/" + tile_name)
+								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 								print("trader found at ", tile_name, ", position is ", tile_node.global_position)
 								$HammerAnimation.position = tile_node.global_position + Vector2(100,100)
 								if OS.has_feature("windows") == true:
@@ -222,7 +223,7 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 						for x in range(EnemyGameBoardArray[y].size()):
 							if EnemyGameBoardArray[y][x] == 2:
 								var tile_name = str(y + 1) + "_" + str(x + 1)
-								var tile_node = get_node_or_null("Control/FfMapBigger/" + tile_name)
+								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 								print("trader found at ", tile_name, ", position is ", tile_node.global_position)
 								$HammerAnimation.position = tile_node.global_position + Vector2(100,100)
 								if OS.has_feature("windows"):
@@ -605,18 +606,18 @@ func _on_mini_menu_restart_pressed() -> void:
 
 func _on_tactical_view_button_mouse_entered() -> void:
 	$MiniMenuHover.play()
-	$TacViewAnimation.scale = Vector2(5.5,5.5)
+	$Control/TacViewAnimation.scale = Vector2(5.5,5.5)
 
 func _on_tactical_view_button_mouse_exited() -> void:
-	$TacViewAnimation.scale = Vector2(5,5)
+	$Control/TacViewAnimation.scale = Vector2(5,5)
 
 func _on_tactical_view_button_pressed() -> void:
 	LaneUpdates()
 	if tacticalview == false:
 		print("tactical view turned on")
-		$TacViewAnimation.play("OffToOn")
+		$Control/TacViewAnimation.play("OffToOn")
 		tacticalview = true
-		$TacViewGreyOverlay.visible = true
+		$FfMapBigger/TacViewGreyOverlay.visible = true
 		UpdateBoardTextures()
 		
 		for row in range(FriendlyGameBoardArray.size()):
@@ -768,9 +769,9 @@ func _on_tactical_view_button_pressed() -> void:
 		for node in get_tree().get_nodes_in_group("Clone_Group"):
 			node.queue_free()
 		print("tacitcal view turned off")
-		$TacViewAnimation.play("OnToOff")
+		$Control/TacViewAnimation.play("OnToOff")
 		tacticalview = false
-		$TacViewGreyOverlay.visible = false
+		$FfMapBigger/TacViewGreyOverlay.visible = false
 		UpdateBoardTextures()
 		print("Children count: ", $TraderGuideAnimation.get_child_count())
 

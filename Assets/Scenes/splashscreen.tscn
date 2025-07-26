@@ -1,4 +1,4 @@
-[gd_scene load_steps=52 format=3 uid="uid://dcd4wxqb81iiu"]
+[gd_scene load_steps=63 format=3 uid="uid://dcd4wxqb81iiu"]
 
 [ext_resource type="Script" uid="uid://btq4xc7yud6e" path="res://Assets/Scenes/splashscreen.gd" id="1_hjfwo"]
 [ext_resource type="Texture2D" uid="uid://b14gj3i4p16j8" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216000.png" id="2_bgfiu"]
@@ -45,6 +45,28 @@
 [ext_resource type="Texture2D" uid="uid://dw0dcqj7i8omv" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216041.png" id="43_nvscl"]
 [ext_resource type="Texture2D" uid="uid://d1qb1y3dubeej" path="res://Assets/Animations/Splash Screen/FF (1)/FF/FF_Splashscreen.001_00216042.png" id="44_dowy6"]
 [ext_resource type="Texture2D" uid="uid://uf6scuisngdo" path="res://Assets/Animations/Splash Screen/20252307_FFSplashScreenBG.png" id="45_khdc8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bgfiu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_sfl1m"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5k6tv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_jq2rl"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_h77bg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ck66r"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1l7cg"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7l8vi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_2mtwt"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_pe2hx"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_axe2d"]
 
 [sub_resource type="Gradient" id="Gradient_bgfiu"]
 offsets = PackedFloat32Array(0)
@@ -227,14 +249,43 @@ _data = {
 }
 
 [node name="Node2D" type="Control"]
+y_sort_enabled = true
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-size_flags_horizontal = 4
+size_flags_horizontal = 3
+size_flags_vertical = 3
 script = ExtResource("1_hjfwo")
+
+[node name="skipmenubutton" type="Button" parent="."]
+top_level = true
+z_index = 100
+y_sort_enabled = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -5782.0
+offset_top = -3723.0
+offset_right = -5782.0
+offset_bottom = -3723.0
+grow_horizontal = 2
+grow_vertical = 2
+scale = Vector2(28.6127, 8.55061)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_bgfiu")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_sfl1m")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_5k6tv")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_jq2rl")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_h77bg")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_ck66r")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_1l7cg")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_7l8vi")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_2mtwt")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_pe2hx")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_axe2d")
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.5
@@ -245,7 +296,8 @@ autostart = true
 wait_time = 2.5
 
 [node name="TextureRect" type="TextureRect" parent="Timer2"]
-z_index = -4
+z_index = -20
+y_sort_enabled = true
 offset_left = -760.0
 offset_top = -408.0
 offset_right = 2832.0
@@ -254,6 +306,8 @@ size_flags_horizontal = 4
 texture = SubResource("GradientTexture1D_sfl1m")
 
 [node name="Control" type="Control" parent="."]
+z_index = -3
+y_sort_enabled = true
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -269,6 +323,8 @@ grow_vertical = 2
 size_flags_horizontal = 4
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="Control"]
+z_index = 1
+y_sort_enabled = true
 position = Vector2(960, 540)
 sprite_frames = SubResource("SpriteFrames_14r0y")
 
@@ -277,12 +333,17 @@ libraries = {
 &"": SubResource("AnimationLibrary_pykut")
 }
 
-[node name="Sprite2D" type="Sprite2D" parent="Control"]
-
-[node name="20252307FfSplashScreenBg" type="Sprite2D" parent="Control"]
-z_index = -1
-position = Vector2(960, 540)
+[node name="20252307FfSplashScreenBg" type="TextureRect" parent="."]
+z_index = -3
+y_sort_enabled = true
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
 texture = ExtResource("45_khdc8")
 
+[connection signal="pressed" from="skipmenubutton" to="." method="_on_skipmenubutton_pressed"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
 [connection signal="timeout" from="Timer2" to="." method="_on_timer_2_timeout"]
