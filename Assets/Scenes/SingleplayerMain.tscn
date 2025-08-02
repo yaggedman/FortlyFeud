@@ -1,4 +1,4 @@
-[gd_scene load_steps=147 format=3 uid="uid://ca4lidcpn805y"]
+[gd_scene load_steps=148 format=3 uid="uid://ca4lidcpn805y"]
 
 [ext_resource type="Script" uid="uid://dda10wg5l6k0j" path="res://Assets/Scripts/Attempt2.gd" id="1_pa8vt"]
 [ext_resource type="Texture2D" uid="uid://bn4i42wli8s3w" path="res://Assets/Sprites/SideMenuNewPack/20252706_FFNormanInventory.png" id="2_288hg"]
@@ -11,15 +11,12 @@
 [ext_resource type="Script" uid="uid://dt8kdt3qvhw75" path="res://Assets/Scenes/piece_select_collapse_button.gd" id="8_6tynu"]
 [ext_resource type="Texture2D" uid="uid://cftityy0ojuvi" path="res://Assets/Sprites/20252006_FFNewSizePack/20252006_FFBlueTraderNewSize.png" id="8_w63gq"]
 [ext_resource type="Texture2D" uid="uid://cjpt1pltq5xl5" path="res://Assets/Sprites/20252006_FFMapNewSize.png" id="9_u075k"]
-[ext_resource type="Texture2D" uid="uid://bd103odlxaft5" path="res://Assets/Sprites/20252405_FF_Colour Swap Sprites/20252405_FFMiniMenu.png" id="12_6tynu"]
 [ext_resource type="Texture2D" uid="uid://cxcfkrui21rpx" path="res://Assets/Sprites/SideMenuNewPack/20252806_FFMenuButton.png" id="12_gmbfm"]
 [ext_resource type="FontFile" uid="uid://blonyv23bf3q6" path="res://Assets/Fonts/Pixel Azure Bonds.otf" id="13_3oggu"]
 [ext_resource type="Texture2D" uid="uid://bx1tvadvty6s3" path="res://Assets/Sprites/doublefixbuttonblank.png" id="14_ytdcb"]
 [ext_resource type="Texture2D" uid="uid://caqahgetc40jt" path="res://Assets/Animations/20252904_FFHammerAnim.png" id="15_6tynu"]
 [ext_resource type="Texture2D" uid="uid://cobfn7rkt623f" path="res://Assets/Animations/20251406_FFSmokeAnimBright.png" id="16_37q80"]
 [ext_resource type="Texture2D" uid="uid://bxe5p3x5jmcnn" path="res://Assets/Animations/FF_BlueArrow.png" id="18_mc503"]
-[ext_resource type="Texture2D" uid="uid://dfdn2ayyty7xe" path="res://Assets/Sprites/SideMenuNewPack/20252806_FFTacticalModeClosed.png" id="18_tqies"]
-[ext_resource type="Texture2D" uid="uid://b4t7wys0me6qg" path="res://Assets/Sprites/SideMenuNewPack/20252806_FFTacticalModeOpen.png" id="19_c7l0v"]
 [ext_resource type="Texture2D" uid="uid://bg57dmuuc7af8" path="res://Assets/Animations/FF_RedArrow_2.png" id="19_vf2r5"]
 [ext_resource type="Texture2D" uid="uid://cvnff8cqjvh8v" path="res://Assets/Animations/FF_DiagonalTacticalArrowBlueBig.png" id="21_c7l0v"]
 [ext_resource type="Texture2D" uid="uid://wwi21x7l3kg3" path="res://Assets/Animations/FF_Map_WaterTile1.png" id="21_vf2r5"]
@@ -28,6 +25,9 @@
 [ext_resource type="AudioStream" uid="uid://b0ig2sekv54yk" path="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FREE)/Free/Stereo/wav (HD)/JDSherbert - Wooden UI SFX Pack - Cursor - 1.wav" id="27_w63gq"]
 [ext_resource type="AudioStream" uid="uid://v671wb4a0qdl" path="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FREE)/Free/Stereo/wav (HD)/JDSherbert - Wooden UI SFX Pack - Confirm - 1.wav" id="28_w63gq"]
 [ext_resource type="AudioStream" uid="uid://clu0iv5nnwoe3" path="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FREE)/Free/Stereo/wav (HD)/JDSherbert - Wooden UI SFX Pack - Error - 1.wav" id="29_emo1r"]
+[ext_resource type="Texture2D" uid="uid://g66r56pckgk7" path="res://Assets/Animations/tacviewmap2.png" id="29_u2adv"]
+[ext_resource type="Texture2D" uid="uid://qdttyd8i1ex0" path="res://Assets/Animations/20252607_FFMiniMenu_Sheet.png" id="30_go4jv"]
+[ext_resource type="Texture2D" uid="uid://cjbq5lu4f7nv0" path="res://Assets/Animations/tacviewmap1.png" id="30_hcbek"]
 [ext_resource type="AudioStream" uid="uid://bgoihrouqrsfi" path="res://Assets/Audio/JDSherbert - Wooden UI SFX Pack (FULL)/Full/Stereo/wav (HD)/JDSherbert - Wooden UI SFX Pack - Cursor - 5.wav" id="30_u2adv"]
 [ext_resource type="AudioStream" uid="uid://bt0nf34qubitn" path="res://Assets/Audio/seaside-soft-waves-24405.mp3" id="31_go4jv"]
 
@@ -110,14 +110,14 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
+tracks/0/path = NodePath("..:pivot_offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2667),
+"times": PackedFloat32Array(0, 0.3),
 "transitions": PackedFloat32Array(2.37, 3.36),
 "update": 0,
-"values": [Vector2(1832, 152), Vector2(1585, 152)]
+"values": [Vector2(0, 0), Vector2(62.1, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_p707u"]
@@ -125,14 +125,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("..:position")
+tracks/0/path = NodePath("..:pivot_offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(1872, 88)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_j5v4b"]
@@ -202,14 +202,14 @@ length = 0.3
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:pivot_offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.2667),
-"transitions": PackedFloat32Array(2.37841, 3.36359),
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(2.37, 3.36),
 "update": 0,
-"values": [Vector2(-285.295, 90), Vector2(0.335, 90)]
+"values": [Vector2(0, 0), Vector2(-62.77, 0)]
 }
 
 [sub_resource type="Animation" id="Animation_k34eg"]
@@ -217,14 +217,14 @@ length = 0.001
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath(".:position")
+tracks/0/path = NodePath(".:pivot_offset")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
 "times": PackedFloat32Array(0),
 "transitions": PackedFloat32Array(1),
 "update": 0,
-"values": [Vector2(152, 529.333)]
+"values": [Vector2(0, 0)]
 }
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_sx8x4"]
@@ -246,40 +246,6 @@ colors = PackedColorArray(0, 0, 0, 0.470588, 0, 0, 0, 0.470588)
 
 [sub_resource type="GradientTexture2D" id="GradientTexture2D_mc503"]
 gradient = SubResource("Gradient_u075k")
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_spmop"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwqjl"]
-texture = ExtResource("12_gmbfm")
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0yht5"]
-texture = ExtResource("12_gmbfm")
-modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eamk4"]
-texture = ExtResource("12_gmbfm")
-
-[sub_resource type="ImageTexture" id="ImageTexture_pm6sw"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1f3e4"]
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cl06m"]
-texture = ExtResource("14_ytdcb")
-expand_margin_left = 2.0
-expand_margin_top = 2.0
-expand_margin_right = 2.0
-expand_margin_bottom = 2.0
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d0bwr"]
-texture = ExtResource("14_ytdcb")
-modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
-
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_weisq"]
-texture = ExtResource("14_ytdcb")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_37q80"]
 atlas = ExtResource("15_6tynu")
@@ -489,55 +455,6 @@ animations = [{
 "speed": 12.0
 }]
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_i7hoa"]
-atlas = ExtResource("18_tqies")
-region = Rect2(0, 0, 19, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_e4rcx"]
-atlas = ExtResource("19_c7l0v")
-region = Rect2(0, 0, 23, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_xtmur"]
-atlas = ExtResource("19_c7l0v")
-region = Rect2(0, 0, 23, 20)
-
-[sub_resource type="AtlasTexture" id="AtlasTexture_3fd66"]
-atlas = ExtResource("18_tqies")
-region = Rect2(0, 0, 19, 20)
-
-[sub_resource type="SpriteFrames" id="SpriteFrames_xtmur"]
-animations = [{
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_i7hoa")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_e4rcx")
-}],
-"loop": false,
-"name": &"OffToOn",
-"speed": 5.0
-}, {
-"frames": [{
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_xtmur")
-}, {
-"duration": 1.0,
-"texture": SubResource("AtlasTexture_3fd66")
-}],
-"loop": false,
-"name": &"OnToOff",
-"speed": 5.0
-}]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_degjt"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_cyndr"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_u075k"]
-
-[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_mc503"]
-
 [sub_resource type="AtlasTexture" id="AtlasTexture_ncd35"]
 atlas = ExtResource("18_mc503")
 region = Rect2(0, 0, 420, 420)
@@ -736,6 +653,99 @@ _data = {
 &"fortdancetest": SubResource("Animation_go4jv")
 }
 
+[sub_resource type="ImageTexture" id="ImageTexture_pm6sw"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1f3e4"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_cl06m"]
+texture = ExtResource("14_ytdcb")
+expand_margin_left = 2.0
+expand_margin_top = 2.0
+expand_margin_right = 2.0
+expand_margin_bottom = 2.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_d0bwr"]
+texture = ExtResource("14_ytdcb")
+modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_weisq"]
+texture = ExtResource("14_ytdcb")
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_70p02"]
+atlas = ExtResource("30_go4jv")
+region = Rect2(0, 0, 336, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_6repy"]
+atlas = ExtResource("30_go4jv")
+region = Rect2(336, 0, 336, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_dld6s"]
+atlas = ExtResource("30_go4jv")
+region = Rect2(672, 0, 336, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_o2pyk"]
+atlas = ExtResource("30_go4jv")
+region = Rect2(1008, 0, 336, 210)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_xrpg2"]
+atlas = ExtResource("30_go4jv")
+region = Rect2(1344, 0, 336, 210)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_ddtmb"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_70p02")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_6repy")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_dld6s")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_o2pyk")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_xrpg2")
+}],
+"loop": true,
+"name": &"default",
+"speed": 10.0
+}]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_yntw2"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_wkalj"]
+texture = ExtResource("29_u2adv")
+expand_margin_left = 3.0
+expand_margin_top = 3.0
+expand_margin_right = 3.0
+expand_margin_bottom = 3.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_u2adv"]
+texture = ExtResource("29_u2adv")
+modulate_color = Color(0.454524, 0.454524, 0.454524, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_yntw2"]
+texture = ExtResource("30_hcbek")
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_spmop"]
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_vwqjl"]
+texture = ExtResource("12_gmbfm")
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_0yht5"]
+texture = ExtResource("12_gmbfm")
+modulate_color = Color(0.290196, 0.290196, 0.290196, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_eamk4"]
+texture = ExtResource("12_gmbfm")
+
 [node name="Main" type="Control"]
 layout_mode = 3
 anchors_preset = 8
@@ -751,6 +761,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_pa8vt")
+metadata/_edit_vertical_guides_ = [944.0]
 
 [node name="EnemyPieceselectpopup2" type="TextureRect" parent="."]
 top_level = true
@@ -763,15 +774,14 @@ anchor_left = 1.0
 anchor_top = 0.5
 anchor_right = 1.0
 anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -452.0
-offset_right = 19.0
-offset_bottom = -292.0
+offset_left = -88.0001
+offset_top = -388.0
+offset_right = -21.0001
+offset_bottom = -228.0
 grow_horizontal = 0
 grow_vertical = 2
 scale = Vector2(5, 5)
 texture = ExtResource("2_288hg")
-metadata/_edit_use_anchors_ = true
 
 [node name="FfCelticFort" type="Button" parent="EnemyPieceselectpopup2" groups=["MenuPieces"]]
 z_index = 1
@@ -850,10 +860,10 @@ layout_mode = 1
 anchors_preset = 4
 anchor_top = 0.5
 anchor_bottom = 0.5
-offset_left = 152.0
-offset_top = -10.667
-offset_right = 219.0
-offset_bottom = 164.333
+offset_left = -248.0
+offset_top = -450.0
+offset_right = -181.0
+offset_bottom = -275.0
 grow_vertical = 2
 scale = Vector2(5, 5)
 texture = ExtResource("6_cbthd")
@@ -1209,115 +1219,15 @@ y_sort_enabled = true
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_left = -193.066
-offset_top = -111.219
-offset_right = -193.066
-offset_bottom = -111.219
+offset_left = -580.389
+offset_top = -246.354
+offset_right = -580.389
+offset_bottom = -246.354
 grow_horizontal = 2
 grow_vertical = 2
 scale = Vector2(33.1223, 20.2585)
+size_flags_horizontal = 4
 texture = SubResource("GradientTexture2D_mc503")
-
-[node name="MiniMenuButton" type="Button" parent="."]
-top_level = true
-z_index = 6
-z_as_relative = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.946354
-anchor_top = 0.00555556
-anchor_right = 0.946354
-anchor_bottom = 0.00555556
-offset_left = -106.0
-offset_bottom = 106.0
-grow_horizontal = 0
-theme_override_styles/focus = SubResource("StyleBoxEmpty_spmop")
-theme_override_styles/hover = SubResource("StyleBoxTexture_vwqjl")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_0yht5")
-theme_override_styles/normal = SubResource("StyleBoxTexture_eamk4")
-metadata/_edit_use_anchors_ = true
-
-[node name="Buttonblankfix" type="Sprite2D" parent="."]
-visible = false
-z_index = 200
-position = Vector2(976, 496)
-texture = ExtResource("12_6tynu")
-
-[node name="Minimenu" type="Sprite2D" parent="Buttonblankfix"]
-z_index = 199
-position = Vector2(-3.59167, 4.31109)
-scale = Vector2(0.532129, 0.14264)
-texture = SubResource("ImageTexture_pm6sw")
-
-[node name="MiniMenuQuit" type="Button" parent="Buttonblankfix" groups=["MenuButtons"]]
-z_index = 201
-offset_left = -284.0
-offset_top = 207.0
-offset_right = -100.0
-offset_bottom = 238.0
-scale = Vector2(3, 3)
-theme_override_fonts/font = ExtResource("13_3oggu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
-theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
-text = "quit"
-
-[node name="MiniMenuRestart" type="Button" parent="Buttonblankfix" groups=["MenuButtons"]]
-z_index = 201
-offset_left = -284.0
-offset_top = 81.0
-offset_right = -100.0
-offset_bottom = 112.0
-scale = Vector2(3, 3)
-theme_override_fonts/font = ExtResource("13_3oggu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
-theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
-text = "restart"
-
-[node name="MiniMenuHTP" type="Button" parent="Buttonblankfix" groups=["MenuButtons"]]
-z_index = 201
-offset_left = -284.0
-offset_top = -52.0
-offset_right = -100.0
-offset_bottom = -21.0
-scale = Vector2(3, 3)
-theme_override_fonts/font = ExtResource("13_3oggu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
-theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
-text = "how to play"
-
-[node name="MiniMenuOptions" type="Button" parent="Buttonblankfix" groups=["MenuButtons"]]
-z_index = 201
-offset_left = -284.0
-offset_top = -184.0
-offset_right = -100.0
-offset_bottom = -153.0
-scale = Vector2(3, 3)
-theme_override_fonts/font = ExtResource("13_3oggu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
-theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
-text = "options"
-
-[node name="MiniMenuResume" type="Button" parent="Buttonblankfix" groups=["MenuButtons"]]
-z_index = 201
-offset_left = -284.0
-offset_top = -311.0
-offset_right = -100.0
-offset_bottom = -280.0
-scale = Vector2(3, 3)
-theme_override_fonts/font = ExtResource("13_3oggu")
-theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
-theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
-theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
-theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
-text = "resume"
 
 [node name="HammerAnimation" type="AnimatedSprite2D" parent="."]
 z_index = 4
@@ -1335,43 +1245,6 @@ position = Vector2(2150, 1080)
 scale = Vector2(0.5, 0.5)
 sprite_frames = SubResource("SpriteFrames_uc3jy")
 animation = &"blank"
-
-[node name="Control" type="Control" parent="."]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 40.0
-grow_horizontal = 0
-
-[node name="TacViewAnimation" type="AnimatedSprite2D" parent="Control"]
-z_index = 2
-position = Vector2(1675, 60)
-scale = Vector2(5, 5)
-sprite_frames = SubResource("SpriteFrames_xtmur")
-animation = &"OnToOff"
-frame = 1
-frame_progress = 1.0
-speed_scale = 5.0
-
-[node name="TacticalViewButton" type="Button" parent="Control"]
-top_level = true
-z_index = 4
-z_as_relative = false
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.826042
-anchor_top = 0.00833333
-anchor_right = 0.826042
-anchor_bottom = 0.00833333
-offset_right = 32.0
-offset_bottom = 27.0
-scale = Vector2(3.16, 3.88)
-theme_override_styles/focus = SubResource("StyleBoxEmpty_degjt")
-theme_override_styles/hover = SubResource("StyleBoxEmpty_cyndr")
-theme_override_styles/pressed = SubResource("StyleBoxEmpty_u075k")
-theme_override_styles/normal = SubResource("StyleBoxEmpty_mc503")
 
 [node name="TraderGuideAnimation" type="AnimatedSprite2D" parent="."]
 position = Vector2(1304, 1304)
@@ -1588,15 +1461,161 @@ libraries = {
 wait_time = 2.0
 one_shot = true
 
+[node name="Control2" type="Control" parent="."]
+visible = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 944.0
+offset_top = 577.0
+offset_right = 984.0
+offset_bottom = 617.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Minimenu" type="Sprite2D" parent="Control2"]
+z_index = 199
+position = Vector2(8, -47)
+scale = Vector2(0.809225, 0.216917)
+texture = SubResource("ImageTexture_pm6sw")
+
+[node name="MiniMenuQuit" type="Button" parent="Control2/Minimenu" groups=["MenuButtons"]]
+z_index = 201
+offset_left = -197.72
+offset_top = 1028.04
+offset_right = 102.28
+offset_bottom = 1228.04
+scale = Vector2(1.23697, 3.33069)
+theme_override_fonts/font = ExtResource("13_3oggu")
+theme_override_font_sizes/font_size = 64
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
+text = "quit"
+
+[node name="MiniMenuRestart" type="Button" parent="Control2/Minimenu" groups=["MenuButtons"]]
+z_index = 201
+offset_left = -326.238
+offset_top = 216.673
+offset_right = -142.239
+offset_bottom = 252.673
+scale = Vector2(3.57883, 10.9327)
+theme_override_fonts/font = ExtResource("13_3oggu")
+theme_override_font_sizes/font_size = 18
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
+text = "restart"
+
+[node name="MiniMenuHTP" type="Button" parent="Control2/Minimenu" groups=["MenuButtons"]]
+z_index = 201
+offset_left = -326.238
+offset_top = -373.415
+offset_right = -142.238
+offset_bottom = -337.415
+scale = Vector2(3.55921, 12.0238)
+theme_override_fonts/font = ExtResource("13_3oggu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
+text = "how to play"
+
+[node name="MiniMenuOptions" type="Button" parent="Control2/Minimenu" groups=["MenuButtons"]]
+z_index = 201
+offset_left = -316.352
+offset_top = -926.622
+offset_right = -132.352
+offset_bottom = -895.622
+scale = Vector2(3.51346, 12.4244)
+theme_override_fonts/font = ExtResource("13_3oggu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
+text = "options"
+
+[node name="MiniMenuResume" type="Button" parent="Control2/Minimenu" groups=["MenuButtons"]]
+z_index = 201
+offset_left = -326.238
+offset_top = -1447.6
+offset_right = -142.238
+offset_bottom = -1416.6
+scale = Vector2(3.5667, 12.9721)
+theme_override_fonts/font = ExtResource("13_3oggu")
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1f3e4")
+theme_override_styles/hover = SubResource("StyleBoxTexture_cl06m")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_d0bwr")
+theme_override_styles/normal = SubResource("StyleBoxTexture_weisq")
+text = "resume"
+
+[node name="Buttonblankfix" type="AnimatedSprite2D" parent="Control2/Minimenu"]
+z_index = 200
+scale = Vector2(7.19244, 26.8319)
+sprite_frames = SubResource("SpriteFrames_ddtmb")
+frame = 4
+
+[node name="Control" type="Control" parent="."]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 40.0
+grow_horizontal = 0
+
+[node name="TacViewButton" type="Button" parent="Control"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 42.0
+anchor_top = 1.025
+anchor_right = 42.0
+anchor_bottom = 1.025
+offset_left = -40.0
+offset_top = -16.0
+offset_right = -8.0
+offset_bottom = 16.0
+grow_horizontal = 0
+scale = Vector2(4, 4)
+theme_override_styles/focus = SubResource("StyleBoxEmpty_yntw2")
+theme_override_styles/hover = SubResource("StyleBoxTexture_wkalj")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_u2adv")
+theme_override_styles/normal = SubResource("StyleBoxTexture_yntw2")
+
+[node name="MiniMenuButton" type="Button" parent="Control"]
+top_level = true
+z_index = 6
+z_as_relative = false
+layout_mode = 1
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = 792.0
+offset_top = -508.0
+offset_right = 898.0
+offset_bottom = -402.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_spmop")
+theme_override_styles/hover = SubResource("StyleBoxTexture_vwqjl")
+theme_override_styles/pressed = SubResource("StyleBoxTexture_0yht5")
+theme_override_styles/normal = SubResource("StyleBoxTexture_eamk4")
+
 [connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
 [connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]
-[connection signal="mouse_entered" from="MiniMenuButton" to="." method="_on_mini_menu_button_mouse_entered"]
-[connection signal="pressed" from="MiniMenuButton" to="." method="_on_mini_menu_button_pressed"]
-[connection signal="pressed" from="Buttonblankfix/MiniMenuQuit" to="." method="_on_mini_menu_quit_pressed"]
-[connection signal="pressed" from="Buttonblankfix/MiniMenuRestart" to="." method="_on_mini_menu_restart_pressed"]
-[connection signal="pressed" from="Buttonblankfix/MiniMenuResume" to="." method="_on_mini_menu_resume_pressed"]
-[connection signal="mouse_entered" from="Control/TacticalViewButton" to="." method="_on_tactical_view_button_mouse_entered"]
-[connection signal="mouse_exited" from="Control/TacticalViewButton" to="." method="_on_tactical_view_button_mouse_exited"]
-[connection signal="pressed" from="Control/TacticalViewButton" to="." method="_on_tactical_view_button_pressed"]
 [connection signal="timeout" from="SuddenDeathTitleTimer" to="." method="_on_sudden_death_title_timer_timeout"]
 [connection signal="timeout" from="Dumb Bot Delay" to="." method="_on_dumb_bot_delay_timeout"]
+[connection signal="pressed" from="Control2/Minimenu/MiniMenuQuit" to="." method="_on_mini_menu_quit_pressed"]
+[connection signal="pressed" from="Control2/Minimenu/MiniMenuRestart" to="." method="_on_mini_menu_restart_pressed"]
+[connection signal="pressed" from="Control2/Minimenu/MiniMenuResume" to="." method="_on_mini_menu_resume_pressed"]
+[connection signal="mouse_entered" from="Control/TacViewButton" to="." method="_on_tac_view_button_mouse_entered"]
+[connection signal="pressed" from="Control/TacViewButton" to="." method="_on_tac_view_button_pressed"]
+[connection signal="mouse_entered" from="Control/MiniMenuButton" to="." method="_on_mini_menu_button_mouse_entered"]
+[connection signal="pressed" from="Control/MiniMenuButton" to="." method="_on_mini_menu_button_pressed"]

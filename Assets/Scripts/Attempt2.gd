@@ -7,6 +7,8 @@ extends Control
 ## undo/reset button when your turn
 ## draw/victory labels can appear at the same time, if the last piece is placed on a winning tile.
 ## on mobile, players cannot discard pieces after they have picked them. some kind of bin would work here.
+## when you have a piece selected, and you press another piece, it should replace the old piece with the new one.
+## sprite following mouse shows behind the side menus.
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
 	[0, 0, 0, 0, 0],
@@ -213,7 +215,7 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 								var tile_name = str(y + 1) + "_" + str(x + 1)
 								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 								print("trader found at ", tile_name, ", position is ", tile_node.global_position)
-								$HammerAnimation.position = tile_node.global_position + Vector2(100,100)
+								$HammerAnimation.global_position = tile_node.global_position + Vector2(100,100)
 								if OS.has_feature("windows") == true:
 									$HammerAnimation.visible = true
 								
@@ -225,7 +227,7 @@ func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when m
 								var tile_name = str(y + 1) + "_" + str(x + 1)
 								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 								print("trader found at ", tile_name, ", position is ", tile_node.global_position)
-								$HammerAnimation.position = tile_node.global_position + Vector2(100,100)
+								$HammerAnimation.global_position = tile_node.global_position + Vector2(100,100)
 								if OS.has_feature("windows"):
 									$HammerAnimation.visible = true
 								
@@ -255,7 +257,7 @@ func _input(event: InputEvent) -> void: #on right click, discard piece
 func _process(_float) -> void:
 	#PlaceNewTrader() #debug
 	#matrix_search() #debug
-	var mousepos : Vector2 = get_viewport().get_mouse_position()
+	var mousepos : Vector2 = get_global_mouse_position()
 	if HoldingItem == true and SpriteFollowingMouse == null:
 		SpriteFollowingMouse = Sprite2D.new()
 		for Piece in PieceSelectionCheck:
@@ -264,13 +266,13 @@ func _process(_float) -> void:
 				#print(SpriteFollowingMouse.name) - debug, prints the name of the new child
 				SpriteFollowingMouse.texture = PieceTextureDict[Piece] #sets the texture
 				if Piece != "FfCelticWall" and Piece != "FfNormanWall":
-					SpriteFollowingMouse.z_index = 5
+					SpriteFollowingMouse.z_index = 100
 					SpriteFollowingMouse.scale = Vector2(8,8)
 				add_child(SpriteFollowingMouse)
 				if Piece == "FfCelticWall" or Piece == "FfNormanWall":
-					SpriteFollowingMouse.z_index = 5
+					SpriteFollowingMouse.z_index = 100
 	if SpriteFollowingMouse:
-		SpriteFollowingMouse.position = mousepos
+		SpriteFollowingMouse.global_position = mousepos
 		#print(SpriteFollowingMouse.name)
 
 func _on_tile_button_pressed(tilebutton):
@@ -278,7 +280,7 @@ func _on_tile_button_pressed(tilebutton):
 	
 	
 	tacticalview = true
-	_on_tactical_view_button_pressed()
+	_on_tac_view_button_pressed()
 	
 	UpdateBoardTextures()
 	print("tile ", tilebutton.name, " selected") # debug - prints selected tile to console 
@@ -295,7 +297,7 @@ func _on_tile_button_pressed(tilebutton):
 			if PieceSelectionCheck[Piece] == true:
 				print (Piece, " placed on tile ", tilebutton.name) # debug - prints name of piece and tile it has been placed on to console
 				PlaceNewTrader()
-				$SmokeAnimation.position = tilebutton.global_position + Vector2(100,100)
+				$SmokeAnimation.global_position = tilebutton.global_position + Vector2(100,100)
 				if OS.has_feature("windows"):
 					$SmokeAnimation.visible = true
 					$SmokeAnimation.play("default")
@@ -517,7 +519,7 @@ func find_friendly_traders():
 				var tile_name = str(y + 1) + "_" + str(x + 1)
 				var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 				print("trader found at ", tile_name, ", position is ", tile_node.global_position)
-				$SmokeAnimation.position = tile_node.global_position + Vector2(100,100)
+				$SmokeAnimation.global_position = tile_node.global_position + Vector2(100,100)
 				if OS.has_feature("windows"):
 					$SmokeAnimation.visible = true
 				$SmokeAnimation.play("default")
@@ -540,7 +542,7 @@ func find_enemy_traders():
 				var tile_name = str(y + 1) + "_" + str(x + 1)
 				var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 				print("trader found at ", tile_name, ", position is ", tile_node.global_position)
-				$SmokeAnimation.position = tile_node.global_position + Vector2(100,100)
+				$SmokeAnimation.global_position = tile_node.global_position + Vector2(100,100)
 				if OS.has_feature("windows"):
 					$SmokeAnimation.visible = true
 				$SmokeAnimation.play("default")
@@ -567,14 +569,14 @@ func _on_enemy_piece_select_collapse_button_pressed() -> void: #on side menu but
 
 func _on_mini_menu_button_pressed() -> void: #toggles mini menu (in the top right)
 	if minimenushut == true:
-		$Buttonblankfix.visible = true
+		$Control2.visible = true
 		for button in get_tree().get_nodes_in_group("TileButtons"):
 			if button.get_meta("piece_type") == "empty":
 				button.disabled = true
 		minimenushut = false
 		
 	elif minimenushut == false:
-		$Buttonblankfix.visible = false
+		$Control2.visible = false
 		for button in get_tree().get_nodes_in_group("TileButtons"):
 			if button.get_meta("piece_type") == "empty":
 				button.disabled = false
@@ -582,7 +584,7 @@ func _on_mini_menu_button_pressed() -> void: #toggles mini menu (in the top righ
 
 func _on_mini_menu_resume_pressed() -> void: #toggles mini menu from the resume button in the mini menu
 	if minimenushut == false:
-		$Buttonblankfix.visible = false
+		$Control2.visible = false
 		minimenushut = true
 		for button in get_tree().get_nodes_in_group("TileButtons"):
 			if button.get_meta("piece_type") == "empty":
@@ -604,18 +606,14 @@ func _on_mini_menu_restart_pressed() -> void:
 
 ###############TACTICAL VIEW###########################
 
-func _on_tactical_view_button_mouse_entered() -> void:
+func _on_tac_view_button_mouse_entered() -> void:
 	$MiniMenuHover.play()
-	$Control/TacViewAnimation.scale = Vector2(5.5,5.5)
+	
 
-func _on_tactical_view_button_mouse_exited() -> void:
-	$Control/TacViewAnimation.scale = Vector2(5,5)
-
-func _on_tactical_view_button_pressed() -> void:
+func _on_tac_view_button_pressed() -> void:
 	LaneUpdates()
 	if tacticalview == false:
 		print("tactical view turned on")
-		$Control/TacViewAnimation.play("OffToOn")
 		tacticalview = true
 		$FfMapBigger/TacViewGreyOverlay.visible = true
 		UpdateBoardTextures()
@@ -655,7 +653,7 @@ func _on_tactical_view_button_pressed() -> void:
 								var tile_name = str(new_row + 1) + "_" + str(new_col + 1)
 								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 								#print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
-								clone.position = tile_node.global_position + Vector2(108,104)
+								clone.global_position = tile_node.global_position + Vector2(108,104)
 								if dir == "north":
 									clone.play("default")
 									clone.rotation_degrees = 0.0
@@ -670,19 +668,19 @@ func _on_tactical_view_button_pressed() -> void:
 									clone.rotation_degrees = 180.0
 								if dir == "northeast":
 									clone.play("friendlydiagonal")
-									clone.position = tile_node.global_position + Vector2(108,103)
+									clone.global_position = tile_node.global_position + Vector2(108,103)
 									clone.rotation_degrees = 0.0
 								if dir == "southeast":
 									clone.play("friendlydiagonal")
-									clone.position = tile_node.global_position + Vector2(113,108)
+									clone.global_position = tile_node.global_position + Vector2(113,108)
 									clone.rotation_degrees = 90.0
 								if dir == "southwest":
 									clone.play("friendlydiagonal")
-									clone.position = tile_node.global_position + Vector2(109,114)
+									clone.global_position = tile_node.global_position + Vector2(109,114)
 									clone.rotation_degrees = 180.0
 								if dir == "northwest":
 									clone.play("friendlydiagonal")
-									clone.position = tile_node.global_position + Vector2(104,109)
+									clone.global_position = tile_node.global_position + Vector2(104,109)
 									clone.rotation_degrees = 270.0
 								clone.visible = true
 								clone.z_index = 4
@@ -727,7 +725,7 @@ func _on_tactical_view_button_pressed() -> void:
 								var tile_name = str(new_row + 1) + "_" + str(new_col + 1)
 								var tile_node = get_node_or_null("FfMapBigger/" + tile_name)
 								#print(neighbour_value, " position is ", tile_node.global_position, " ", tile_name)
-								clone.position = tile_node.global_position + Vector2(108, 108)
+								clone.global_position = tile_node.global_position + Vector2(108, 108)
 								if dir == "north":
 									clone.play("default")
 									clone.rotation_degrees = 0.0
@@ -742,19 +740,19 @@ func _on_tactical_view_button_pressed() -> void:
 									clone.rotation_degrees = 180.0
 								if dir == "northeast":
 									clone.play("enemydiagonal")
-									clone.position = tile_node.global_position + Vector2(108,103)
+									clone.global_position = tile_node.global_position + Vector2(108,103)
 									clone.rotation_degrees = 0.0
 								if dir == "southeast":
 									clone.play("enemydiagonal")
-									clone.position = tile_node.global_position + Vector2(113,108)
+									clone.global_position = tile_node.global_position + Vector2(113,108)
 									clone.rotation_degrees = 90.0
 								if dir == "southwest":
 									clone.play("enemydiagonal")
-									clone.position = tile_node.global_position + Vector2(109,114)
+									clone.global_position = tile_node.global_position + Vector2(109,114)
 									clone.rotation_degrees = 180.0
 								if dir == "northwest":
 									clone.play("enemydiagonal")
-									clone.position = tile_node.global_position + Vector2(104,109)
+									clone.global_position = tile_node.global_position + Vector2(104,109)
 									clone.rotation_degrees = 270.0
 								clone.visible = true
 								clone.z_index = 4
@@ -769,7 +767,6 @@ func _on_tactical_view_button_pressed() -> void:
 		for node in get_tree().get_nodes_in_group("Clone_Group"):
 			node.queue_free()
 		print("tacitcal view turned off")
-		$Control/TacViewAnimation.play("OnToOff")
 		tacticalview = false
 		$FfMapBigger/TacViewGreyOverlay.visible = false
 		UpdateBoardTextures()
