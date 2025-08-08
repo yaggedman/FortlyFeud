@@ -2,13 +2,10 @@ extends Control
 
 #each tile is 216x216 pixels
 ## TO DO:
-## - Enemy AI
+## Enemy AI
 ## "Advance Turn" button. instead of automatic turn order
 ## undo/reset button when your turn
-## draw/victory labels can appear at the same time, if the last piece is placed on a winning tile.
 ## on mobile, players cannot discard pieces after they have picked them. some kind of bin would work here.
-## when you have a piece selected, and you press another piece, it should replace the old piece with the new one.
-## sprite following mouse shows behind the side menus.
 
 var FriendlyGameBoardArray: Array = [ # this represents the game board from the POV of the player at the beginning of the game. The 0s represents empty spaces on the board
 	[0, 0, 0, 0, 0],
@@ -122,11 +119,22 @@ var EnemyMenuShut = false
 var minimenushut = true
 var tacticalview = false
 var gamewon: bool = false
+var gamelost: bool = false
 var hoverpitch : float = 1
 var suddendeathtoggle : bool = false
+@export var is_multiplayer: bool = false
 
 func _ready():
 	randomize()
+	
+	if is_multiplayer:
+		BotDifficulty = 2
+		print("multiplayer selected, deactivating dumb bot.")
+	
+	else:
+		BotDifficulty = 0
+		print("singleplayer selected, activating dumb bot.")
+		
 	
 	if OS.has_feature("pc") == false:
 		$SmokeAnimation.play("blank")
@@ -134,7 +142,7 @@ func _ready():
 	$"Background Waves".play()
 	
 	tacticalview = false
-	$Victory.visible = false
+	$CeltVictory.visible = false
 	
 	$HammerAnimation.visible = false
 	if OS.has_feature("windows") == true:
@@ -202,6 +210,13 @@ var EnemyInventory = {
 
 func _on_menupiece_button_pressed(menupiece): # true for all menu pieces, when menu piece selected
 	UpdateBoardTextures()
+	if HoldingItem == true: #if holding an item and another menu piece is selected
+		SpriteFollowingMouse.queue_free() #kills the child
+		for key in PieceSelectionCheck.keys():
+			PieceSelectionCheck[key] = false #sets all pieces to not selected
+			SpriteFollowingMouse = null #resets so there is no sprite attached to mouse
+			HoldingItem = false
+			
 	if HoldingItem == false: # only runs code if hand is empty
 		$PickUpPiece.play()
 		print(menupiece.name, " pressed! Waiting for tile selection or discard") # debug - prints selected piece to console
@@ -373,8 +388,14 @@ func UpdateBoardTextures():
 	LaneUpdates()
 	#boardfull()
 	
-	if gamewon == true:
-		$Victory.visible = true
+	if gamewon == true and gamelost != true:
+		$CeltVictory.visible = true
+	if gamewon != true and gamelost == true:
+		$NormanVictory.visible = true
+	if gamewon == true and gamelost == true:
+		$NormanVictory.visible = false
+		$CeltVictory.visible = false
+		$"Draw Label".visible = true
 
 			
 	for tile_name in TilesDict.keys(): #loops through tile button names in dict
@@ -599,10 +620,24 @@ func _on_mini_menu_quit_pressed() -> void:
 		print("error: mini menu shut but quit button pressed!")
 
 func _on_mini_menu_restart_pressed() -> void:
-	if minimenushut == false:
+	if minimenushut == false and is_multiplayer != true:
 		get_tree().reload_current_scene()
+		
+	elif minimenushut == false and is_multiplayer:
+		var game_scene = preload("res://Assets/Scenes/SingleplayerMain.tscn")
+		var game_instance = game_scene.instantiate()
+		game_instance.is_multiplayer = true
+	
+		call_deferred("_switch_scene", game_instance)
 	else:
 		print("error: mini menu shut but restart button pressed!")
+		
+func _switch_scene(new_scene): ## when the game is multiplayer enabled, this handles restarting the game with is_multiplayer remaining true.
+	var current_scene = get_tree().current_scene
+	
+	get_tree().root.add_child(new_scene)
+	get_tree().current_scene = new_scene
+	current_scene.queue_free()
 
 ###############TACTICAL VIEW###########################
 
@@ -636,10 +671,14 @@ func _on_tac_view_button_pressed() -> void:
 					for dir in directions.keys():
 						var new_row = row + directions[dir][0]
 						var new_col = col + directions[dir][1]
+						var new_row2 = new_row + directions[dir][0]
+						var new_col2 = new_col + directions[dir][1]
 						
-						if new_row >= 0 and new_row < 5 and new_col >= 0 and new_col < 5:
+						if new_row >= 0 and new_row < 5 and new_col >= 0 and new_col < 5 and new_row2 >= 0 and new_row2 < 5 and new_col2 >= 0 and new_col2 < 5:
 							var neighbour_value = FriendlyGameBoardArray[new_row][new_col]
-							if neighbour_value == 3 or neighbour_value == 4: # if piece is able to be "jumped over" by trader
+							var piecejumpedto = FriendlyGameBoardArray[new_row2][new_col2]
+							if neighbour_value == 3 and piecejumpedto == 1 or neighbour_value == 4 and piecejumpedto == 1: # if piece is able to be "jumped over" by trader
+								
 								
 								var original = $TraderGuideAnimation
 								var clone = original.duplicate()
@@ -709,10 +748,13 @@ func _on_tac_view_button_pressed() -> void:
 					for dir in directions.keys():
 						var new_row = row + directions[dir][0]
 						var new_col = col + directions[dir][1]
+						var new_row2 = new_row + directions[dir][0]
+						var new_col2 = new_col + directions[dir][1]
 						
-						if new_row >= 0 and new_row < 5 and new_col >= 0 and new_col < 5:
+						if new_row >= 0 and new_row < 5 and new_col >= 0 and new_col < 5 and new_row2 >= 0 and new_row2 < 5 and new_col2 >= 0 and new_col2 < 5:
 							var neighbour_value = EnemyGameBoardArray[new_row][new_col]
-							if neighbour_value == 3 or neighbour_value == 4: # if piece is able to be "jumped over" by trader
+							var piecejumpedto = EnemyGameBoardArray[new_row2][new_col2]
+							if neighbour_value == 3 and piecejumpedto == 1 or neighbour_value == 4 and piecejumpedto == 1: # if piece is able to be "jumped over" by trader
 								var original = $EnemyTraderGuideAnimation
 								var clone = original.duplicate()
 								add_child(clone)
@@ -914,17 +956,18 @@ func LaneUpdates() -> void:
 	for key in EnemyRows.keys():
 		if check_lane_for_win(EnemyRows[key]):
 			print("Win in ", key)
-			gamewon = true
+			gamelost = true
 	
 	for key in EnemyColumns.keys():
 		if check_lane_for_win(EnemyColumns[key]):
 			print("Win in ", key)
-			gamewon = true
+			gamelost = true
 			
 	for key in EnemyDiagonals.keys():
 		if check_lane_for_win(EnemyDiagonals[key]):
 			print("Win in ", key)
-			gamewon = true
+			gamelost = true
+			
 
 func check_lane_for_win(lane: Array) -> bool:
 	
@@ -963,7 +1006,7 @@ func check_lane_for_win(lane: Array) -> bool:
 						i += 2
 					else:
 						score = 0
-						break #blocked
+						break #blocked by a wall or enemy piece
 				else:
 					score = 0
 					break # space is a 0 or invalid
@@ -985,6 +1028,10 @@ func boardfull() -> void:
 				if numberofpiecesonboard == 25:
 					print("board fulL! destroying walls")
 					numberofpiecesonboard = 0
+					if $EnemyPieceselectpopup2/FfCelticWall.disabled != true:
+						$EnemyPieceselectpopup2/FfCelticWall.disabled = true
+					if $FriendlyPieceselectpopup/FfNormanWall.disabled != true:
+						$FriendlyPieceselectpopup/FfNormanwall.disabled = true
 					
 					for tilebutton in get_tree().get_nodes_in_group("TileButtons"):
 						if tilebutton.has_meta("piece_type") and tilebutton.get_meta("piece_type") == "wall":

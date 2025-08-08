@@ -761,6 +761,7 @@ grow_horizontal = 2
 grow_vertical = 2
 size_flags_horizontal = 4
 script = ExtResource("1_pa8vt")
+BotDifficulty = 2
 metadata/_edit_vertical_guides_ = [944.0]
 
 [node name="EnemyPieceselectpopup2" type="TextureRect" parent="."]
@@ -1384,15 +1385,25 @@ frame = 3
 frame_progress = 0.0198603
 speed_scale = -1.0
 
-[node name="Victory" type="Label" parent="."]
+[node name="CeltVictory" type="Label" parent="."]
 visible = false
 layout_mode = 0
-offset_left = 624.0
-offset_top = 392.0
-offset_right = 691.0
-offset_bottom = 415.0
+offset_left = 510.0
+offset_top = 403.0
+offset_right = 597.0
+offset_bottom = 426.0
 scale = Vector2(10, 10)
-text = "VICTORY"
+text = "CELTS WIN!"
+
+[node name="NormanVictory" type="Label" parent="."]
+visible = false
+layout_mode = 0
+offset_left = 353.0
+offset_top = 398.0
+offset_right = 477.0
+offset_bottom = 421.0
+scale = Vector2(10, 10)
+text = "NORMANS WIN!"
 
 [node name="Draw Label" type="Label" parent="."]
 visible = false
@@ -1607,6 +1618,17 @@ theme_override_styles/focus = SubResource("StyleBoxEmpty_spmop")
 theme_override_styles/hover = SubResource("StyleBoxTexture_vwqjl")
 theme_override_styles/pressed = SubResource("StyleBoxTexture_0yht5")
 theme_override_styles/normal = SubResource("StyleBoxTexture_eamk4")
+
+[node name="GameWonMenu" type="Control" parent="."]
+visible = false
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="TextureRect" type="TextureRect" parent="GameWonMenu"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
 [connection signal="pressed" from="EnemyPieceselectpopup2/EnemyPieceSelectCollapseButton" to="." method="_on_enemy_piece_select_collapse_button_pressed"]
 [connection signal="pressed" from="FriendlyPieceselectpopup/PieceSelectCollapseButton" to="." method="_on_piece_select_collapse_button_pressed"]
